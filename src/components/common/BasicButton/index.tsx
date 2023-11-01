@@ -1,7 +1,15 @@
 import React from 'react';
 import { Button, ButtonProps } from 'antd';
 import styles from './index.module.scss';
-function BasicButton(props?: ButtonProps) {
+
+interface Props {
+  children?: React.ReactNode;
+  type?: 'primary' | 'secondary' | 'default';
+  className?: string;
+  disabled?: boolean;
+  onClick?: () => void;
+}
+function BasicButton(props: ButtonProps | Props) {
   const { children, type, className, disabled, ...antdProps } = props;
   const combinedClassName = [
     type === 'primary' && styles.btnPrimary,

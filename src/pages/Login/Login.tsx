@@ -1,19 +1,36 @@
+/* eslint-disable no-console */
 import React from 'react';
-import { Form, Input } from 'antd';
+import { Form } from 'antd';
 import BasicButton from '../../components/common/BasicButton';
+import BasicInput from '../../components/common/BasicInput';
 
 function Login() {
+  const [form] = Form.useForm();
   return (
     <div className="min-h-screen items-center justify-center flex flex-col space-y-[40px]">
       <h2 className="text-primary font-bold text-[40px]">ログイン</h2>
-      <Form>
-        <div className="flex items-center justify-center space-y-[16px] flex-col w-[480px]">
-          <Input />
-          <Input />
+      <Form form={form} onFinish={(e) => console.log(e)}>
+        <div className="flex items-center justify-center  flex-col w-[480px]">
+          <Form.Item
+            className="!w-full "
+            name="useName"
+            rules={[{ required: true, message: 'Please input your username!' }]}
+          >
+            <BasicInput placeholder="メールアドレス" />
+          </Form.Item>
+          <Form.Item
+            className="!w-full "
+            name="passWord"
+            rules={[{ required: true, message: 'Please input your password!' }]}
+          >
+            <BasicInput placeholder="パスワード（英数字8文字以上）" />
+          </Form.Item>
         </div>
-        <div className="text-[13px] mt-[30px] text-center font-medium ">パスワードを忘れた方はこちら</div>
+        <div className="text-[13px] mt-[30px] text-primary-text text-center font-medium  cursor-pointer">
+          パスワードを忘れた方はこちら
+        </div>
       </Form>
-      <BasicButton className="h-[60px] w-[280px]" onClick={() => console.log('aloo')} type="secondary">
+      <BasicButton className="h-[60px] w-[280px]" onClick={() => form.submit()} type="secondary">
         <div className="flex items-center justify-center space-x-[10px]">
           <span className="text-[18px] font-bold">ログイン</span>
           <svg fill="none" height="8" viewBox="0 0 6 8" width="6" xmlns="http://www.w3.org/2000/svg">

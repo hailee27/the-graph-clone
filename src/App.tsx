@@ -7,7 +7,11 @@ function App() {
   const token = false;
   const routesPrivate = useRoutes(routeConfig.private);
   const routesPublic = useRoutes(routeConfig.public);
-  return <>{token ? <PrimaryLayout>{routesPrivate}</PrimaryLayout> : routesPublic}</>;
+  return (
+    <>
+      {token ? <PrimaryLayout>{routesPrivate}</PrimaryLayout> : <div className="bg-tertiary-thin">{routesPublic}</div>}
+    </>
+  );
 }
 
 export default App;

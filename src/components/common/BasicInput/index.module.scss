@@ -1,0 +1,27 @@
+.customInput {
+  width: 100%;
+  :global {
+    .ant-input {
+      height: 60px;
+      border-width: 0px;
+      border-style: solid;
+      border-color: #d9d9d9;
+      border-radius: 0px;
+      padding: 24px;
+      font-weight: 500;
+      font-size: 16px;
+    }
+    .ant-input:hover,
+    .ant-input:focus {
+      border-width: 1px;
+      border-color: var(--primary);
+    }
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input {
+      border-width: 1px;
+    }
+    .ant-input-status-error:not(.ant-input-disabled):not(.ant-input-borderless).ant-input:hover {
+      border-width: 1px;
+      border-color: #ff4d4f;
+    }
+  }
+}
