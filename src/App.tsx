@@ -1,31 +1,13 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import React from 'react';
+import { useRoutes } from 'react-router-dom';
+import { routeConfig } from './routes/routeConfig';
+import PrimaryLayout from './components/layout/PrimaryLayout';
 
 function App() {
-  const [count, setCount] = useState(0);
-  console.log();
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" rel="noreferrer" target="_blank">
-          <img alt="Vite logo" className="logo" src={viteLogo} />
-        </a>
-        <a href="https://react.dev" rel="noreferrer" target="_blank">
-          <img alt="React logo" className="logo react" src={reactLogo} />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((prev) => prev + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
-  );
+  const token = false;
+  const routesPrivate = useRoutes(routeConfig.private);
+  const routesPublic = useRoutes(routeConfig.public);
+  return <>{token ? <PrimaryLayout>{routesPrivate}</PrimaryLayout> : routesPublic}</>;
 }
 
 export default App;

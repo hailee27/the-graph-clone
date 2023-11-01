@@ -1,0 +1,46 @@
+// .customButton {
+//   button:hover {
+//     border-color: #2c8d27 !important;
+//     color: #2c8d27 !important;
+//   }
+// }
+
+.btnPrimary {
+  button:hover {
+    border-color: var(--primary) !important;
+    color: #fff !important;
+  }
+  button {
+    background-color: var(--primary) !important;
+    color: #fff !important;
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 70px !important;
+  }
+}
+.btnSecondary {
+  button:hover {
+    border-color: var(--secondary) !important;
+    color: #fff !important;
+  }
+  button {
+    background-color: var(--secondary) !important;
+    color: #fff !important;
+    height: 100% !important;
+    width: 100% !important;
+    border-radius: 70px !important;
+  }
+}
+.btnDefault {
+  button:hover {
+    border-color: #2c8d27 !important;
+    color: #2c8d27 !important;
+  }
+  button {
+    background-color: #2c8d27 !important;
+  }
+}
+.btnDisabled {
+  :global {
+  }
+}
