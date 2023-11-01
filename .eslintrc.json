@@ -4,6 +4,7 @@
     "project": "./tsconfig.json"
   },
   "extends": [
+    "plugin:import/recommended",
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:react/recommended",
