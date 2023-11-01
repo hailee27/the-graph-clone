@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "vite --port 3000",
     "build": "tsc && vite build",
-    "lint": "eslint --ext js,jsx,ts,tsx src/",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src/",
     "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
-    "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\""
+    "prettier:fix": "prettier --write \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "antd": "^5.10.3",
