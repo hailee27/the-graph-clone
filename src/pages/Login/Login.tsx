@@ -3,13 +3,27 @@ import React from 'react';
 import { Form } from 'antd';
 import BasicButton from '../../components/common/BasicButton';
 import BasicInput from '../../components/common/BasicInput';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { updateAccessToken } from '../../redux/slices/auth.slice';
 
 function Login() {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
+
   return (
-    <div className="min-h-screen items-center justify-center flex flex-col space-y-[40px]">
+    <div className="min-h-screen items-center justify-center flex flex-col space-y-[46px]">
       <h2 className="text-primary font-bold text-[40px]">ログイン</h2>
-      <Form form={form} onFinish={(e) => console.log(e)}>
+      <Form
+        form={form}
+        onFinish={() =>
+          dispatch(
+            updateAccessToken(
+              'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c'
+            )
+          )
+        }
+      >
         <div className="flex items-center justify-center  flex-col w-[480px]">
           <Form.Item
             className="!w-full "
@@ -21,14 +35,16 @@ function Login() {
           <Form.Item
             className="!w-full "
             name="passWord"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[{ required: true, min: 8, message: 'Please input your password!' }]}
           >
-            <BasicInput placeholder="パスワード（英数字8文字以上）" />
+            <BasicInput placeholder="パスワード（英数字8文字以上）" type="password" />
           </Form.Item>
         </div>
-        <div className="text-[13px] mt-[30px] text-primary-text text-center font-medium  cursor-pointer">
-          パスワードを忘れた方はこちら
-        </div>
+        <Link to={'/forgot-password'}>
+          <div className="text-[13px] mt-[30px] text-primary-text text-center font-medium  cursor-pointer">
+            パスワードを忘れた方はこちら
+          </div>
+        </Link>
       </Form>
       <BasicButton className="h-[60px] w-[280px]" onClick={() => form.submit()} type="secondary">
         <div className="flex items-center justify-center space-x-[10px]">

@@ -1,0 +1,23 @@
+.customeRadio {
+  :global {
+    .ant-radio-inner {
+      border-color: var(--primary) !important;
+    }
+    .ant-radio-wrapper.ant-radio-checked::after {
+      border: 1px solid var(--primary);
+    }
+
+    .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+      background-color: var(--primary);
+    }
+    .ant-radio-wrapper .ant-radio-checked::after {
+      border-color: var(--primary) !important;
+      border: 1px solid var(--primary);
+    }
+    // span {
+    //   font-size: 18px;
+    //   font-weight: 700;
+    //   color: var(--primary);
+    // }
+  }
+}
