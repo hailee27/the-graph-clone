@@ -14,7 +14,8 @@ export default {
       'tertiary': '#888888',
       'tertiary-light': '#D9D9D9',
       'tertiary-thin': '#F6F6F6',
-      'primary-text': '#333333'
+      'primary-text': '#333333',
+      'secondary-text': '#888888'
     }
   },
   plugins: [],
