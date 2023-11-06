@@ -9,39 +9,46 @@ import SelectButton from '../../common/SelectButton';
 
 interface Props {
   disabledLabel?: boolean;
-  type?: 'husband' | 'wife';
+  type?: 'husband' | 'wife' | string;
 }
 function FamilyInformation(props: Props) {
   const { disabledLabel, type } = props;
   return (
     <div className="h-full w-full text-primary-text">
-      <div className="flex w-full h-full">
-        {!disabledLabel && <div className="w-[176px]"></div>}
-        <div
-          className={`w-[528px] ${type === 'husband' && 'bg-primary-light '} ${
-            type === 'wife' && 'bg-secondary-thin '
-          } bg-primary-light rounded-t-[16px] h-[66px] relative`}
-        >
-          <span
-            className={`font-bold text-[16px]  absolute -top-3 left-[50%] -translate-x-[50%]  ${
-              type === 'husband' && 'text-primary '
-            } ${type === 'wife' && 'text-secondary '} `}
+      {(type === 'husband' || type === 'wife') && (
+        <div className="flex w-full h-full">
+          {!disabledLabel && <div className="w-[176px]"></div>}
+          <div
+            className={`w-[528px] ${type === 'husband' && 'bg-primary-light '} ${
+              type === 'wife' && 'bg-secondary-thin '
+            } bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
-            {type === 'husband' && '夫記入欄'}
-            {type === 'wife' && '妻記入欄'}
-          </span>
+            <span
+              className={`font-bold text-[16px]  absolute -top-3 left-[50%] -translate-x-[50%]  ${
+                type === 'husband' && 'text-primary '
+              } ${type === 'wife' && 'text-secondary '} `}
+            >
+              {type === 'husband' && '夫記入欄'}
+              {type === 'wife' && '妻記入欄'}
+            </span>
+          </div>
         </div>
-      </div>
+      )}
       {/* place of birth*/}
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">出身地</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
-            type === 'wife' && 'bg-secondary-thin '
-          } flex flex-col px-[48px] space-y-[8px] `}
+          className={`
+            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${type === 'husband' && 'bg-primary-light '} 
+            ${type === 'wife' && 'bg-secondary-thin '}
+            flex flex-col  space-y-[8px] `}
         >
           <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'familyInfor', 'placeOfBirth']}>
-            <BasicInput placeholder="北海道旭市" />
+            <BasicInput
+              className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              placeholder="北海道旭市"
+            />
           </Form.Item>
         </div>
       </div>
@@ -50,14 +57,16 @@ function FamilyInformation(props: Props) {
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px]">ご実家の住まい</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
-            type === 'wife' && 'bg-secondary-thin '
-          } flex px-[48px] space-x-[8px] items-center pt-[42px]`}
+          className={`
+          ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+          ${type === 'husband' && 'bg-primary-light '} 
+          ${type === 'wife' && 'bg-secondary-thin '}
+           flex  space-x-[8px] items-center pt-[42px]`}
         >
           <div className="w-full">
             <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'familyHome', 'type']}>
               <Radio.Group className="!w-full">
-                <div className="flex justify-between">
+                <div className="flex space-x-[24px]">
                   <BasicRadio value="single">
                     <span className="text-[14px] font-bold ">持ち家</span>
                   </BasicRadio>
@@ -79,7 +88,11 @@ function FamilyInformation(props: Props) {
             <div className="flex items-center flex-1 w-full  mt-[20px]">
               <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
               <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'familyInfor', 'familyHome', 'age']}>
-                <BasicInput placeholder="20" />
+                <BasicInput
+                  className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+                  placeholder="20"
+                  type="number"
+                />
               </Form.Item>
               <span className="text-[14px] font-bold ml-[8px] ">年</span>
             </div>
@@ -94,9 +107,11 @@ function FamilyInformation(props: Props) {
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px] ">ご兄弟</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
-            type === 'wife' && 'bg-secondary-thin '
-          } flex px-[48px] flex-col space-y-[8px] pt-[48px]`}
+          className={`
+            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${type === 'husband' && 'bg-primary-light '} 
+            ${type === 'wife' && 'bg-secondary-thin '}
+            flex flex-col space-y-[8px] pt-[48px]`}
         >
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'brothers']}>
             <Radio.Group className="!w-full">
@@ -126,9 +141,11 @@ function FamilyInformation(props: Props) {
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">ご実家にお住まいの方</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
-            type === 'wife' && 'bg-secondary-thin '
-          } flex px-[48px] flex-col   pt-[48px]`}
+          className={`
+            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${type === 'husband' && 'bg-primary-light '} 
+            ${type === 'wife' && 'bg-secondary-thin '}
+            flex flex-col   pt-[48px]`}
         >
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
@@ -144,6 +161,7 @@ function FamilyInformation(props: Props) {
                   { value: 'disabled', label: 'Disabled', disabled: true },
                 ]}
                 placeholder="選択してください"
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
               />
             </Form.Item>
           </div>
@@ -151,7 +169,11 @@ function FamilyInformation(props: Props) {
             <div className="flex items-center flex-1 w-full  mt-[20px]">
               <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
               <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', 'age']}>
-                <BasicInput placeholder="50" />
+                <BasicInput
+                  className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+                  placeholder="50"
+                  type="number"
+                />
               </Form.Item>
               <span className="text-[14px] font-bold ml-[8px] ">歳</span>
             </div>
@@ -215,12 +237,18 @@ function FamilyInformation(props: Props) {
       <div className="flex w-full h-full  items-start ">
         {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">メモ</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
-            type === 'wife' && 'bg-secondary-thin '
-          } flex flex-col px-[48px] space-y-[24px] pb-[66px] rounded-b-[16px] `}
+          className={`
+            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${type === 'husband' && 'bg-primary-light '} 
+            ${type === 'wife' && 'bg-secondary-thin '}
+            flex flex-col  space-y-[24px] pb-[66px] rounded-b-[16px] `}
         >
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'memo']}>
-            <BasicTextArea placeholder="ご自由に記入ください" style={{ height: '136px', resize: 'none' }} />
+            <BasicTextArea
+              className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              placeholder="ご自由に記入ください"
+              style={{ height: '136px', resize: 'none' }}
+            />
           </Form.Item>
         </div>
       </div>

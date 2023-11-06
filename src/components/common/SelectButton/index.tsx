@@ -2,9 +2,13 @@ import React from 'react';
 import { Select, SelectProps } from 'antd';
 import styles from './index.module.scss';
 
-function SelectButton(props: SelectProps) {
+function SelectButton(props: SelectProps & { type?: 'default' | 'primary' }) {
+  const { type } = props;
+  const combinedClassName = [type === 'primary' && styles.selectPrimary, type === 'default' && styles.customSelect]
+    .filter((e) => e)
+    .join(' ');
   return (
-    <div className={styles.customSelect}>
+    <div className={combinedClassName}>
       <Select
         suffixIcon={
           <svg fill="none" height="6" viewBox="0 0 8 6" width="8" xmlns="http://www.w3.org/2000/svg">
@@ -19,5 +23,7 @@ function SelectButton(props: SelectProps) {
     </div>
   );
 }
-
+SelectButton.defaultProps = {
+  type: 'default',
+};
 export default SelectButton;

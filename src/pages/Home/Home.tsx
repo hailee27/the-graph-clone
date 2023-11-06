@@ -9,8 +9,8 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-full flex items-center justify-center ">
-      <div className="w-[800px] max-h-[491px] h-full flex flex-col space-y-[80px] items-center justify-between">
+    <div className="min-h-full flex items-center  ">
+      <div className="w-[800px] h-[491px] flex flex-col space-y-[80px] items-center justify-between">
         <div className="bg-[#FFFFFF] rounded-[16px] flex-1 w-full flex items-center justify-center">
           <Radio.Group defaultValue={value} onChange={(e) => setValue(e.target.value)}>
             <div className="flex space-x-[64px]">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 interface TypeTabItems {
   key: string;
   label: string;
@@ -6,15 +6,17 @@ interface TypeTabItems {
 }
 function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: string | undefined }) {
   const [selectTab, setSelectedTab] = useState<string | undefined>(defaultValue);
+
   useEffect(() => {
     setSelectedTab(defaultValue);
   }, [defaultValue]);
+  const data = useMemo(() => items, [items]);
 
   return (
     <>
       {items && (
         <div className="h-[77px]  flex space-x-[8px] items-end">
-          {items.map((item) => (
+          {data.map((item) => (
             <div
               className={`px-[32px] py-[10px] w-[352px] cursor-pointer   ${
                 selectTab === item.key ? 'bg-primary h-full' : 'bg-tertiary-light h-[61px]'
@@ -27,7 +29,11 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
           ))}
         </div>
       )}
-      {items.find((e) => e.key === selectTab)?.children}
+      {data.map((e) => (
+        <div className={`${e.key === selectTab ? '' : 'hidden'}`} key={e.key}>
+          {e.children}
+        </div>
+      ))}
     </>
   );
 }

@@ -1,18 +1,25 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
 import Tab from '../../components/common/Tab';
-import ContentHouseholds from '../../components/ContentHouseholds';
+
+const ContentHouseholds = lazy(() => import('../../components/ContentHouseholds'));
 
 function Households() {
-  const { slug } = useParams();
   return (
-    <div className="mt-[40px] px-[48px]">
+    <div className="mt-[40px]  max-w-[1344px] w-full">
       <Tab
         defaultValue="1"
         items={[
-          { key: '1', label: 'alo', children: <ContentHouseholds /> },
-          { key: '2', label: 'alo2', children: <ContentHouseholds /> },
-          { key: '3', label: 'alo4', children: <ContentHouseholds /> },
+          {
+            key: '1',
+            label: 'alo',
+            children: (
+              <Suspense fallback={<div>loading...</div>}>
+                <ContentHouseholds />
+              </Suspense>
+            ),
+          },
+          { key: '2', label: 'alo2', children: <div /> },
+          { key: '3', label: 'alo4', children: <div /> },
         ]}
       />
     </div>
