@@ -16,9 +16,9 @@ function WorkInformation(props: Props) {
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
         <div className="flex w-full h-full">
-          {!disabledLabel && <div className="w-[176px]"></div>}
+          {!disabledLabel && <div className="w-[176px] print:w-[105px]"></div>}
           <div
-            className={`w-[528px] ${type === 'husband' && 'bg-primary-light '} ${
+            className={`w-[528px] print:w-[315px] print:px-[20px] ${type === 'husband' && 'bg-primary-light '} ${
               type === 'wife' && 'bg-secondary-thin '
             } bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
@@ -35,10 +35,14 @@ function WorkInformation(props: Props) {
       )}
       {/* PlaceOfWork 1*/}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[18px]">勤務先</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[18px]">勤務先</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '} 
             flex flex-col space-y-[8px] `}
@@ -82,10 +86,14 @@ function WorkInformation(props: Props) {
       </div>
       {/* Salary */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[68px]">給与</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[68px]">給与</div>}
         <div
           className={`
-          ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+          ${
+            type === 'husband' || type === 'wife'
+              ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+              : 'w-full pl-[48px]'
+          } 
           ${type === 'husband' && 'bg-primary-light '} 
           ${type === 'wife' && 'bg-secondary-thin '}
           flex  flex-col space-y-[8px] pt-[48px]`}
@@ -120,10 +128,14 @@ function WorkInformation(props: Props) {
       </div>
       {/* duty station */}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">生年月日</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">生年月日</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}         
             flex  items-center  pt-[48px]`}
@@ -138,10 +150,14 @@ function WorkInformation(props: Props) {
       </div>
       {/* Length of service */}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">勤続年数</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">勤続年数</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex space-x-[8px] items-center  pt-[48px]`}
@@ -159,10 +175,14 @@ function WorkInformation(props: Props) {
 
       {/* transfer */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px]">転勤</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">転勤</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             pt-[42px]`}
@@ -183,10 +203,14 @@ function WorkInformation(props: Props) {
       </div>
       {/* Desire to change jobs */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px]">転職希望</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">転職希望</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             px-[48px] pt-[42px]`}
@@ -207,10 +231,16 @@ function WorkInformation(props: Props) {
       </div>
       {/* Commuting method/time*/}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] pt-[48px] font-bold">通勤方法・時間</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[105px] text-[14px] pt-[48px] font-bold">通勤方法・時間</div>
+        )}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col space-y-[24px] pt-[42px] pb-[48px] `}
@@ -254,10 +284,14 @@ function WorkInformation(props: Props) {
 
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">メモ</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">メモ</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col space-y-[24px] pb-[66px] rounded-b-[16px] `}

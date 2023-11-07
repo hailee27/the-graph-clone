@@ -1,32 +1,42 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useRef } from 'react';
 import FormInformationBasic from './FormInformationBasic';
-import { Form } from 'antd';
 import BasicButton from '../common/BasicButton';
 import FormWorkInformation from './FormWorkInformation';
 import FormFamilyInformation from './FormFamilyInformation';
 import FormNewHouseInformation from './FormNewHouseInformation';
 import FormScholarships from './FormScholarships';
 import CardFix from './CardFix';
-import { useParams } from 'react-router-dom';
 import BasicInput from '../common/BasicInput';
+import { Form } from 'antd';
+import { useParams } from 'react-router-dom';
+import { useReactToPrint } from 'react-to-print';
 
 function ContentHouseholds() {
   const [form] = Form.useForm();
   const { slug } = useParams();
+  const componentRef = useRef<HTMLDivElement | null>(null);
+
   const typeContent = useMemo<'single' | 'multiple' | string>(() => {
     if (slug) {
       return slug;
     }
     return 'single';
   }, [slug]);
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    copyStyles: true,
+  });
 
   return (
     <div>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px]">
+      <div
+        className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:px-[20px]"
+        ref={componentRef}
+      >
         <Form
           form={form}
           // eslint-disable-next-line no-console
-          onFinish={(e) => console.log(e)}
+          onFinish={(e) => handlePrint()}
           scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         >
           <FormInformationBasic typeContent={typeContent} />

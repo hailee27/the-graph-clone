@@ -17,9 +17,9 @@ function FamilyInformation(props: Props) {
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
         <div className="flex w-full h-full">
-          {!disabledLabel && <div className="w-[176px]"></div>}
+          {!disabledLabel && <div className="w-[176px] print:w-[105px]"></div>}
           <div
-            className={`w-[528px] ${type === 'husband' && 'bg-primary-light '} ${
+            className={`w-[528px] print:w-[315px] print:px-[20px] ${type === 'husband' && 'bg-primary-light '} ${
               type === 'wife' && 'bg-secondary-thin '
             } bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
@@ -36,10 +36,14 @@ function FamilyInformation(props: Props) {
       )}
       {/* place of birth*/}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">出身地</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">出身地</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col  space-y-[8px] `}
@@ -55,10 +59,16 @@ function FamilyInformation(props: Props) {
 
       {/* family home */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px]">ご実家の住まい</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">ご実家の住まい</div>
+        )}
         <div
           className={`
-          ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+          ${
+            type === 'husband' || type === 'wife'
+              ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+              : 'w-full pl-[48px]'
+          } 
           ${type === 'husband' && 'bg-primary-light '} 
           ${type === 'wife' && 'bg-secondary-thin '}
            flex  space-x-[8px] items-center pt-[42px]`}
@@ -105,10 +115,14 @@ function FamilyInformation(props: Props) {
 
       {/* Brothers */}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px] ">ご兄弟</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px] ">ご兄弟</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col space-y-[8px] pt-[48px]`}
@@ -139,10 +153,16 @@ function FamilyInformation(props: Props) {
 
       {/* Those who live at home */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">ご実家にお住まいの方</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">ご実家にお住まいの方</div>
+        )}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col   pt-[48px]`}
@@ -186,9 +206,9 @@ function FamilyInformation(props: Props) {
 
       {/* inheritance */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px]">相続</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">相続</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
+          className={`w-[528px] print:w-[315px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
           }  px-[48px]  pt-[42px]`}
         >
@@ -212,9 +232,9 @@ function FamilyInformation(props: Props) {
 
       {/* nursing care*/}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] pt-[48px] font-bold">介護</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] pt-[48px] font-bold">介護</div>}
         <div
-          className={`w-[528px]  ${type === 'husband' && 'bg-primary-light '} ${
+          className={`w-[528px] print:w-[315px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col px-[48px] space-y-[24px] pt-[42px] pb-[48px] `}
         >
@@ -235,10 +255,14 @@ function FamilyInformation(props: Props) {
 
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">メモ</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">メモ</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col  space-y-[24px] pb-[66px] rounded-b-[16px] `}

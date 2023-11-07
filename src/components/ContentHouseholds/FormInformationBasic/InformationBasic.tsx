@@ -26,11 +26,13 @@ function InformationBasic(props: Props) {
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
         <div className="flex w-full h-full">
-          {!disabledLabel && <div className="w-[176px]"></div>}
+          {!disabledLabel && <div className="w-[176px] print:w-[105px]"></div>}
           <div
-            className={`${type === 'husband' || type === 'wife' ? 'w-[528px]' : 'w-full'}  ${
-              type === 'husband' && 'bg-primary-light '
-            } ${type === 'wife' && 'bg-secondary-thin '} bg-primary-light rounded-t-[16px] h-[66px] relative`}
+            className={`
+              ${type === 'husband' || type === 'wife' ? 'w-[528px] print:w-[315px] print:px-[20px]' : 'w-full'} 
+              ${type === 'husband' && 'bg-primary-light '} 
+              ${type === 'wife' && 'bg-secondary-thin '}
+              bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
             <span
               className={`font-bold text-[16px]  absolute -top-3 left-[50%] -translate-x-[50%]  ${
@@ -45,10 +47,14 @@ function InformationBasic(props: Props) {
       )}
       {/* NAME 1*/}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">お名前</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">お名前</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px] ' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex space-x-[8px] items-center`}
@@ -70,11 +76,17 @@ function InformationBasic(props: Props) {
       </div>
       {/* NAME 2*/}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">お名前（フリガナ）</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">お名前（フリガナ）</div>
+        )}
         <div
-          className={`${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}   ${
-            type === 'husband' && 'bg-primary-light '
-          } ${type === 'wife' && 'bg-secondary-thin '} flex  space-x-[8px] items-center pt-[48px]`}
+          className={`${
+            type === 'husband' || type === 'wife'
+              ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+              : 'w-full pl-[48px]'
+          }   ${type === 'husband' && 'bg-primary-light '} ${
+            type === 'wife' && 'bg-secondary-thin '
+          } flex  space-x-[8px] items-center pt-[48px]`}
         >
           <Form.Item className="!mb-0 w-full" name={[`${type}`, 'inforBasic', 'name1', 'firstName']}>
             <BasicInput
@@ -94,11 +106,15 @@ function InformationBasic(props: Props) {
       {/* Gender */}
       {type === 'husband' || type === 'wife' ? null : (
         <div className="flex w-full h-full  items-center">
-          {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">性別</div>}
+          {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">性別</div>}
           <div
-            className={`${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}   ${
-              type === 'husband' && 'bg-primary-light '
-            } ${type === 'wife' && 'bg-secondary-thin '} flex  space-x-[8px] items-center pt-[48px]`}
+            className={`${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            }   ${type === 'husband' && 'bg-primary-light '} ${
+              type === 'wife' && 'bg-secondary-thin '
+            } flex  space-x-[8px] items-center pt-[48px]`}
           >
             <Form.Item className="!mb-0 w-full" name={[`${type}`, 'inforBasic', 'gender']}>
               <Radio.Group>
@@ -118,10 +134,14 @@ function InformationBasic(props: Props) {
 
       {/* BIRTH DATE */}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">生年月日</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">生年月日</div>}
         <div
           className={` 
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '}
             ${type === 'wife' && 'bg-secondary-thin '} 
             flex  items-center  pt-[48px]`}
@@ -129,7 +149,9 @@ function InformationBasic(props: Props) {
           <div className="flex items-center justify-between space-x-[8px]">
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'year']}>
               <DatePickerWithType
-                className={`${type === 'husband' || type === 'wife' ? '!w-[92px]' : 'bg-primary-light !w-[120px]'} `}
+                className={`${
+                  type === 'husband' || type === 'wife' ? '!w-[92px] print:!w-[80px]' : 'bg-primary-light !w-[120px]'
+                } `}
                 format={'YYYY'}
                 picker="year"
               />
@@ -137,7 +159,9 @@ function InformationBasic(props: Props) {
             <span className="text-[14px] font-bold">年</span>
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'month']}>
               <DatePickerWithType
-                className={`${type === 'husband' || type === 'wife' ? '!w-[80px]' : 'bg-primary-light !w-[120px]'} `}
+                className={`${
+                  type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[40px]' : 'bg-primary-light !w-[120px]'
+                } `}
                 format={'MM'}
                 picker="month"
               />
@@ -145,7 +169,9 @@ function InformationBasic(props: Props) {
             <span className="text-[14px] font-bold">月</span>
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'day']}>
               <DatePickerWithType
-                className={`${type === 'husband' || type === 'wife' ? '!w-[80px] ' : 'bg-primary-light !w-[120px]'} `}
+                className={`${
+                  type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[40px]' : 'bg-primary-light !w-[120px]'
+                } `}
                 format={'DD'}
                 picker="date"
               />
@@ -165,10 +191,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* ADDRESS */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  pt-[48px]">現在の住所</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">現在の住所</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex space-x-[8px] items-center pt-[42px]`}
@@ -190,22 +220,24 @@ function InformationBasic(props: Props) {
               </Radio.Group>
             </Form.Item>
             <div className="w-full flex flex-col space-y-[8px]">
-              <div className="flex items-center w-full">
-                <span className="text-[14px] font-bold mr-[32px] max-w-[60px] w-full ">郵便番号</span>
-                <Form.Item
-                  className="!mb-0 pr-[16px] "
-                  name={[`${type}`, 'inforBasic', 'address', 'code']}
-                  rules={[{ required: true, message: 'aloo' }]}
-                >
-                  <BasicInput
-                    className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light w-[400px]'}
-                    placeholder="111111"
-                    type="number"
-                  />
-                </Form.Item>
-                <BasicButton className="h-[34px] w-[108px]" type="default">
-                  <span className="text-[12px]">郵便番号検索</span>
-                </BasicButton>
+              <div className="flex items-center  space-x-[32px] ">
+                <span className="text-[14px] font-bold max-w-[60px] w-full">郵便番号</span>
+                <div className="flex items-center space-x-[16px]">
+                  <Form.Item
+                    className=" flex-1 !mb-0"
+                    name={[`${type}`, 'inforBasic', 'address', 'code']}
+                    rules={[{ required: true, message: 'aloo' }]}
+                  >
+                    <BasicInput
+                      className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light max-w-[400px] w-full'}
+                      placeholder="111111"
+                      type="number"
+                    />
+                  </Form.Item>
+                  <BasicButton className="h-[34px] w-[108px]" type="default">
+                    <span className="text-[12px]">郵便番号検索</span>
+                  </BasicButton>
+                </div>
               </div>
               <div className="flex items-center justify-center space-x-[32px] ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full">都道府県</span>
@@ -248,10 +280,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* lifeInsurance */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold pt-[48px]">生命保険</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">生命保険</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            }
             ${type === 'husband' && 'bg-primary-light '}
             ${type === 'wife' && 'bg-secondary-thin '}
             flex  space-x-[8px] items-center pt-[42px]`}
@@ -306,10 +342,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* Household account book */}
       <div className="flex w-full h-full  items-center ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">お名前</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">お名前</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            }
             ${type === 'husband' && 'bg-primary-light '}
             ${type === 'wife' && 'bg-secondary-thin '}
             flex  space-x-[8px] pt-[42px] pb-[48px] items-center`}
@@ -330,10 +370,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* Saving */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold  ">貯金</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  ">貯金</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'} 
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col space-y-[8px]   pb-[48px] items-center`}
@@ -368,10 +412,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* gambling */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] pt-[8px] font-bold">お名前</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] pt-[8px] font-bold">お名前</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            }
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col space-y-[24px] pb-[48px] `}
@@ -402,10 +450,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* Hobbies/Entertainment */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">趣味・娯楽</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">趣味・娯楽</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            }
             ${type === 'husband' && 'bg-primary-light '}
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col  space-y-[24px] pb-[48px] `}
@@ -421,10 +473,14 @@ function InformationBasic(props: Props) {
       </div>
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] text-[14px] font-bold">メモ</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">メモ</div>}
         <div
           className={`
-            ${type === 'husband' || type === 'wife' ? 'w-[528px] px-[48px]' : 'w-full pl-[48px]'}   
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px]'
+                : 'w-full pl-[48px]'
+            }   
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '} 
             flex flex-col space-y-[24px] pb-[66px] rounded-b-[16px] `}
