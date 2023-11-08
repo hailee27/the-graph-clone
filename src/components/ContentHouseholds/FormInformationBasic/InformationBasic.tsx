@@ -292,49 +292,53 @@ function InformationBasic(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '}
             flex  space-x-[8px] items-center pt-[42px]`}
         >
-          <div className="w-full">
-            <Form.Item
-              className={`!mb-0 ${type === 'husband' || type === 'wife' ? 'w-full' : 'w-[416px]'} `}
-              name={[`${type}`, 'inforBasic', 'lifeInsurance', 'type']}
-            >
-              <Radio.Group className="!w-full">
-                <div className="flex justify-between">
-                  <BasicRadio value="single">
-                    <span className="text-[14px] font-bold ">定期</span>
-                  </BasicRadio>
-                  <BasicRadio value="multiple">
-                    <span className="text-[14pxs] font-bold ">終身</span>
-                  </BasicRadio>
-                  <BasicRadio value="multiple1">
-                    <span className="text-[14px] font-bold ">養老</span>
-                  </BasicRadio>
-                  <BasicRadio value="multiple1">
-                    <span className="text-[14px] font-bold ">医療</span>
-                  </BasicRadio>
-                  <BasicRadio value="multiple1">
-                    <span className="text-[14px] font-bold ">ガン</span>
-                  </BasicRadio>
-                  <BasicRadio value="multiple1">
-                    <span className="text-[14px] font-bold ">無</span>
-                  </BasicRadio>
+          <div className="w-full flex flex-col space-y-[24px]">
+            {[0].map((item) => (
+              <div key={item}>
+                <Form.Item
+                  className={`!mb-0 ${type === 'husband' || type === 'wife' ? 'w-full' : 'w-[416px]'} `}
+                  name={[`${type}`, 'inforBasic', 'lifeInsurance', 'type']}
+                >
+                  <Radio.Group className="!w-full">
+                    <div className="flex justify-between">
+                      <BasicRadio value="single">
+                        <span className="text-[14px] font-bold ">定期</span>
+                      </BasicRadio>
+                      <BasicRadio value="multiple">
+                        <span className="text-[14pxs] font-bold ">終身</span>
+                      </BasicRadio>
+                      <BasicRadio value="multiple1">
+                        <span className="text-[14px] font-bold ">養老</span>
+                      </BasicRadio>
+                      <BasicRadio value="multiple1">
+                        <span className="text-[14px] font-bold ">医療</span>
+                      </BasicRadio>
+                      <BasicRadio value="multiple1">
+                        <span className="text-[14px] font-bold ">ガン</span>
+                      </BasicRadio>
+                      <BasicRadio value="multiple1">
+                        <span className="text-[14px] font-bold ">無</span>
+                      </BasicRadio>
+                    </div>
+                  </Radio.Group>
+                </Form.Item>
+                <div className="flex items-center flex-1 w-full  mt-[20px]">
+                  <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">
+                    月額
+                    <br /> 保険料
+                  </span>
+                  <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'inforBasic', 'lifeInsurance', 'fee']}>
+                    <BasicInput
+                      className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+                      placeholder="15000"
+                      type="number"
+                    />
+                  </Form.Item>
+                  <span className="text-[14px] font-bold ml-[8px] ">円</span>
                 </div>
-              </Radio.Group>
-            </Form.Item>
-            <div className="flex items-center flex-1 w-full  mt-[20px]">
-              <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">
-                月額
-                <br /> 保険料
-              </span>
-              <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'inforBasic', 'lifeInsurance', 'fee']}>
-                <BasicInput
-                  className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-                  placeholder="15000"
-                  type="number"
-                />
-              </Form.Item>
-              <span className="text-[14px] font-bold ml-[8px] ">様</span>
-            </div>
-            <BasicButton className="h-[58px] mt-[14px]" type="default">
+              </div>
+            ))}
+            <BasicButton className="h-[58px] mt-[14px]" onClick={() => console.log('aloo')} type="default">
               <span className="text-[14px] text-primary-text">+ 追加する</span>
             </BasicButton>
           </div>

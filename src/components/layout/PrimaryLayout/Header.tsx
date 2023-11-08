@@ -6,7 +6,7 @@ import { updateAccessToken } from '../../../redux/slices/auth.slice';
 function Header() {
   const dispatch = useDispatch();
   return (
-    <div className="pt-[40px] pr-[48px] ">
+    <div className="pt-[40px]  ">
       <div className="flex items-center justify-end space-x-[32px]">
         <div className="text-primary-text h-[28px] flex items-center justify-center space-x-[6px]">
           <svg fill="none" height="12" viewBox="0 0 12 12" width="12" xmlns="http://www.w3.org/2000/svg">

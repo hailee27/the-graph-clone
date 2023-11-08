@@ -4,6 +4,7 @@ import HomePage from '../pages/Home';
 import LoginPage from '../pages/Login';
 import ForgotPasswordPage from '../pages/ForgotPassword';
 import HouseholdsPage from '../pages/Households';
+import Diagnosis from '../pages/Diagnosis';
 
 interface TypeRouteConFig {
   private: RouteObject[];
@@ -19,6 +20,11 @@ export const routeConfig: TypeRouteConFig = {
       path: '/house-holds/:slug',
       element: <HouseholdsPage />,
     },
+    {
+      path: '/diagnosis',
+      element: <Diagnosis />,
+    },
+
     {
       path: '*',
       element: <NotFound />,

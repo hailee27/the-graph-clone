@@ -9,8 +9,7 @@ function FormFutureHome() {
     <div className="text-primary-text flex flex-col space-y-[48px]">
       <div className="flex">
         <span className="w-[224px] text-[14px] font-bold">老後の住まいは？</span>
-
-        <Form.Item className="!m-0">
+        <Form.Item className="!m-0" name="liveInRetirement">
           <Radio.Group className="!w-full ">
             <div className="flex space-x-[24px]">
               <BasicRadio value="single">
@@ -33,11 +32,11 @@ function FormFutureHome() {
           <br />
           具体的な理由は？
         </span>
-        <Form.Item className="!m-0 flex-1">
+        <Form.Item className="!m-0 flex-1" name="reasonPurchasingHome">
           <BasicTextArea
             className="bg-primary-light"
             placeholder="自由にご記入ください"
-            style={{ height: '100px', resize: 'none' }}
+            style={{ height: '136px', resize: 'none' }}
           />
         </Form.Item>
       </div>
@@ -49,8 +48,8 @@ function FormFutureHome() {
         </span>
         <div className="flex-1 flex space-y-[8px] flex-col">
           <div className="flex items-center space-x-[8px]">
-            <Form.Item className="!m-0 w-[120px]">
-              <BasicInput className="bg-primary-light" placeholder="30" />
+            <Form.Item className="!m-0 w-[120px]" name={['buyHome', 'age']}>
+              <BasicInput className="bg-primary-light" placeholder="30" type="number" />
             </Form.Item>
             <div className="flex items-center space-x-[40px]">
               <span className="text-[14px] font-bold ">歳</span>
@@ -59,11 +58,11 @@ function FormFutureHome() {
               </span>
             </div>
           </div>
-          <Form.Item className="!mb-0 ">
+          <Form.Item className="!mb-0 " name={['buyHome', 'note']}>
             <BasicTextArea
               className="bg-primary-light"
               placeholder="Ex）先にする理由は、頭金が貯まってから。　子供が生まれてからでいいかな。　"
-              style={{ height: '100px', resize: 'none' }}
+              style={{ height: '136px', resize: 'none' }}
             />
           </Form.Item>
         </div>
@@ -76,24 +75,24 @@ function FormFutureHome() {
         </span>
         <div className="flex-1 flex space-y-[8px] flex-col">
           <div className="flex items-center space-x-[8px] w-full">
-            <Form.Item className="!m-0">
+            <Form.Item className="!m-0" name={['ownHome', 'have']}>
               <Radio.Group className="!w-full ">
                 <div className="flex space-x-[24px]">
-                  <BasicRadio value="single">
+                  <BasicRadio value="yes">
                     <span className="text-[14px] font-bold ">有</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple">
+                  <BasicRadio value="no">
                     <span className="text-[14pxs] font-bold ">無</span>
                   </BasicRadio>
                 </div>
               </Radio.Group>
             </Form.Item>
           </div>
-          <Form.Item className="!mb-0 ">
+          <Form.Item className="!mb-0 " name={['ownHome', 'note']}>
             <BasicTextArea
               className="bg-primary-light"
               placeholder="Ex）先にする理由は、頭金が貯まってから。　子供が生まれてからでいいかな。　"
-              style={{ height: '100px', resize: 'none' }}
+              style={{ height: '136px', resize: 'none' }}
             />
           </Form.Item>
         </div>
@@ -108,8 +107,8 @@ function FormFutureHome() {
           <div className="flex space-x-[40px] items-center">
             <span className="font-bold text-[14px]">今出来る月々の最大貯蓄額</span>
             <div className="flex flex-1 items-center space-x-[8px] w-full">
-              <Form.Item className="!m-0">
-                <BasicInput className="bg-primary-light" placeholder="50000" />
+              <Form.Item className="!m-0" name="retirementSaving">
+                <BasicInput className="bg-primary-light" placeholder="50000" type="number" />
               </Form.Item>
               <span className="text-[14px] font-bold">円</span>
             </div>
@@ -129,11 +128,11 @@ function FormFutureHome() {
           その他、要望やこだわりは <br />
           ありますか？
         </span>
-        <Form.Item className="!m-0 flex-1">
+        <Form.Item className="!m-0 flex-1" name="other">
           <BasicTextArea
             className="bg-primary-light"
             placeholder="自由にご記入ください"
-            style={{ height: '100px', resize: 'none' }}
+            style={{ height: '136px', resize: 'none' }}
           />
         </Form.Item>
       </div>

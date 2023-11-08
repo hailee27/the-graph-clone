@@ -24,7 +24,7 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
               key={item.key}
               onClick={() => setSelectedTab(item?.key)}
             >
-              <span className="text-[18px] font-bold text-[#ffffff]">ライフメイクカルテ（一般世帯）</span>
+              <span className="text-[18px] font-bold text-[#ffffff]">{item.label}</span>
             </div>
           ))}
         </div>

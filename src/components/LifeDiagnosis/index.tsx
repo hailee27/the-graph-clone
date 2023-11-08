@@ -1,18 +1,20 @@
 import { Form } from 'antd';
 import React from 'react';
-import FormFutureHome from './FormFutureHome';
 import BasicButton from '../common/BasicButton';
+import FormHouseHoldAndLivingEnvironmant from './FormHouseHoldAndLivingEnvironmant';
+import Form4MajorRisksOfLife from './Form4MajorRisksOfLife';
 
-function FutureHome() {
+function LifeDiagnosis() {
   const [form] = Form.useForm();
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:px-[20px]">
-        <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
-          将来の住まいのご予定をお聞かせください
-        </div>
-        <Form form={form} onFinish={(e) => console.log(e)}>
-          <FormFutureHome />
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] pt-[56px] pb-[80px] print:px-[20px] ">
+        <h2 className="text-[26px] font-bold text-center">「人生１００年時代を幸せに生きる為に押さえるべき６項目」</h2>
+        <Form className="mt-[64px]" form={form} onFinish={(e) => console.log(e)}>
+          <FormHouseHoldAndLivingEnvironmant />
+          <div className="mt-[56px]">
+            <Form4MajorRisksOfLife />
+          </div>
         </Form>
       </div>
       <div className="flex items-center justify-center mt-[80px] mb-[200px]">
@@ -32,4 +34,4 @@ function FutureHome() {
   );
 }
 
-export default FutureHome;
+export default LifeDiagnosis;
