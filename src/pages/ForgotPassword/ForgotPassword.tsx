@@ -24,6 +24,7 @@ function ForgotPassword() {
         </Form>
       )}
       {step === 2 && (
+        // eslint-disable-next-line no-console
         <Form form={formConfirmPassword} onFinish={(e) => console.log(e)}>
           <div className="font-medium text-[14px] text-primary-text pb-[40px] text-center">yamada@gmail.com</div>
           <div className="flex items-center justify-center  flex-col w-[480px]">

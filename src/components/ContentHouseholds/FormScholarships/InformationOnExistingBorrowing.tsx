@@ -1,7 +1,5 @@
-/* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
 import React from 'react';
-
 import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
 import BasicRadio from '../../common/BasicRadio';

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React from 'react';
 import { Form } from 'antd';
 import BasicButton from '../../components/common/BasicButton';

@@ -1,4 +1,13 @@
 .customeRadio {
+  @media print {
+    html,
+    body {
+      width: 210mm;
+      height: 297mm;
+    }
+
+    /* ... the rest of the rules ... */
+  }
   :global {
     .ant-radio-inner {
       border-color: var(--primary) !important;

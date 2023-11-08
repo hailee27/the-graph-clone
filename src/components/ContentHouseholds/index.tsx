@@ -35,8 +35,7 @@ function ContentHouseholds() {
       >
         <Form
           form={form}
-          // eslint-disable-next-line no-console
-          onFinish={(e) => handlePrint()}
+          onFinish={() => handlePrint()}
           scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         >
           <FormInformationBasic typeContent={typeContent} />
