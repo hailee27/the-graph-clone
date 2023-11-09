@@ -1,0 +1,43 @@
+stages:
+  - build
+
+.build_staging:
+  stage: build
+  image: node:16-alpine3.11
+  # cache:
+  #   key: $CI_COMMIT_REF_SLUG
+  #   paths:
+  #     - node_modules/
+  #   policy: pull
+  variables:
+    GIT_STRATEGY: fetch
+  before_script:
+    - apk update && apk add openssh-client bash rsync yarn sshpass
+    - apk --no-cache --virtual build-dependencies add python3 make g++
+    - eval $(ssh-agent -s)
+    # - bash -c 'ssh-add <(echo "$SSH_PRIVATE_KEY")'
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H $SSH_SERVER_IP >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+
+  script:
+    - rm -f .env
+    - cp .env.$CI_ENVIRONMENT_NAME.example .env
+    - yarn install --frozen-lockfile
+    - yarn build
+
+    - sshpass -p $SSH_PASSWORD rsync -a -e 'ssh' node_modules/ $SSH_USER@$SSH_SERVER_IP:$REMOTE_PROJECT_DIR/node_modules
+    - sshpass -p $SSH_PASSWORD rsync -a -e 'ssh' dist/ $SSH_USER@$SSH_SERVER_IP:$REMOTE_PROJECT_DIR/dist
+    - sshpass -p $SSH_PASSWORD rsync -a -e 'ssh' .env $SSH_USER@$SSH_SERVER_IP:$REMOTE_PROJECT_DIR/.env
+
+    - sshpass -p $SSH_PASSWORD ssh -T $SSH_USER@$SSH_SERVER_IP "pwd; source ~/.nvm/nvm.sh; cd $REMOTE_PROJECT_DIR; git pull; pm2 restart jensei-shindan-frontend;"
+  tags:
+    - local_sv
+
+build_staging:
+  extends: .build_staging
+  only:
+    refs:
+      - staging
+  environment:
+    name: staging
