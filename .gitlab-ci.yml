@@ -3,7 +3,7 @@ stages:
 
 .build_staging:
   stage: build
-  image: node:16.14.0
+  image: node:16.14.2-alpine3.15
   # cache:
   #   key: $CI_COMMIT_REF_SLUG
   #   paths:
