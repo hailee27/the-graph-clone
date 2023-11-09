@@ -338,6 +338,7 @@ function InformationBasic(props: Props) {
                 </div>
               </div>
             ))}
+            {/* eslint-disable-next-line no-console */}
             <BasicButton className="h-[58px] mt-[14px]" onClick={() => console.log('aloo')} type="default">
               <span className="text-[14px] text-primary-text">+ 追加する</span>
             </BasicButton>

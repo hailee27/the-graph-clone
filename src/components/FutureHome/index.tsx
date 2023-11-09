@@ -11,6 +11,7 @@ function FutureHome() {
         <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
           将来の住まいのご予定をお聞かせください
         </div>
+        {/* eslint-disable-next-line no-console */}
         <Form form={form} onFinish={(e) => console.log(e)}>
           <FormFutureHome />
         </Form>
