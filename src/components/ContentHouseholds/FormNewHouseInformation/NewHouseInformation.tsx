@@ -28,10 +28,12 @@ function NewHouseInformation(props: Props) {
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'relationship']}>
               <SelectButton
                 options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
+                  { value: '1', label: '配偶者' },
+                  { value: '2', label: '子供' },
+                  { value: '3', label: '世帯主の父母' },
+                  { value: '4', label: '配偶者の父母' },
+                  { value: '5', label: '兄弟姉妹' },
+                  { value: '6', label: 'その他' },
                 ]}
                 placeholder="選択してください"
                 type="primary"
@@ -151,7 +153,7 @@ function NewHouseInformation(props: Props) {
 
       {/* Desired rent */}
       <div className="flex w-full h-full  items-start">
-        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">新居費用の予算額</div>}
+        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">ご希望の家賃</div>}
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
@@ -256,7 +258,7 @@ function NewHouseInformation(props: Props) {
 
       {/* Desired area/conditions */}
       <div className="flex w-full h-full  items-start ">
-        {<div className="w-[176px] text-[14px] font-bold">ご希望エリア・条件</div>}
+        {<div className="w-[176px] text-[14px] font-bold pt-[16px]">ご希望エリア・条件</div>}
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
@@ -265,8 +267,7 @@ function NewHouseInformation(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'newHouseInfor', 'desiredAreaConditions']}>
             <BasicTextArea
               className="bg-primary-light"
-              placeholder="Ex）○○町周辺　初期費用抑えたい
-理由は...二人の実家の中間なので"
+              placeholder="Ex）○○町周辺　初期費用抑えたい&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;理由は...二人の実家の中間なので"
               style={{ height: '136px', resize: 'none' }}
             />
           </Form.Item>
@@ -275,7 +276,7 @@ function NewHouseInformation(props: Props) {
 
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {<div className="w-[176px] text-[14px] font-bold">メモ</div>}
+        {<div className="w-[176px] text-[14px] font-bold pt-[14px]">メモ</div>}
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '

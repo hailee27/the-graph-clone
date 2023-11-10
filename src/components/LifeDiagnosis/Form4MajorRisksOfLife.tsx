@@ -27,7 +27,7 @@ function Form4MajorRisksOfLife() {
                 name={['regardingMeasures', 'necessarySecurity']}
               >
                 <SelectButton
-                  className="text-[24px]"
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -47,6 +47,7 @@ function Form4MajorRisksOfLife() {
                 name={['regardingMeasures', 'survivingFamily']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -74,7 +75,7 @@ function Form4MajorRisksOfLife() {
                 name={['retirementMeasures', 'retirementSaving']}
               >
                 <SelectButton
-                  className="text-[24px]"
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -94,6 +95,7 @@ function Form4MajorRisksOfLife() {
                 name={['retirementMeasures', 'operationalFunds']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -113,6 +115,7 @@ function Form4MajorRisksOfLife() {
                 name={['retirementMeasures', 'assetFormation']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -136,6 +139,7 @@ function Form4MajorRisksOfLife() {
                 name={['retirementMeasures', 'reducingExpensesInRetirement']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -155,6 +159,7 @@ function Form4MajorRisksOfLife() {
                 name={['retirementMeasures', 'securingHousingForRetirement']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -195,7 +200,7 @@ function Form4MajorRisksOfLife() {
                 name={['disasterCountermeasures', 'earthquakeFireTyphoon']}
               >
                 <SelectButton
-                  className="text-[24px]"
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -218,6 +223,7 @@ function Form4MajorRisksOfLife() {
                 name={['disasterCountermeasures', 'securingaLifeline']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -241,6 +247,7 @@ function Form4MajorRisksOfLife() {
                 name={['disasterCountermeasures', 'foodStockpilingAndDisasterPrevention']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -265,6 +272,7 @@ function Form4MajorRisksOfLife() {
                 name={['disasterCountermeasures', 'securingFunds']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -293,7 +301,7 @@ function Form4MajorRisksOfLife() {
                 name={['healthMeasures', 'selfCateringEnvironment']}
               >
                 <SelectButton
-                  className="text-[24px]"
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {
@@ -319,6 +327,7 @@ function Form4MajorRisksOfLife() {
                 name={['healthMeasures', 'immunityUpEnvironment']}
               >
                 <SelectButton
+                  className="text-[24px] !h-[66px]"
                   options={[
                     { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                     {

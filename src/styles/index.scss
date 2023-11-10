@@ -22,7 +22,7 @@
   font-weight: 400;
   --bg-color: #e6e92c;
   --primary: #2c8d27;
-  --primary-light: #f1f5f1;
+  --primary-light: #f2f8f2;
   --secondary: #ff7715;
   --secondary-light: rgba(255, 119, 21, 0.2);
   --secondary-thin: #fffaf2;
@@ -32,8 +32,24 @@
   --tertiary-thin: #f6f6f6;
   --primary-text: #333333;
 }
+html * {
+  font-family: 'Noto Sans JP', sans-serif !important;
+  color: var(--primary-text);
+}
+span {
+  color: inherit;
+}
+input::placeholder {
+  color: var(--primary);
+}
 input {
   font-family: 'Noto Sans JP', sans-serif !important;
+}
+::placeholder {
+  color: var(--tertiary) !important;
+}
+.ant-select-selection-placeholder {
+  color: var(--tertiary) !important;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

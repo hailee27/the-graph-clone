@@ -17,7 +17,7 @@ function FormHouseHoldAndLivingEnvironmant() {
             <span className="text-[14px] font-bold ">現在の貯蓄状況</span>
             <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['householdFinance', 'savingStatus']}>
               <SelectButton
-                className="text-[24px]"
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -37,6 +37,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               name={['householdFinance', 'wastefulFixedCosts']}
             >
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -52,6 +53,7 @@ function FormHouseHoldAndLivingEnvironmant() {
             <span className="text-[14px] font-bold ">家計削減環境「変動費」</span>
             <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['householdFinance', 'variableCosts']}>
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -67,6 +69,7 @@ function FormHouseHoldAndLivingEnvironmant() {
             <span className="text-[14px] font-bold ">ローン、借金</span>
             <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['householdFinance', 'loanDebt']}>
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -86,6 +89,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               name={['householdFinance', 'childbirthAndChildcare']}
             >
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -111,7 +115,7 @@ function FormHouseHoldAndLivingEnvironmant() {
             </span>
             <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['livingEnvironment', 'comfort']}>
               <SelectButton
-                className="text-[24px]"
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -131,6 +135,7 @@ function FormHouseHoldAndLivingEnvironmant() {
             </span>
             <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['livingEnvironment', 'housework']}>
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -150,6 +155,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               name={['livingEnvironment', 'spaceStorageCapacity']}
             >
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -173,6 +179,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               name={['livingEnvironment', 'fulfillmentofPrivateLife']}
             >
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -196,6 +203,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               name={['livingEnvironment', 'healthConsiderations']}
             >
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
@@ -211,6 +219,7 @@ function FormHouseHoldAndLivingEnvironmant() {
             <span className="text-[14px] font-bold ">出産と育児の準備</span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'childbirthAndChildcare']}>
               <SelectButton
+                className="text-[24px] !h-[66px]"
                 options={[
                   { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
                   {
