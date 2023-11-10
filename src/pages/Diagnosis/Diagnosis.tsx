@@ -1,15 +1,16 @@
 import React from 'react';
 import Tab from '../../components/common/Tab';
 import BeforeImprovement from '../../components/BeforeImprovement';
+import Improved from '../../components/Improved';
 
 function Diagnosis() {
   return (
     <div className="w-full  mt-[40px]">
       <div className="flex justify-between mb-[64px]">
         <div className="flex flex-col justify-between space-y-[40px]">
-          <div className="w-[182px] border-b-2 text-primary-text text-[20px] font-bold flex justify-between pb-[6px]">
-            <span>山田</span>
-            <span>様</span>
+          <div className="w-[182px] border-b-2 text-primary-text flex justify-between pb-[6px]">
+            <span className="font-bold text-[20px]">山田</span>
+            <span className="font-bold text-[20px]">様</span>
           </div>
           <span className="font-medium text-[18px] leading-snug">
             賃貸の家計、住環境がもたらす問題・リスクとは？問題・リスクの数値化をしましょう！
@@ -29,7 +30,7 @@ function Diagnosis() {
         defaultValue="1"
         items={[
           { key: '1', label: '改善前', children: <BeforeImprovement /> },
-          { key: '2', label: '改善後', children: 'alo', colorBgActive: 'secondary' },
+          { key: '2', label: '改善後', children: <Improved />, colorBgActive: 'secondary' },
         ]}
       />
     </div>

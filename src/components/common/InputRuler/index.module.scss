@@ -9,21 +9,13 @@
     }
     .ant-slider-dot {
       background-color: var(--primary-text);
-      border: none;
+      border: none !important;
       width: 2px;
       height: 16px;
       inset-block-start: -7px;
       border-radius: 0px;
     }
-    .ant-slider-rail::before {
-      content: ' ';
-      width: 16px;
-      height: 2px;
-      background-color: var(--primary-text);
-    }
-    .ant-slider-dot:first {
-      height: 16px;
-    }
+
     .ant-slider-dot:nth-child(10n) {
       height: 24px;
       inset-block-start: -11px;
@@ -45,6 +37,55 @@
     :where(.css-dev-only-do-not-override-qgg3xn).ant-slider .ant-slider-handle::after {
       box-shadow: none !important;
       background-color: #2c8d27;
+      inset-inline-start: 0px;
+      inset-block-start: -2px;
+      // width: 12px;
+      // height: 12px;
+    }
+    .ant-slider-horizontal .ant-slider-mark {
+      top: 20px;
+    }
+  }
+}
+.inputRulerSecondary {
+  :global {
+    .ant-slider .ant-slider-track {
+      background: none;
+    }
+    .ant-slider-horizontal .ant-slider-rail {
+      height: 2px;
+      background-color: var(--primary-text);
+    }
+    .ant-slider-dot {
+      background-color: var(--primary-text);
+      border: none !important;
+      width: 2px;
+      height: 16px;
+      inset-block-start: -7px;
+      border-radius: 0px;
+    }
+
+    .ant-slider-dot:nth-child(10n) {
+      height: 24px;
+      inset-block-start: -11px;
+    }
+    .ant-slider-handle {
+      width: 12px;
+      height: 12px;
+      // inset-block-start: 0;
+    }
+    .ant-slider .ant-slider-handle::after {
+      width: 12px;
+      height: 12px;
+    }
+    :where(.css-dev-only-do-not-override-qgg3xn).ant-slider .ant-slider-handle:hover::after,
+    :where(.css-dev-only-do-not-override-qgg3xn).ant-slider .ant-slider-handle:active::after,
+    :where(.css-dev-only-do-not-override-qgg3xn).ant-slider .ant-slider-handle:focus::after {
+      box-shadow: none !important;
+    }
+    :where(.css-dev-only-do-not-override-qgg3xn).ant-slider .ant-slider-handle::after {
+      box-shadow: none !important;
+      background-color: var(--secondary);
       inset-inline-start: 0px;
       inset-block-start: -2px;
       // width: 12px;

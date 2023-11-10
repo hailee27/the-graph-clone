@@ -6,10 +6,10 @@ export default {
     extend: {},
     colors: {
       'primary': '#2C8D27',
-      'primary-light': '#F1F5F1',
+      'primary-light': '#F2F8F2',
       'secondary': '#FF7715',
       'secondary-light': 'rgba(255, 119, 21, 0.2)',
-      'secondary-thin': '#FFFAF2',
+      'secondary-thin': '#FFF7F1',
       'secondary-mono': '#FFFBF7',
       'tertiary': '#888888',
       'tertiary-light': '#D9D9D9',

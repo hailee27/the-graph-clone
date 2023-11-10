@@ -3,10 +3,18 @@ import { TypeTemplate } from './type';
 import SelectButton from '../SelectButton';
 import { Image } from 'antd';
 
-function TemplateCard(props: TypeTemplate) {
-  const { title, content, image } = props;
+function TemplateCard(props: TypeTemplate & { type?: 'primary' | 'secondary' }) {
+  const { title, content, image, type } = props;
   return (
-    <div className=" pl-[72px] bg-primary bg-opacity-20 rounded-[16px] h-full relative">
+    <div
+      className={'pl-[72px]  rounded-[16px] h-full relative'}
+      style={{
+        background:
+          type === 'primary'
+            ? 'linear-gradient(0deg, rgba(44, 141, 39, 0.15) 0%, rgba(44, 141, 39, 0.15) 100%), #FFF'
+            : 'linear-gradient(0deg, rgba(255, 119, 21, 0.15) 0%, rgba(255, 119, 21, 0.15) 100%), #FFF',
+      }}
+    >
       <div className=" py-[72px]  flex flex-col space-y-[48px]">
         <span className="font-bold text-[40px] leading-[60px]">{title}</span>
         <div className="flex flex-col space-y-[16px]">
@@ -38,5 +46,7 @@ function TemplateCard(props: TypeTemplate) {
     </div>
   );
 }
-
+TemplateCard.defaultProps = {
+  type: 'primary',
+};
 export default TemplateCard;

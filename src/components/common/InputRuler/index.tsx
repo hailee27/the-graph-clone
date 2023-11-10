@@ -3,7 +3,8 @@ import styles from './index.module.scss';
 import { Slider } from 'antd';
 import { SliderMarks, SliderRangeProps, SliderSingleProps } from 'antd/es/slider';
 
-function InputRuler(props: SliderSingleProps | SliderRangeProps) {
+function InputRuler(props: (SliderSingleProps | SliderRangeProps) & { type?: 'primary' | 'secondary' }) {
+  const { type } = props;
   const marks = useMemo<SliderMarks>(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res: any = {};
@@ -43,12 +44,20 @@ function InputRuler(props: SliderSingleProps | SliderRangeProps) {
     }
     return res;
   }, []);
+  const combinedClassName = [
+    type === 'primary' && styles.inputRuler,
+    type === 'secondary' && styles.inputRulerSecondary,
+  ]
+    .filter((e) => e)
+    .join(' ');
 
   return (
-    <div className={styles.inputRuler}>
-      <Slider marks={marks} max={27.5} min={0.5} {...props} step={1} />
+    <div className={combinedClassName}>
+      <Slider marks={marks} max={27.5} min={0.5} step={null} {...props} />
     </div>
   );
 }
-
+InputRuler.defaultProps = {
+  type: 'primary',
+};
 export default InputRuler;

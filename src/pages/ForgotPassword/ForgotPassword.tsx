@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { Form } from 'antd';
 import BasicButton from '../../components/common/BasicButton';
 import BasicInput from '../../components/common/BasicInput';
+import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
   const [form] = Form.useForm();
   const [formConfirmPassword] = Form.useForm();
   const [step, setStep] = useState<number>(1);
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen items-center justify-center flex flex-col space-y-[46px]">
       <h2 className="text-primary font-bold text-[40px]">パスワード再発行</h2>
@@ -24,8 +26,7 @@ function ForgotPassword() {
         </Form>
       )}
       {step === 2 && (
-        // eslint-disable-next-line no-console
-        <Form form={formConfirmPassword} onFinish={(e) => console.log(e)}>
+        <Form form={formConfirmPassword} onFinish={() => navigate('/')}>
           <div className="font-medium text-[14px] text-primary-text pb-[40px] text-center">yamada@gmail.com</div>
           <div className="flex items-center justify-center  flex-col w-[480px]">
             <Form.Item
@@ -41,7 +42,7 @@ function ForgotPassword() {
               rules={[
                 {
                   required: true,
-                  message: 'Please enter passwordConfirm!',
+                  message: 'パスワードを入力してください!',
                 },
                 {
                   required: true,
@@ -50,7 +51,7 @@ function ForgotPassword() {
                     if (value === formConfirmPassword.getFieldValue('password')) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('Some message here');
+                    return Promise.reject('入力した 2 つのパスワードが一致しません!');
                   },
                 },
               ]}
@@ -72,7 +73,7 @@ function ForgotPassword() {
         type="secondary"
       >
         <div className="flex items-center justify-center space-x-[10px]">
-          <span className="text-[18px] font-bold">ログイン</span>
+          <span className="text-[18px] font-bold text-[#ffffff]">ログイン</span>
           <svg fill="none" height="8" viewBox="0 0 6 8" width="6" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M4.8764 3.18912C5.42946 3.58825 5.42946 4.41175 4.87641 4.81088L1.58521 7.1861C0.923842 7.6634 9.76746e-08 7.19083 8.79486e-08 6.37522L3.13002e-08 1.62478C2.15742e-08 0.809174 0.923841 0.336598 1.58521 0.813896L4.8764 3.18912Z"

@@ -29,10 +29,16 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
               </div>
             ) : (
               <div
-                className={`${selectTab === item.key ? 'bg-primary h-full' : 'bg-tertiary-light h-[61px]'} 
-                px-[32px] py-[10px] w-[352px] cursor-pointer rounded-t-[16px] flex items-center justify-center`}
+                className="px-[32px] py-[10px] w-[352px] cursor-pointer rounded-t-[16px] flex items-center justify-center"
                 key={item.key}
                 onClick={() => setSelectedTab(item?.key)}
+                style={{
+                  background:
+                    selectTab === item.key
+                      ? 'linear-gradient(282deg, #2C8D27 36.69%, #0CA404 87.46%)'
+                      : 'var(--tertiary-light)',
+                  height: selectTab === item.key ? '100%' : '61px',
+                }}
               >
                 <span className="text-[18px] font-bold text-[#ffffff]">{item.label}</span>
               </div>

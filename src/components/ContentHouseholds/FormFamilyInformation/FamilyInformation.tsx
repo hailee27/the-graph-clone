@@ -77,19 +77,19 @@ function FamilyInformation(props: Props) {
             <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'familyHome', 'type']}>
               <Radio.Group className="!w-full">
                 <div className="flex space-x-[24px]">
-                  <BasicRadio value="single">
+                  <BasicRadio value="1">
                     <span className="text-[14px] font-bold ">持ち家</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple">
+                  <BasicRadio value="2">
                     <span className="text-[14pxs] font-bold ">借家</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple1">
+                  <BasicRadio value="3">
                     <span className="text-[14px] font-bold ">一戸建て</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple1">
+                  <BasicRadio value="4">
                     <span className="text-[14px] font-bold ">マンション</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple1">
+                  <BasicRadio value="5">
                     <span className="text-[14px] font-bold ">無</span>
                   </BasicRadio>
                 </div>
@@ -130,19 +130,19 @@ function FamilyInformation(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'brothers']}>
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
-                <BasicRadio value="single">
+                <BasicRadio value="1">
                   <span className="text-[14px] font-bold ">一人っ子</span>
                 </BasicRadio>
-                <BasicRadio value="multiple">
+                <BasicRadio value="2">
                   <span className="text-[14pxs] font-bold ">兄</span>
                 </BasicRadio>
-                <BasicRadio value="multiple1">
+                <BasicRadio value="3">
                   <span className="text-[14px] font-bold ">弟</span>
                 </BasicRadio>
-                <BasicRadio value="multiple1">
+                <BasicRadio value="4">
                   <span className="text-[14px] font-bold ">弟</span>
                 </BasicRadio>
-                <BasicRadio value="multiple1">
+                <BasicRadio value="5">
                   <span className="text-[14px] font-bold ">妹</span>
                 </BasicRadio>
               </div>
@@ -154,7 +154,7 @@ function FamilyInformation(props: Props) {
       {/* Those who live at home */}
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">ご実家にお住まいの方</div>
+          <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[65px]">ご実家にお住まいの方</div>
         )}
         <div
           className={`
@@ -255,7 +255,7 @@ function FamilyInformation(props: Props) {
 
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">メモ</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[14px]">メモ</div>}
         <div
           className={`
             ${

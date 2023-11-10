@@ -8,7 +8,7 @@ function FormFutureHome() {
   return (
     <div className="text-primary-text flex flex-col space-y-[48px]">
       <div className="flex">
-        <span className="w-[224px] text-[14px] font-bold">老後の住まいは？</span>
+        <span className="w-[224px] text-[14px] font-bold pt-[5px]">老後の住まいは？</span>
         <Form.Item className="!m-0" name="liveInRetirement">
           <Radio.Group className="!w-full ">
             <div className="flex space-x-[24px]">
@@ -27,7 +27,7 @@ function FormFutureHome() {
       </div>
 
       <div className="flex">
-        <span className="w-[224px] text-[14px] font-bold">
+        <span className="w-[224px] text-[14px] font-bold pt-[16px]">
           マイホーム購入以外の方
           <br />
           具体的な理由は？
@@ -98,7 +98,7 @@ function FormFutureHome() {
         </div>
       </div>
       <div className="flex">
-        <span className="w-[224px] text-[14px] font-bold">
+        <span className="w-[224px] text-[14px] font-bold pt-[19px]">
           老後貯蓄は
           <br />
           いくら出来ますか？
@@ -124,7 +124,7 @@ function FormFutureHome() {
         </div>
       </div>
       <div className="flex">
-        <span className="w-[224px] text-[14px] font-bold">
+        <span className="w-[224px] text-[14px] font-bold  pt-[16px]">
           その他、要望やこだわりは <br />
           ありますか？
         </span>
