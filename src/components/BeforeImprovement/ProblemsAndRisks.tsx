@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputRuler from '../common/InputRuler';
 
 function ProblemsAndRisks() {
+  const [value, setValue] = useState<number>(27);
+
   return (
     <div className="bg-[#ffffff] rounded-[16px] py-[106px] flex items-center justify-center flex-col ">
       <div className="text-[28px] font-bold">
         <span className="tracking-[2.24px]">人生100年にとっての問題・リスクを</span>
         <span className="text-[32px] tracking-[2.56px]">合計</span>
-        <span className="text-[44px] tracking-[3.52px]">27</span>
+        <span className="text-[44px] tracking-[3.52px]">{value}</span>
         <span className="tracking-[2.24px]">/27 抱えている！</span>
       </div>
       <span className="text-[18px] font-medium mt-[72px] pb-[24px] tracking-[1.44px]">
@@ -48,7 +50,7 @@ function ProblemsAndRisks() {
         >
           <span className="text-[24px] font-bold text-primary">賃貸では解消出来ず大きくなっていく</span>
           <div className="w-full">
-            <InputRuler defaultValue={27} />
+            <InputRuler defaultValue={value} onChange={(e) => setValue(e)} />
           </div>
         </div>
         <div className="bg-[#2C8D27] bg-opacity-80 w-[160px] rounded-[8px] flex flex-col items-center justify-center space-y-[8px]">
