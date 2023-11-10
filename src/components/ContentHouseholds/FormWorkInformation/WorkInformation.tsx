@@ -128,7 +128,7 @@ function WorkInformation(props: Props) {
       </div>
       {/* duty station */}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">生年月日</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[48px]">勤務地</div>}
         <div
           className={`
             ${
@@ -284,7 +284,7 @@ function WorkInformation(props: Props) {
 
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">メモ</div>}
+        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[14px]">メモ</div>}
         <div
           className={`
             ${
