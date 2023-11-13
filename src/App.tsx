@@ -4,6 +4,7 @@ import { routeConfig } from './routes/routeConfig';
 import PrimaryLayout from './components/layout/PrimaryLayout';
 import { useSelector } from 'react-redux';
 import { RootState } from './redux/store';
+import { HouseHoldsProvider } from './components/context/HouseHoldsContext';
 
 function App() {
   const { accessToken } = useSelector((state: RootState) => state.auth);
@@ -19,7 +20,9 @@ function App() {
   return (
     <>
       {accessToken ? (
-        <PrimaryLayout>{routesPrivate}</PrimaryLayout>
+        <HouseHoldsProvider>
+          <PrimaryLayout>{routesPrivate}</PrimaryLayout>
+        </HouseHoldsProvider>
       ) : (
         <div className="bg-tertiary-thin">{routesPublic}</div>
       )}

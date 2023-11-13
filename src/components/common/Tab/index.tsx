@@ -16,7 +16,7 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
   return (
     <>
       {items && (
-        <div className="h-[77px]  flex space-x-[8px] items-end">
+        <div className="h-[77px]  flex space-x-[8px] items-end print:hidden">
           {data.map((item) =>
             item.colorBgActive ? (
               <div
@@ -47,7 +47,7 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
         </div>
       )}
       {data.map((e) => (
-        <div className={`${e.key === selectTab ? '' : 'hidden'}`} key={e.key}>
+        <div className={`${e.key === selectTab ? 'block' : 'hidden print:block print:break-before-page'} `} key={e.key}>
           {e.children}
         </div>
       ))}

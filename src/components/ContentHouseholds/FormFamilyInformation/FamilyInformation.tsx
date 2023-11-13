@@ -17,9 +17,9 @@ function FamilyInformation(props: Props) {
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
         <div className="flex w-full h-full">
-          {!disabledLabel && <div className="w-[176px] print:w-[105px]"></div>}
+          {!disabledLabel && <div className="w-[176px] print:w-[70px]"></div>}
           <div
-            className={`w-[528px] print:w-[315px] print:px-[20px] ${type === 'husband' && 'bg-primary-light '} ${
+            className={`w-[528px] print:w-[332px] print:px-[20px] ${type === 'husband' && 'bg-primary-light '} ${
               type === 'wife' && 'bg-secondary-thin '
             } bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
@@ -36,12 +36,14 @@ function FamilyInformation(props: Props) {
       )}
       {/* place of birth*/}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold">出身地</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold">出身地</div>
+        )}
         <div
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -60,13 +62,15 @@ function FamilyInformation(props: Props) {
       {/* family home */}
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">ご実家の住まい</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[48px]">
+            ご実家の住まい
+          </div>
         )}
         <div
           className={`
           ${
             type === 'husband' || type === 'wife'
-              ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+              ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
               : 'w-full pl-[48px]'
           } 
           ${type === 'husband' && 'bg-primary-light '} 
@@ -76,27 +80,27 @@ function FamilyInformation(props: Props) {
           <div className="w-full">
             <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'familyHome', 'type']}>
               <Radio.Group className="!w-full">
-                <div className="flex space-x-[24px]">
+                <div className="flex space-x-[24px] print:space-x-0 print:justify-between">
                   <BasicRadio value="1">
-                    <span className="text-[14px] font-bold ">持ち家</span>
+                    <span className="text-[14px] print:text-[10px] font-bold ">持ち家</span>
                   </BasicRadio>
                   <BasicRadio value="2">
-                    <span className="text-[14pxs] font-bold ">借家</span>
+                    <span className="text-[14px] print:text-[10px] font-bold ">借家</span>
                   </BasicRadio>
                   <BasicRadio value="3">
-                    <span className="text-[14px] font-bold ">一戸建て</span>
+                    <span className="text-[14px] print:text-[10px] font-bold ">一戸建て</span>
                   </BasicRadio>
                   <BasicRadio value="4">
-                    <span className="text-[14px] font-bold ">マンション</span>
+                    <span className="text-[14px] print:text-[10px] font-bold ">マンション</span>
                   </BasicRadio>
                   <BasicRadio value="5">
-                    <span className="text-[14px] font-bold ">無</span>
+                    <span className="text-[14px] print:text-[10px] font-bold ">無</span>
                   </BasicRadio>
                 </div>
               </Radio.Group>
             </Form.Item>
             <div className="flex items-center flex-1 w-full  mt-[20px]">
-              <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
+              <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
               <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'familyInfor', 'familyHome', 'age']}>
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
@@ -104,10 +108,10 @@ function FamilyInformation(props: Props) {
                   type="number"
                 />
               </Form.Item>
-              <span className="text-[14px] font-bold ml-[8px] ">年</span>
+              <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">年</span>
             </div>
             <BasicButton className="h-[58px] mt-[14px]" type="default">
-              <span className="text-[14px] text-secondary-text">+ 追加する</span>
+              <span className="text-[14px] print:text-[10px] text-secondary-text">+ 追加する</span>
             </BasicButton>
           </div>
         </div>
@@ -115,12 +119,14 @@ function FamilyInformation(props: Props) {
 
       {/* Brothers */}
       <div className="flex w-full h-full  items-center">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px] ">ご兄弟</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[48px] ">ご兄弟</div>
+        )}
         <div
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -129,21 +135,21 @@ function FamilyInformation(props: Props) {
         >
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'brothers']}>
             <Radio.Group className="!w-full">
-              <div className="flex space-x-[24px]">
+              <div className="flex space-x-[24px] print:space-x-0 print:justify-between">
                 <BasicRadio value="1">
-                  <span className="text-[14px] font-bold ">一人っ子</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">一人っ子</span>
                 </BasicRadio>
                 <BasicRadio value="2">
-                  <span className="text-[14pxs] font-bold ">兄</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">兄</span>
                 </BasicRadio>
                 <BasicRadio value="3">
-                  <span className="text-[14px] font-bold ">弟</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">弟</span>
                 </BasicRadio>
                 <BasicRadio value="4">
-                  <span className="text-[14px] font-bold ">弟</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">弟</span>
                 </BasicRadio>
                 <BasicRadio value="5">
-                  <span className="text-[14px] font-bold ">妹</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">妹</span>
                 </BasicRadio>
               </div>
             </Radio.Group>
@@ -154,13 +160,15 @@ function FamilyInformation(props: Props) {
       {/* Those who live at home */}
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[105px] text-[14px] font-bold  pt-[65px]">ご実家にお住まいの方</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[65px]">
+            ご実家にお住まいの方
+          </div>
         )}
         <div
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -168,7 +176,7 @@ function FamilyInformation(props: Props) {
             flex flex-col   pt-[48px]`}
         >
           <div className="flex items-center flex-1 w-full ">
-            <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
+            <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
             <Form.Item
               className="!mb-0 flex-1"
               name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome ', 'relationship']}
@@ -187,7 +195,7 @@ function FamilyInformation(props: Props) {
           </div>
           <div>
             <div className="flex items-center flex-1 w-full  mt-[20px]">
-              <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
+              <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
               <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', 'age']}>
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
@@ -195,10 +203,10 @@ function FamilyInformation(props: Props) {
                   type="number"
                 />
               </Form.Item>
-              <span className="text-[14px] font-bold ml-[8px] ">歳</span>
+              <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">歳</span>
             </div>
             <BasicButton className="h-[58px] mt-[14px]" type="default">
-              <span className="text-[14px] text-secondary-text">+ 追加する</span>
+              <span className="text-[14px] print:text-[10px] text-secondary-text">+ 追加する</span>
             </BasicButton>
           </div>
         </div>
@@ -206,9 +214,11 @@ function FamilyInformation(props: Props) {
 
       {/* inheritance */}
       <div className="flex w-full h-full  items-start">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[48px]">相続</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[48px]">相続</div>
+        )}
         <div
-          className={`w-[528px] print:w-[315px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
+          className={`w-[528px] print:w-[332px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
           }  px-[48px]  pt-[42px]`}
         >
@@ -216,13 +226,13 @@ function FamilyInformation(props: Props) {
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
                 <BasicRadio value="single">
-                  <span className="text-[14px] font-bold ">相続</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">相続</span>
                 </BasicRadio>
                 <BasicRadio value="multiple">
-                  <span className="text-[14pxs] font-bold ">相続済</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">相続済</span>
                 </BasicRadio>
                 <BasicRadio value="multiple2">
-                  <span className="text-[14pxs] font-bold ">相談なし</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">相談なし</span>
                 </BasicRadio>
               </div>
             </Radio.Group>
@@ -232,9 +242,11 @@ function FamilyInformation(props: Props) {
 
       {/* nursing care*/}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] pt-[48px] font-bold">介護</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] pt-[48px] font-bold">介護</div>
+        )}
         <div
-          className={`w-[528px] print:w-[315px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
+          className={`w-[528px] print:w-[332px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col px-[48px] space-y-[24px] pt-[42px] pb-[48px] `}
         >
@@ -242,10 +254,10 @@ function FamilyInformation(props: Props) {
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
                 <BasicRadio value="0">
-                  <span className="text-[14px] font-bold ">有</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">有</span>
                 </BasicRadio>
                 <BasicRadio value="1">
-                  <span className="text-[14pxs] font-bold ">無</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">無</span>
                 </BasicRadio>
               </div>
             </Radio.Group>
@@ -255,12 +267,14 @@ function FamilyInformation(props: Props) {
 
       {/* MEMO */}
       <div className="flex w-full h-full  items-start ">
-        {!disabledLabel && <div className="w-[176px] print:w-[105px] text-[14px] font-bold pt-[14px]">メモ</div>}
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[14px]">メモ</div>
+        )}
         <div
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[315px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 

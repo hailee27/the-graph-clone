@@ -26,3 +26,16 @@
     }
   }
 }
+@media print {
+  .customInput {
+    width: 100%;
+    :global {
+      .ant-input {
+        height: 40px;
+        padding: 18px;
+        font-size: 12px;
+        line-height: 0;
+      }
+    }
+  }
+}

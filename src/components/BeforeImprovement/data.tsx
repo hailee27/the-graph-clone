@@ -23,6 +23,15 @@ const items = [
     ),
     value: '1',
   },
+  {
+    label: (
+      <svg fill="none" height="18" viewBox="0 0 16 18" width="16" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="9" r="7.5" stroke="#333333" />
+        <circle cx="8" cy="9" r="3.5" stroke="#333333" />
+      </svg>
+    ),
+    value: '2',
+  },
 ];
 
 export const dataBeforeImprovement: TypeDataBeforeImprovement = {

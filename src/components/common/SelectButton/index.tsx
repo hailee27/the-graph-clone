@@ -3,7 +3,7 @@ import { Select, SelectProps } from 'antd';
 import styles from './index.module.scss';
 
 function SelectButton(props: SelectProps & { type?: 'default' | 'primary' }) {
-  const { type, size, suffixIcon } = props;
+  const { type, size, suffixIcon, ...rest } = props;
   const combinedClassName = [
     type === 'primary' && styles.selectPrimary,
     type === 'default' && styles.customSelect,
@@ -26,7 +26,7 @@ function SelectButton(props: SelectProps & { type?: 'default' | 'primary' }) {
             </svg>
           )
         }
-        {...props}
+        {...rest}
       />
     </div>
   );

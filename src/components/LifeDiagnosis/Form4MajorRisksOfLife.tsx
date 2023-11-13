@@ -7,16 +7,16 @@ import SelectButton from '../common/SelectButton';
 function Form4MajorRisksOfLife() {
   return (
     <div className="text-primary-text">
-      <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
+      <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] print:text-[16px] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
         「マイホーム」と比較した「賃貸住宅」での、「人生4大リスク」の対策について
       </div>
       <div className="flex flex-col space-y-[40px]">
         {/* Regarding measures in case of emergency */}
         <div className="flex flex-col">
           <span className="text-primary font-bold text-[18px] leading-normal">万が一対策について</span>
-          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] pt-[24px]">
+          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 無駄な支払い、
                 <br />
                 必要保障
@@ -40,7 +40,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">遺族の住居確保</span>
+              <span className="text-[14px] print:text-[10px] font-bold ">遺族の住居確保</span>
               <Form.Item
                 className="w-[120px] !mb-0"
                 initialValue={'no'}
@@ -66,9 +66,9 @@ function Form4MajorRisksOfLife() {
 
         <div className="flex flex-col">
           <span className="text-primary font-bold text-[18px] leading-normal">老後対策について</span>
-          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] pt-[24px]">
+          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">老後貯蓄の有無</span>
+              <span className="text-[14px] print:text-[10px] font-bold ">老後貯蓄の有無</span>
               <Form.Item
                 className="w-[120px] !mb-0"
                 initialValue={'no'}
@@ -88,7 +88,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">iDeCo等の運用資金</span>
+              <span className="text-[14px] print:text-[10px] font-bold ">iDeCo等の運用資金</span>
               <Form.Item
                 className="w-[120px] !mb-0"
                 initialValue={'no'}
@@ -108,7 +108,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">資産形成</span>
+              <span className="text-[14px] print:text-[10px] font-bold ">資産形成</span>
               <Form.Item
                 className="w-[120px] !mb-0"
                 initialValue={'no'}
@@ -128,7 +128,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 老後の経費削減（家賃、
                 <br />
                 建て直し費、光熱費、医療費）
@@ -152,7 +152,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">老後の住居確保</span>
+              <span className="text-[14px] print:text-[10px] font-bold ">老後の住居確保</span>
               <Form.Item
                 className="w-[120px] !mb-0"
                 initialValue={'no'}
@@ -172,7 +172,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
           </div>
-          <div className="border-tertiary border py-[24px] text-center text-[14px] font-bold mt-[24px]">
+          <div className="border-tertiary border py-[24px] text-center text-[14px] print:text-[10px] font-bold mt-[24px]">
             <div className="flex items-center justify-center max-h-[24px]">
               <span className="pr-[63px]">老後貯蓄はいくら出来ますか？</span>
               <span className="pr-[24px] flex items-center">
@@ -191,9 +191,9 @@ function Form4MajorRisksOfLife() {
         {/* About disaster countermeasures */}
         <div className="flex flex-col">
           <span className="text-primary font-bold text-[18px] leading-normal">災害対策について</span>
-          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] pt-[24px]">
+          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">地震、火災、台風</span>
+              <span className="text-[14px] print:text-[10px] font-bold ">地震、火災、台風</span>
               <Form.Item
                 className="w-[120px] !mb-0"
                 initialValue={'no'}
@@ -213,7 +213,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 ライフラインの確保 <br />
                 （電気、ガス、水道）
               </span>
@@ -236,7 +236,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 食料備蓄と防災用品の
                 <br />
                 準備（保管スペース）
@@ -260,7 +260,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 資金確保 <br />
                 （避難費用、新しい住居費用、
                 <br />
@@ -289,9 +289,9 @@ function Form4MajorRisksOfLife() {
         {/* About health measures */}
         <div className="flex flex-col">
           <span className="text-primary font-bold text-[18px] leading-normal">健康対策について</span>
-          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] pt-[24px]">
+          <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 自炊環境 <br />
                 （健康維持のための食生活）
               </span>
@@ -314,7 +314,7 @@ function Form4MajorRisksOfLife() {
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-[14px] font-bold ">
+              <span className="text-[14px] print:text-[10px] font-bold ">
                 免疫力UP環境
                 <br />
                 （高気密高断熱住宅、
