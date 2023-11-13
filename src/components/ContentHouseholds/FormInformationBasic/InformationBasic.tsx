@@ -4,11 +4,12 @@ import { Form, Radio } from 'antd';
 import React, { useMemo } from 'react';
 import BasicInput from '../../common/BasicInput';
 import SelectButton from '../../common/SelectButton';
-import DatePickerWithType from '../../common/DatePickerWithType';
+// import DatePickerWithType from '../../common/DatePickerWithType';
 import BasicRadio from '../../common/BasicRadio';
 import BasicButton from '../../common/BasicButton';
 import BasicTextArea from '../../common/BasicTextArea';
 import moment from 'moment';
+import DatePicker from '../../common/DatePicker';
 
 interface Props {
   disabledLabel?: boolean;
@@ -18,9 +19,9 @@ interface Props {
 function InformationBasic(props: Props) {
   const { disabledLabel, type } = props;
   const form = Form.useFormInstance();
-  const year = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'year'], form)?.format('YYYY');
-  const month = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form)?.format('MM');
-  const day = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form)?.format('DD');
+  const year = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'year'], form);
+  const month = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form);
+  const day = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
   const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
   const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
   const savingRate = useMemo(() => {
@@ -29,12 +30,6 @@ function InformationBasic(props: Props) {
     }
     return '00';
   }, [savingMonth, savingTotalAmount]);
-  // const years = (back: number) => {
-  //   const y = new Date().getFullYear();
-  //   return Array.from({ length: back }, (v, i) => y - back + i + 1);
-  // };
-
-  // console.log(years(100));
 
   return (
     <div className="h-full w-full text-primary-text">
@@ -162,33 +157,30 @@ function InformationBasic(props: Props) {
         >
           <div className="flex items-center justify-between space-x-[8px]">
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'year']}>
-              <DatePickerWithType
-                className={`${
-                  type === 'husband' || type === 'wife' ? '!w-[92px] print:!w-[80px]' : 'bg-primary-light !w-[120px]'
-                } `}
-                // disabledDate={(currentDay) => currentDay > moment() || currentDay < moment().subtract(3, 'day')}
-                format={'YYYY'}
-                picker="year"
+              <DatePicker
+                className={`${type === 'husband' || type === 'wife' ? '!w-[92px] ' : ' !w-[120px]'} `}
+                placeholder={moment().format('YYYY')}
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                typePicker="year"
               />
             </Form.Item>
             <span className="text-[14px] font-bold">年</span>
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'month']}>
-              <DatePickerWithType
-                className={`${
-                  type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[40px]' : 'bg-primary-light !w-[120px]'
-                } `}
-                format={'MM'}
-                picker="month"
+              <DatePicker
+                className={`${type === 'husband' || type === 'wife' ? '!w-[80px] ' : ' !w-[120px]'} `}
+                placeholder={moment().format('MM')}
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                typePicker="month"
               />
             </Form.Item>
             <span className="text-[14px] font-bold">月</span>
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'day']}>
-              <DatePickerWithType
-                className={`${
-                  type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[40px]' : 'bg-primary-light !w-[120px]'
-                } `}
-                format={'DD'}
-                picker="date"
+              <DatePicker
+                className={`${type === 'husband' || type === 'wife' ? '!w-[80px] ' : ' !w-[120px]'} `}
+                monthInYear={month}
+                placeholder={moment().format('DD')}
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                typePicker="day"
               />
             </Form.Item>
             <span className="text-[14px] font-bold">日</span>
