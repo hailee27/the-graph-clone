@@ -4,7 +4,7 @@ import { Slider } from 'antd';
 import { SliderMarks, SliderRangeProps, SliderSingleProps } from 'antd/es/slider';
 
 function InputRuler(props: (SliderSingleProps | SliderRangeProps) & { type?: 'primary' | 'secondary' }) {
-  const { type } = props;
+  const { type, ...rest } = props;
   const marks = useMemo<SliderMarks>(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const res: any = {};
@@ -53,7 +53,7 @@ function InputRuler(props: (SliderSingleProps | SliderRangeProps) & { type?: 'pr
 
   return (
     <div className={combinedClassName}>
-      <Slider marks={marks} max={27.5} min={0.5} step={null} {...props} />
+      <Slider marks={marks} max={27.5} min={0.5} step={null} {...rest} />
     </div>
   );
 }

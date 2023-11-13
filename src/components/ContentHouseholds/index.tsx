@@ -1,4 +1,5 @@
-import React, { useMemo, useRef } from 'react';
+/* eslint-disable no-console */
+import React, { useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
 import FormWorkInformation from './FormWorkInformation';
@@ -9,12 +10,10 @@ import CardFix from './CardFix';
 import BasicInput from '../common/BasicInput';
 import { Form } from 'antd';
 import { useParams } from 'react-router-dom';
-import { useReactToPrint } from 'react-to-print';
 
 function ContentHouseholds() {
   const [form] = Form.useForm();
   const { slug } = useParams();
-  const componentRef = useRef<HTMLDivElement | null>(null);
 
   const typeContent = useMemo<'single' | 'multiple' | string>(() => {
     if (slug) {
@@ -22,36 +21,34 @@ function ContentHouseholds() {
     }
     return 'single';
   }, [slug]);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-    copyStyles: true,
-  });
 
+  // px-[48] -24
   return (
-    <div>
-      <div
-        className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:px-[20px]"
-        ref={componentRef}
-      >
+    <>
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:py-[30px] print:px-[24px]">
         <Form
           form={form}
-          onFinish={() => handlePrint()}
+          name="formContentHouseholds"
+          onFinish={(e) => console.log(e)}
           scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         >
           <FormInformationBasic typeContent={typeContent} />
-          <div className="mt-[68px]">
+
+          <div className="mt-[68px] print:mt-[30px] print:break-before-page">
             <FormWorkInformation typeContent={typeContent} />
           </div>
-          <div className="mt-[68px]">
+          <div className="mt-[68px] print:mt-[30px] print:break-before-page">
             <FormFamilyInformation typeContent={typeContent} />
           </div>
-          <div className="mt-[68px]">
+          <div className="mt-[68px] print:mt-[30px] print:break-before-page">
             <FormNewHouseInformation />
           </div>
-          <FormScholarships />
+          <div className="print:mt-[30px] print:break-before-page">
+            <FormScholarships />
+          </div>
         </Form>
       </div>
-      <div className="mt-[24px] bg-[#ffffff] min-h-[585px] rounded-[16px] flex items-center justify-center flex-col">
+      <div className="mt-[24px] bg-[#ffffff] min-h-[585px] rounded-[16px] flex items-center justify-center flex-col print:hidden">
         <h2 className="font-bold text-[40px] text-primary pb-[64px]">新生活で毎月支払う固定費</h2>
         <div className="flex justify-between space-x-[8px]">
           <CardFix
@@ -101,7 +98,7 @@ function ContentHouseholds() {
             title="電気代"
           />
         </div>
-        <div className="flex space-x-[40px] max-h-[51px] mt-[40px]">
+        <div className="flex space-x-[40px] max-h-[51px] mt-[40px] print:hidden">
           <div className="flex items-end justify-center space-x-[36px] ">
             <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
             <span className="text-[70px] font-bold leading-[32px]">
@@ -123,7 +120,7 @@ function ContentHouseholds() {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center mt-[80px] mb-[200px]">
+      <div className="flex items-center justify-center mt-[80px] mb-[200px] print:hidden">
         <BasicButton className="h-[77px] w-[400px]" onClick={() => form.submit()} type="secondary">
           <div className="flex items-center justify-center space-x-[10px]">
             <span className="text-[18px] font-bold text-[#ffffff]">診断する</span>
@@ -136,7 +133,7 @@ function ContentHouseholds() {
           </div>
         </BasicButton>
       </div>
-    </div>
+    </>
   );
 }
 
