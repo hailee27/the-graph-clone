@@ -119,3 +119,49 @@
     }
   }
 }
+
+@media print {
+  .customSelect {
+    :global {
+      .ant-select-single {
+        height: 40px;
+      }
+
+      .ant-select-arrow {
+        padding-right: 5px;
+      }
+      .ant-select-selection-item {
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      input {
+        font-size: 12px;
+      }
+      .ant-select-selection-placeholder {
+        font-size: 12px !important;
+        font-weight: 400;
+      }
+    }
+  }
+  .selectPrimary {
+    :global {
+      .ant-select-single {
+        height: 40px;
+      }
+      .ant-select-selection-item {
+        font-size: 12px;
+      }
+      .ant-select-arrow {
+        padding-right: 5px;
+      }
+      input {
+        font-size: 12px;
+      }
+      .ant-select-selection-placeholder {
+        font-size: 12px !important;
+        font-weight: 400;
+      }
+    }
+  }
+}

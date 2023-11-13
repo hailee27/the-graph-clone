@@ -5,18 +5,20 @@ import BasicButton from '../common/BasicButton';
 
 function FutureHome() {
   const [form] = Form.useForm();
+
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:px-[20px]">
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:py-[30px] print:px-[20px]">
         <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
           将来の住まいのご予定をお聞かせください
         </div>
         {/* eslint-disable-next-line no-console */}
-        <Form form={form} onFinish={(e) => console.log(e)}>
+        <Form form={form} name="formFutureHome" onFinish={(e) => console.log(e)}>
           <FormFutureHome />
         </Form>
       </div>
-      <div className="flex items-center justify-center mt-[80px] mb-[200px]">
+
+      <div className="flex items-center justify-center mt-[80px] mb-[200px]  print:hidden">
         <BasicButton className="h-[77px] w-[400px]" onClick={() => form.submit()} type="secondary">
           <div className="flex items-center justify-center space-x-[10px]">
             <span className="text-[18px] font-bold text-[#ffffff]">診断する</span>

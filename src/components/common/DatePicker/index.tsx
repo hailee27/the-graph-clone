@@ -5,12 +5,12 @@ import moment from 'moment';
 function DatePicker(
   props: SelectProps & {
     type?: 'default' | 'primary';
-    typePicker: 'year' | 'month' | 'day';
+    typePicker?: 'year' | 'month' | 'day';
     numberYear?: number;
     monthInYear?: number | string;
   }
 ) {
-  const { type, size, suffixIcon, typePicker, numberYear, monthInYear } = props;
+  const { type, size, suffixIcon, typePicker, numberYear, monthInYear, ...rest } = props;
   const combinedClassName = [
     type === 'primary' && styles.selectPrimary,
     type === 'default' && styles.customSelect,
@@ -48,7 +48,7 @@ function DatePicker(
               </svg>
             )
           }
-          {...props}
+          {...rest}
         />
       </div>
     );
@@ -73,7 +73,7 @@ function DatePicker(
               </svg>
             )
           }
-          {...props}
+          {...rest}
         />
       </div>
     );
@@ -98,13 +98,16 @@ function DatePicker(
             </svg>
           )
         }
-        {...props}
+        {...rest}
       />
     </div>
   );
 }
 DatePicker.defaultProps = {
   type: 'default',
+  typePicker: undefined,
+  numberYear: undefined,
+  monthInYear: undefined,
 };
 
 export default DatePicker;

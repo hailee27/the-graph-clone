@@ -6,19 +6,20 @@ import Form4MajorRisksOfLife from './Form4MajorRisksOfLife';
 
 function LifeDiagnosis() {
   const [form] = Form.useForm();
+
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] pt-[56px] pb-[80px] print:px-[20px] ">
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] pt-[56px] print:pt-[30px] print:break-before-page pb-[80px] print:px-[20px] ">
         <h2 className="text-[26px] font-bold text-center">「人生１００年時代を幸せに生きる為に押さえるべき６項目」</h2>
         {/* eslint-disable-next-line no-console */}
-        <Form className="mt-[64px]" form={form} onFinish={(e) => console.log(e)}>
+        <Form className="mt-[64px] " form={form} name="formLifeDiagnosis" onFinish={(e) => console.log(e)}>
           <FormHouseHoldAndLivingEnvironmant />
-          <div className="mt-[56px]">
+          <div className="mt-[56px] print:mt-[30px] print:break-before-page">
             <Form4MajorRisksOfLife />
           </div>
         </Form>
       </div>
-      <div className="flex items-center justify-center mt-[80px] mb-[200px]">
+      <div className="flex items-center justify-center mt-[80px] mb-[200px]  print:hidden">
         <BasicButton className="h-[77px] w-[400px]" onClick={() => form.submit()} type="secondary">
           <div className="flex items-center justify-center space-x-[10px]">
             <span className="text-[18px] font-bold text-[#ffffff]">診断する</span>

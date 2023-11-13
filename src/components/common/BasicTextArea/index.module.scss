@@ -26,3 +26,13 @@
     }
   }
 }
+@media print {
+  .customeTextArea {
+    width: 100%;
+    :global {
+      .ant-input {
+        font-size: 12px;
+      }
+    }
+  }
+}
