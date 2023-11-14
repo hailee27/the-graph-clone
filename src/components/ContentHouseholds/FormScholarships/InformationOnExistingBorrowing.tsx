@@ -42,14 +42,14 @@ function InformationOnExistingBorrowing(props: Props) {
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">残債</span>
                 <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'remainingDebt']}>
-                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" />
+                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">万円</span>
               </div>
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">月々</span>
                 <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'monthly']}>
-                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" />
+                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">円</span>
               </div>
@@ -83,14 +83,14 @@ function InformationOnExistingBorrowing(props: Props) {
                   className="!mb-0 flex-1"
                   name={[`${type}`, 'scholarships', 'borrowing', 'numberOfYearsLeft']}
                 >
-                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" />
+                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">年</span>
               </div>
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">ボーナス</span>
                 <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'bonus']}>
-                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" />
+                  <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">年</span>
               </div>

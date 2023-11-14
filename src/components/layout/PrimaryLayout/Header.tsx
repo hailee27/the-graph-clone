@@ -1,10 +1,13 @@
 import moment from 'moment';
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateAccessToken } from '../../../redux/slices/auth.slice';
+import { RootState } from '../../../redux/store';
 
 function Header() {
   const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.auth);
+
   return (
     <div className="pt-[40px]  ">
       <div className="flex items-center justify-end space-x-[32px]">
@@ -27,8 +30,8 @@ function Header() {
           </svg>
         </div>
         <div className="text-primary-text h-[28px] flex flex-col items-start justify-center">
-          <span className="text-[13px] leading-[20px] font-medium">山田 太郎</span>
-          <span className="text-[11px] leading-[17.6px]">00000000000</span>
+          <span className="text-[13px] leading-[20px] font-medium">{user?.name}</span>
+          <span className="text-[11px] leading-[17.6px]">{user?.id}</span>
         </div>
         <div
           className="text-primary-text h-[28px] flex items-center justify-center cursor-pointer space-x-[6px]"

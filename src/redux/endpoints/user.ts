@@ -1,12 +1,41 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { api } from '../api';
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
-    getPokemonByName: build.query<any, string>({
-      query: (name) => `pokemon/${name}`,
+    postLogin: build.mutation<PostLoginResponse, PostLoginParams>({
+      query: (queryArg) => ({
+        url: '/auth/login',
+        method: 'POST',
+        body: queryArg,
+      }),
     }),
   }),
 });
+
+export type PostLoginResponse = {
+  accessToken?: string | undefined | null;
+  refreshToken?: string | undefined | null;
+  user?: TypeUser;
+};
+export type TypeUser = {
+  id?: number;
+  name?: string;
+  role?: string;
+  twoFactorMethod?: string;
+  isVerified?: boolean;
+  uuid?: string;
+  deletedByAdmin?: boolean;
+  deletedFlg?: boolean;
+  createdAt?: string;
+  updatedAt?: string | undefined | null;
+  deletedAt?: string | undefined | null;
+  lastActive?: string;
+  isVerifiedAt?: string;
+  prefersEmailId?: number;
+};
+export type PostLoginParams = {
+  email: string;
+  password: string;
+};
 export { injectedRtkApi as UserApi };
-export const { useGetPokemonByNameQuery } = injectedRtkApi;
+export const { usePostLoginMutation } = injectedRtkApi;
