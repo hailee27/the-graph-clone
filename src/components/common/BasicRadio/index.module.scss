@@ -1,4 +1,4 @@
-.customeRadio {
+.primaryRadio {
   :global {
     .ant-radio-inner {
       border-color: var(--primary) !important;
@@ -9,6 +9,32 @@
 
     .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
       background-color: var(--primary);
+    }
+    .ant-radio-wrapper .ant-radio-checked::after {
+      border-color: var(--primary) !important;
+      border: 1px solid var(--primary);
+    }
+    .ant-radio-wrapper {
+      margin-inline-end: 0px !important;
+    }
+    .ant-radio-wrapper span.ant-radio + * {
+      padding-inline-start: 8px;
+      padding-inline-end: 0px;
+    }
+  }
+}
+.defaultRadio {
+  :global {
+    .ant-radio-inner {
+      border-color: var(--primary-tex) !important;
+    }
+    .ant-radio-wrapper.ant-radio-checked::after {
+      border: 1px solid var(--primary);
+    }
+
+    .ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+      background-color: var(--primary);
+      border-color: var(--primary) !important;
     }
     .ant-radio-wrapper .ant-radio-checked::after {
       border-color: var(--primary) !important;

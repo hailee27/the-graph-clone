@@ -14,10 +14,10 @@ function Home() {
         <div className="bg-[#FFFFFF] rounded-[16px] flex-1 w-full flex items-center justify-center">
           <Radio.Group defaultValue={value} onChange={(e) => setValue(e.target.value)}>
             <div className="flex space-x-[64px]">
-              <BasicRadio value="single">
+              <BasicRadio typeRadio="primary" value="single">
                 <span className="text-[18px] font-bold text-primary">単身世帯の方</span>
               </BasicRadio>
-              <BasicRadio value="multiple">
+              <BasicRadio typeRadio="primary" value="multiple">
                 <span className="text-[18px] font-bold text-primary">複数世帯（2人）以上</span>
               </BasicRadio>
             </div>
