@@ -25,7 +25,8 @@
     "react-to-print": "^2.14.15",
     "redux-persist": "^6.0.0",
     "sass": "^1.69.5",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "wanakana": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
