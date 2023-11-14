@@ -23,11 +23,12 @@ function InformationBasic(props: Props) {
   const year = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'year'], form);
   const month = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form);
   const day = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
-  const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
-  const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
 
   const firstName = Form.useWatch([`${type}`, 'inforBasic', 'name', 'firstName']);
   const lastName = Form.useWatch([`${type}`, 'inforBasic', 'name', 'lastName']);
+
+  const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
+  const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
   const savingRate = useMemo(() => {
     if (savingMonth && savingTotalAmount) {
       return Math.round((Number(savingMonth) / Number(savingTotalAmount)) * 100);
@@ -202,7 +203,7 @@ function InformationBasic(props: Props) {
             <Form.Item className="!mb-0" name={[`${type}`, 'inforBasic', 'birthDay', 'day']}>
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[80px]  print:!w-[57px] ' : ' !w-[120px]'} `}
-                monthInYear={month}
+                monthInYear={month ?? moment().format('MM')}
                 placeholder={moment().format('DD')}
                 type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
                 typePicker="day"
