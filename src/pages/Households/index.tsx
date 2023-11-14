@@ -11,6 +11,7 @@ function HouseholdsPage() {
       navigate('/');
     }
   }, [slug]);
+
   return <Households />;
 }
 
