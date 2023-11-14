@@ -21,14 +21,14 @@ function Households() {
   });
 
   return (
-    <Spin size="large" spinning={spin}>
-      <Form.Provider
-        onFormFinish={() => {
-          setSpin(true);
-          handlePrint();
-        }}
-      >
-        <div className="mt-[40px] print:mt-0  max-w-[1344px] w-full " ref={ref}>
+    <Form.Provider
+      onFormFinish={() => {
+        setSpin(true);
+        handlePrint();
+      }}
+    >
+      <div className="mt-[40px] print:mt-0  max-w-[1344px] w-full " ref={ref}>
+        <Spin size="large" spinning={spin}>
           <Tab
             defaultValue="1"
             items={[
@@ -79,9 +79,9 @@ function Households() {
               },
             ]}
           />
-        </div>
-      </Form.Provider>
-    </Spin>
+        </Spin>
+      </div>
+    </Form.Provider>
   );
 }
 

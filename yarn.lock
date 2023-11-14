@@ -4118,6 +4118,11 @@ vite@^4.4.5:
   optionalDependencies:
     fsevents "~2.3.2"
 
+wanakana@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/wanakana/-/wanakana-5.2.0.tgz#697ebd052a2e99146b14766c5f48577b8ca18501"
+  integrity sha512-5oYP9ZLfj181aldBy3JB83UoMH0YRl5QW/AgvXT56ck/n9N6/Zj9N/e04QGBtqNpmME84M3kbV1Ev3KdxXlzGg==
+
 which-boxed-primitive@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/which-boxed-primitive/-/which-boxed-primitive-1.0.2.tgz#13757bc89b209b049fe5d86430e21cf40a89a8e6"
