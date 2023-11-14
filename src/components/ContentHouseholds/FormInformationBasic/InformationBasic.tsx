@@ -459,7 +459,7 @@ function InformationBasic(props: Props) {
       {/* gambling */}
       <div className="flex w-full h-full  items-start ">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] pt-[8px] font-bold">お名前</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] pt-[8px] font-bold">ギャンブル</div>
         )}
         <div
           className={`

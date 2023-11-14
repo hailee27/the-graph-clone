@@ -82,7 +82,7 @@ function ContentHouseholds() {
           <CardFix
             content={
               <div className="px-[34px] flex space-x-[8px] items-center">
-                <BasicInput className="bg-primary-light" placeholder="10,000" />
+                <BasicInput className="bg-primary-light" placeholder="10,000" type="number" />
                 <span className="text-[14px] font-bold">円</span>
               </div>
             }
@@ -91,7 +91,7 @@ function ContentHouseholds() {
           <CardFix
             content={
               <div className="px-[34px] flex space-x-[8px] items-center">
-                <BasicInput className="bg-primary-light" placeholder="10,000" />
+                <BasicInput className="bg-primary-light" placeholder="10,000" type="number" />
                 <span className="text-[14px] font-bold">円</span>
               </div>
             }
