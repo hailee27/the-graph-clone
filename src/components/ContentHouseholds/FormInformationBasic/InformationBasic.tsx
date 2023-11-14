@@ -1,7 +1,7 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import BasicInput from '../../common/BasicInput';
 import SelectButton from '../../common/SelectButton';
 // import DatePickerWithType from '../../common/DatePickerWithType';
@@ -10,6 +10,7 @@ import BasicButton from '../../common/BasicButton';
 import BasicTextArea from '../../common/BasicTextArea';
 import moment from 'moment';
 import DatePicker from '../../common/DatePicker';
+import { toKatakana } from 'wanakana';
 
 interface Props {
   disabledLabel?: boolean;
@@ -24,16 +25,29 @@ function InformationBasic(props: Props) {
   const day = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
   const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
   const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
+
+  const firstName = Form.useWatch([`${type}`, 'inforBasic', 'name', 'firstName']);
+  const lastName = Form.useWatch([`${type}`, 'inforBasic', 'name', 'lastName']);
   const savingRate = useMemo(() => {
     if (savingMonth && savingTotalAmount) {
       return Math.round((Number(savingMonth) / Number(savingTotalAmount)) * 100);
     }
     return '00';
   }, [savingMonth, savingTotalAmount]);
-  // w-[176px] -> 70px
-  // text-[14px] print:text-[10px] ->8px
-  // h-[66px]
-  // 28px->28px
+
+  useEffect(() => {
+    form.setFieldsValue({
+      [`${type}`]: {
+        inforBasic: {
+          name1: {
+            firstName: toKatakana(firstName),
+            lastName: toKatakana(lastName),
+          },
+        },
+      },
+    });
+  }, [firstName, lastName]);
+
   return (
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
