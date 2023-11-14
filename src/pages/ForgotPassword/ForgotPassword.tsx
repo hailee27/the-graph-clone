@@ -32,7 +32,7 @@ function ForgotPassword() {
             <Form.Item
               className="!w-full "
               name="password"
-              rules={[{ required: true, min: 8, message: 'パスワード（英数字8文字以上）' }]}
+              rules={[{ required: true, min: 8, message: 'パスワードを入力してください!' }]}
             >
               <BasicInput placeholder="パスワード（英数字8文字以上）" type="password" />
             </Form.Item>
@@ -40,10 +40,10 @@ function ForgotPassword() {
               className="!w-full "
               name="passwordConfirm"
               rules={[
-                {
-                  required: true,
-                  message: 'パスワードを入力してください!',
-                },
+                // {
+                //   required: true,
+                //   message: 'パスワードを入力してください!',
+                // },
                 {
                   required: true,
 

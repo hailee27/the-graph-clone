@@ -27,14 +27,14 @@ function Households() {
         handlePrint();
       }}
     >
-      <div className="mt-[40px] print:mt-0  max-w-[1344px] w-full " ref={ref}>
+      <div className="mt-[40px] print:mt-0 w-full" ref={ref}>
         <Spin size="large" spinning={spin}>
           <Tab
             defaultValue="1"
             items={[
               {
                 key: '1',
-                label: slug === 'multiple' ? 'ライフメイクカルテ（一般世帯）' : 'ライフメイクカルテ（単身世帯）',
+                label: slug === 'multiple' ? 'ライフメイクカルテ（一般世帯）' : 'ライフメイクカルテ（複数世帯）',
                 children: (
                   <Suspense
                     fallback={
