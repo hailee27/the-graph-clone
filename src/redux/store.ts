@@ -6,6 +6,7 @@ import { api } from './api';
 
 const rootReducer = combineReducers({
   auth: authSlice,
+
   [api.reducerPath]: api.reducer,
 });
 const persistConfig = {

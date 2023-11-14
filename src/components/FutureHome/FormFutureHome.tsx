@@ -35,7 +35,7 @@ function FormFutureHome() {
         <Form.Item className="!m-0 flex-1" name="reasonPurchasingHome">
           <BasicTextArea
             className="bg-primary-light"
-            placeholder="自由にご記入ください"
+            placeholder="Ex）何年後に実家に帰るか？実家の建て直し、リフォームは？ずっと賃貸でいいと思える理由は？等"
             style={{ height: '136px', resize: 'none' }}
           />
         </Form.Item>

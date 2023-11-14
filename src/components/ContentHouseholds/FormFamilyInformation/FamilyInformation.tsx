@@ -183,10 +183,12 @@ function FamilyInformation(props: Props) {
             >
               <SelectButton
                 options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
+                  { value: '1', label: '配偶者' },
+                  { value: '2', label: '子供' },
+                  { value: '3', label: '世帯主の父母' },
+                  { value: '4', label: '配偶者の父母' },
+                  { value: '5', label: '兄弟姉妹' },
+                  { value: '6', label: 'その他' },
                 ]}
                 placeholder="選択してください"
                 type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
