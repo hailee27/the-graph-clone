@@ -79,6 +79,9 @@ body {
   min-height: 100%; */
 }
 
+.ant-spin .ant-spin-dot-item {
+  background-color: var(--secondary);
+}
 h1 {
   font-size: 3.2em;
   line-height: 1.1;

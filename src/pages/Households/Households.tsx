@@ -38,7 +38,7 @@ function Households() {
                 children: (
                   <Suspense
                     fallback={
-                      <Spin size="large" tip="Loading">
+                      <Spin size="large">
                         <div className="w-screen h-screen"></div>
                       </Spin>
                     }
@@ -53,7 +53,7 @@ function Households() {
                 children: (
                   <Suspense
                     fallback={
-                      <Spin size="large" tip="Loading">
+                      <Spin size="large">
                         <div className="w-screen h-screen"></div>
                       </Spin>
                     }
@@ -68,7 +68,7 @@ function Households() {
                 children: (
                   <Suspense
                     fallback={
-                      <Spin size="large" tip="Loading">
+                      <Spin size="large">
                         <div className="w-screen h-screen"></div>
                       </Spin>
                     }
