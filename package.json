@@ -1,7 +1,7 @@
 {
   "name": "jinsei-shindan",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
@@ -27,7 +27,9 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.69.5",
     "vite": "^4.4.5",
-    "wanakana": "^5.2.0"
+    "wanakana": "^5.2.0",
+    "dotenv": "^16.3.1",
+    "eslint-config-airbnb-typescript": "^17.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
