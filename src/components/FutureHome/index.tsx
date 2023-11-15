@@ -8,7 +8,7 @@ function FutureHome() {
 
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:py-[30px] print:px-[20px]">
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:p-0">
         <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
           将来の住まいのご予定をお聞かせください
         </div>

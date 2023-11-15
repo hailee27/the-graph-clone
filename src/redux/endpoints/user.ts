@@ -9,6 +9,13 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg,
       }),
     }),
+    postLogout: build.mutation({
+      query: () => ({
+        url: '/auth/logout',
+        method: 'POST',
+        // body: queryArg,
+      }),
+    }),
   }),
 });
 
@@ -38,4 +45,4 @@ export type PostLoginParams = {
   password: string;
 };
 export { injectedRtkApi as UserApi };
-export const { usePostLoginMutation } = injectedRtkApi;
+export const { usePostLoginMutation, usePostLogoutMutation } = injectedRtkApi;
