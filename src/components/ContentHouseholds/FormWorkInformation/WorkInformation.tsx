@@ -18,7 +18,7 @@ function WorkInformation(props: Props) {
         <div className="flex w-full h-full">
           {!disabledLabel && <div className="w-[176px] print:w-[70px]"></div>}
           <div
-            className={`w-[528px] print:w-[332px] print:px-[24px] ${type === 'husband' && 'bg-primary-light '} ${
+            className={`w-[528px] print:w-[350px] print:px-[24px] ${type === 'husband' && 'bg-primary-light '} ${
               type === 'wife' && 'bg-secondary-thin '
             } bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
@@ -42,7 +42,7 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -95,7 +95,7 @@ function WorkInformation(props: Props) {
           className={`
           ${
             type === 'husband' || type === 'wife'
-              ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+              ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
               : 'w-full pl-[48px]'
           } 
           ${type === 'husband' && 'bg-primary-light '} 
@@ -139,7 +139,7 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -163,7 +163,7 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -190,7 +190,7 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -220,7 +220,7 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -252,7 +252,7 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -297,7 +297,7 @@ function WorkInformation(props: Props) {
       </div>
 
       {/* MEMO */}
-      <div className="flex w-full h-full  items-start ">
+      <div className="flex w-full h-full  items-start   ">
         {!disabledLabel && (
           <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[14px]">メモ</div>
         )}
@@ -305,12 +305,12 @@ function WorkInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] print:break-before-page'
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
-            flex flex-col space-y-[24px] pb-[66px] rounded-b-[16px] `}
+            flex flex-col space-y-[24px] pb-[66px] rounded-b-[16px] print:pt-[24px]  `}
         >
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'memo']}>
             <BasicTextArea

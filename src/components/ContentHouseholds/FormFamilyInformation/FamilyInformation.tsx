@@ -19,7 +19,7 @@ function FamilyInformation(props: Props) {
         <div className="flex w-full h-full">
           {!disabledLabel && <div className="w-[176px] print:w-[70px]"></div>}
           <div
-            className={`w-[528px] print:w-[332px] print:px-[20px] ${type === 'husband' && 'bg-primary-light '} ${
+            className={`w-[528px] print:w-[350px] print:px-[20px] ${type === 'husband' && 'bg-primary-light '} ${
               type === 'wife' && 'bg-secondary-thin '
             } bg-primary-light rounded-t-[16px] h-[66px] relative`}
           >
@@ -43,7 +43,7 @@ function FamilyInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -70,7 +70,7 @@ function FamilyInformation(props: Props) {
           className={`
           ${
             type === 'husband' || type === 'wife'
-              ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
+              ? 'w-[528px] print:w-[350px] print:px-[20px] px-[48px] '
               : 'w-full pl-[48px]'
           } 
           ${type === 'husband' && 'bg-primary-light '} 
@@ -126,7 +126,7 @@ function FamilyInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -168,7 +168,7 @@ function FamilyInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -220,7 +220,7 @@ function FamilyInformation(props: Props) {
           <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[48px]">相続</div>
         )}
         <div
-          className={`w-[528px] print:w-[332px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
+          className={`w-[528px] print:w-[350px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
           }  px-[48px]  pt-[42px]`}
         >
@@ -248,7 +248,7 @@ function FamilyInformation(props: Props) {
           <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] pt-[48px] font-bold">介護</div>
         )}
         <div
-          className={`w-[528px] print:w-[332px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
+          className={`w-[528px] print:w-[350px] print:px-[20px]  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col px-[48px] space-y-[24px] pt-[42px] pb-[48px] `}
         >
@@ -276,7 +276,7 @@ function FamilyInformation(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[20px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[20px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
