@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  const envFile = mode === 'development' ? '.env.development' : '.env.production';
+  const envFile = mode === 'develop' ? '.env.sample.develop' : '.env.sample.staging';
   dotenv.config({ path: envFile });
   return {
     plugins: [react()],

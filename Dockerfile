@@ -1,11 +1,13 @@
 # Step 1: Build the application
 FROM node:16 AS builder
+ARG MODE=staging
+
 WORKDIR /app
 COPY package.json yarn.lock ./
 RUN yarn install --frozen-lockfile
 
 COPY . .
-RUN yarn build
+RUN yarn build --  --mode $MODE
 
 # Step 2: Set up the production environment
 FROM nginx:stable-alpine
