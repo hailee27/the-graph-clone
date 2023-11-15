@@ -13,6 +13,7 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.2.6",
     "@reduxjs/toolkit": "^1.9.7",
     "@vitejs/plugin-react": "^4.0.3",
     "antd": "^5.10.3",

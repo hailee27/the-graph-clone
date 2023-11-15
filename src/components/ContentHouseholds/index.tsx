@@ -25,7 +25,7 @@ function ContentHouseholds() {
   // px-[48] -24
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:py-[30px] print:px-[24px]">
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:p-0 ">
         <Form
           form={form}
           name="formContentHouseholds"
@@ -34,16 +34,16 @@ function ContentHouseholds() {
         >
           <FormInformationBasic typeContent={typeContent} />
 
-          <div className="mt-[68px] print:mt-[30px] print:break-before-page">
+          <div className="mt-[68px] print:mt-0 print:pt-0  print:break-before-page">
             <FormWorkInformation typeContent={typeContent} />
           </div>
-          <div className="mt-[68px] print:mt-[30px] print:break-before-page">
+          <div className="mt-[68px] print:mt-0 print:pt-0  print:break-before-page">
             <FormFamilyInformation typeContent={typeContent} />
           </div>
-          <div className="mt-[68px] print:mt-[30px] print:break-before-page">
+          <div className="mt-[68px] print:mt-0 print:pt-0  print:break-before-page">
             <FormNewHouseInformation />
           </div>
-          <div className="print:mt-[30px] print:break-before-page">
+          <div className=" print:break-before-page">
             <FormScholarships />
           </div>
         </Form>

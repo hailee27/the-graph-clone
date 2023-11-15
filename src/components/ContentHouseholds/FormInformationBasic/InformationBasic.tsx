@@ -56,7 +56,7 @@ function InformationBasic(props: Props) {
           {!disabledLabel && <div className="w-[176px] print:w-[70px]"></div>}
           <div
             className={`
-              ${type === 'husband' || type === 'wife' ? 'w-[528px] print:w-[332px] print:px-[24px]' : 'w-full'} 
+              ${type === 'husband' || type === 'wife' ? 'w-[528px] print:w-[350px] print:px-[24px]' : 'w-full'} 
               ${type === 'husband' && 'bg-primary-light '} 
               ${type === 'wife' && 'bg-secondary-thin '}
               bg-primary-light rounded-t-[16px] h-[66px] relative`}
@@ -81,7 +81,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px] '
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -113,7 +113,7 @@ function InformationBasic(props: Props) {
         <div
           className={`${
             type === 'husband' || type === 'wife'
-              ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+              ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
               : 'w-full pl-[48px]'
           }   ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
@@ -143,7 +143,7 @@ function InformationBasic(props: Props) {
           <div
             className={`${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             }   ${type === 'husband' && 'bg-primary-light '} ${
               type === 'wife' && 'bg-secondary-thin '
@@ -174,7 +174,7 @@ function InformationBasic(props: Props) {
           className={` 
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '}
@@ -231,7 +231,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -261,7 +261,7 @@ function InformationBasic(props: Props) {
                   <Form.Item
                     className=" flex-1 !mb-0"
                     name={[`${type}`, 'inforBasic', 'address', 'code']}
-                    rules={[{ required: true, message: '郵便番号入力してください' }]}
+                    // rules={[{ required: true, message: '郵便番号入力してください' }]}
                   >
                     <BasicInput
                       className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light max-w-[400px] w-full'}
@@ -322,7 +322,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             }
             ${type === 'husband' && 'bg-primary-light '}
@@ -391,7 +391,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             }
             ${type === 'husband' && 'bg-primary-light '}
@@ -421,7 +421,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             } 
             ${type === 'husband' && 'bg-primary-light '} 
@@ -465,7 +465,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             }
             ${type === 'husband' && 'bg-primary-light '} 
@@ -505,7 +505,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             }
             ${type === 'husband' && 'bg-primary-light '}
@@ -530,7 +530,7 @@ function InformationBasic(props: Props) {
           className={`
             ${
               type === 'husband' || type === 'wife'
-                ? 'w-[528px] print:w-[332px] print:px-[24px] px-[48px]'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px]'
                 : 'w-full pl-[48px]'
             }   
             ${type === 'husband' && 'bg-primary-light '} 

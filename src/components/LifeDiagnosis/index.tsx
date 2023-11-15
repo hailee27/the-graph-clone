@@ -9,12 +9,12 @@ function LifeDiagnosis() {
 
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] pt-[56px] print:pt-[30px] print:break-before-page pb-[80px] print:px-[20px] ">
+      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] pt-[56px] print:p-0 print:break-before-page pb-[80px]">
         <h2 className="text-[26px] font-bold text-center">「人生１００年時代を幸せに生きる為に押さえるべき６項目」</h2>
         {/* eslint-disable-next-line no-console */}
         <Form className="mt-[64px] " form={form} name="formLifeDiagnosis" onFinish={(e) => console.log(e)}>
           <FormHouseHoldAndLivingEnvironmant />
-          <div className="mt-[56px] print:mt-[30px] print:break-before-page">
+          <div className="mt-[56px] print:mt-0  print:break-before-page">
             <Form4MajorRisksOfLife />
           </div>
         </Form>

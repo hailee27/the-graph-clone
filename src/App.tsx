@@ -11,6 +11,7 @@ function App() {
   const routesPrivate = useRoutes(routeConfig.private);
   const routesPublic = useRoutes(routeConfig.public);
   const navigate = useNavigate();
+
   useEffect(() => {
     if (!accessToken) {
       navigate('/');
