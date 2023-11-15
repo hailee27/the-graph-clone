@@ -1,6 +1,9 @@
 include:
   - template: Auto-DevOps.gitlab-ci.yml
 
+variables:
+  CI_DEPENDENCY_PROXY_SERVER: ''
+
 build:
   image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v1.49.0'
 .auto-deploy:
