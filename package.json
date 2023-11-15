@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --mode staging",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src/",
     "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
@@ -26,7 +26,9 @@
     "redux-persist": "^6.0.0",
     "sass": "^1.69.5",
     "vite": "^4.4.5",
-    "wanakana": "^5.2.0"
+    "wanakana": "^5.2.0",
+    "dotenv": "^16.3.1",
+    "eslint-config-airbnb-typescript": "^17.1.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
