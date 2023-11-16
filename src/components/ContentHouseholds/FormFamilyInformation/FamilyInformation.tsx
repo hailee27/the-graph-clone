@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import React from 'react';
 import { Form, Radio } from 'antd';
@@ -13,6 +14,7 @@ interface Props {
 }
 function FamilyInformation(props: Props) {
   const { disabledLabel, type } = props;
+  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
@@ -50,7 +52,11 @@ function FamilyInformation(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col  space-y-[8px] `}
         >
-          <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'familyInfor', 'placeOfBirth']}>
+          <Form.Item
+            className=" flex-1 !mb-0"
+            name={[`${type}`, 'familyInfor', 'placeOfBirth']}
+            rules={[{ max: 10, message: '10文字以内' }]}
+          >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
               placeholder="北海道旭市"
@@ -101,7 +107,24 @@ function FamilyInformation(props: Props) {
             </Form.Item>
             <div className="flex items-center flex-1 w-full  mt-[20px]">
               <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
-              <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'familyInfor', 'familyHome', 'age']}>
+              <Form.Item
+                className="!mb-0 flex-1"
+                name={[`${type}`, 'familyInfor', 'familyHome', 'age']}
+                rules={[
+                  { max: 3, message: '半角数字、3文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、3文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                   placeholder="20"
@@ -183,12 +206,12 @@ function FamilyInformation(props: Props) {
             >
               <SelectButton
                 options={[
-                  { value: '1', label: '配偶者' },
-                  { value: '2', label: '子供' },
-                  { value: '3', label: '世帯主の父母' },
-                  { value: '4', label: '配偶者の父母' },
-                  { value: '5', label: '兄弟姉妹' },
-                  { value: '6', label: 'その他' },
+                  { value: '兄弟姉妹', label: '兄弟姉妹' },
+                  { value: '世帯主の父母', label: '世帯主の父母' },
+                  { value: '子供', label: '子供' },
+                  { value: '配偶者', label: '配偶者' },
+                  { value: '配偶者の父母', label: '配偶者の父母' },
+                  { value: 'その他', label: 'その他' },
                 ]}
                 placeholder="選択してください"
                 type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
@@ -198,7 +221,24 @@ function FamilyInformation(props: Props) {
           <div>
             <div className="flex items-center flex-1 w-full  mt-[20px]">
               <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
-              <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', 'age']}>
+              <Form.Item
+                className="!mb-0 flex-1"
+                name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', 'age']}
+                rules={[
+                  { max: 3, message: '半角数字、3文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、3文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                   placeholder="50"
@@ -227,11 +267,11 @@ function FamilyInformation(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'inheritance']}>
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
-                <BasicRadio value="single">
+                {/* <BasicRadio value="single">
                   <span className="text-[14px] print:text-[10px] font-bold ">相続</span>
-                </BasicRadio>
+                </BasicRadio> */}
                 <BasicRadio value="multiple">
-                  <span className="text-[14px] print:text-[10px] font-bold ">相続済</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">相談済み</span>
                 </BasicRadio>
                 <BasicRadio value="multiple2">
                   <span className="text-[14px] print:text-[10px] font-bold ">相談なし</span>
@@ -283,7 +323,11 @@ function FamilyInformation(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col  space-y-[24px] pb-[66px] rounded-b-[16px] `}
         >
-          <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'memo']}>
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'familyInfor', 'memo']}
+            rules={[{ max: 60, message: '半角数字、60文字以内' }]}
+          >
             <BasicTextArea
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
               placeholder="ご自由に記入ください"

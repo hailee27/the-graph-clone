@@ -1,3 +1,4 @@
+/* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
 import React from 'react';
 import BasicButton from '../../common/BasicButton';
@@ -12,6 +13,7 @@ interface Props {
 
 function InformationOnExistingBorrowing(props: Props) {
   const { type } = props;
+  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
       {/* Planned new home */}
@@ -41,14 +43,48 @@ function InformationOnExistingBorrowing(props: Props) {
               </div>
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">残債</span>
-                <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'remainingDebt']}>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'scholarships', 'borrowing', 'remainingDebt']}
+                  rules={[
+                    { max: 10, message: '半角数字、10文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (RegexKatakanaHalfWidth.exec(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、10文字以内');
+                        }
+                        return Promise.resolve();
+                      },
+                    },
+                  ]}
+                >
                   <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">万円</span>
               </div>
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">月々</span>
-                <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'monthly']}>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'scholarships', 'borrowing', 'monthly']}
+                  rules={[
+                    { max: 10, message: '半角数字、10文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、10文字以内');
+                        }
+                        return Promise.resolve();
+                      },
+                    },
+                  ]}
+                >
                   <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">円</span>
@@ -72,7 +108,24 @@ function InformationOnExistingBorrowing(props: Props) {
             <div className="flex-1 flex flex-col space-y-[8px]">
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">借入先</span>
-                <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'borrower']}>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'scholarships', 'borrowing', 'borrower']}
+                  rules={[
+                    // { max: 2, message: '半角数字、2文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (value.length > 2 && RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、2文字以内');
+                        }
+                        return Promise.resolve();
+                      },
+                    },
+                  ]}
+                >
                   <BasicInput className="bg-primary-light" placeholder="ここに記入してください" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">種類</span>
@@ -82,6 +135,20 @@ function InformationOnExistingBorrowing(props: Props) {
                 <Form.Item
                   className="!mb-0 flex-1"
                   name={[`${type}`, 'scholarships', 'borrowing', 'numberOfYearsLeft']}
+                  rules={[
+                    { max: 2, message: '半角数字、2文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、2文字以内');
+                        }
+                        return Promise.resolve();
+                      },
+                    },
+                  ]}
                 >
                   <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
@@ -89,7 +156,24 @@ function InformationOnExistingBorrowing(props: Props) {
               </div>
               <div className="flex items-center w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">ボーナス</span>
-                <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'bonus']}>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'scholarships', 'borrowing', 'bonus']}
+                  rules={[
+                    { max: 10, message: '半角数字、10文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、10文字以内');
+                        }
+                        return Promise.resolve();
+                      },
+                    },
+                  ]}
+                >
                   <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
                 </Form.Item>
                 <span className="text-[14px] font-bold pl-[8px]">年</span>
@@ -126,7 +210,11 @@ function InformationOnExistingBorrowing(props: Props) {
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col pl-[48px] space-y-[24px] pb-[66px] rounded-b-[16px] `}
         >
-          <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'scholarships', 'memo']}>
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'scholarships', 'memo']}
+            rules={[{ max: 60, message: '60文字以内' }]}
+          >
             <BasicTextArea
               className="bg-primary-light"
               placeholder="自由にご記入ください"

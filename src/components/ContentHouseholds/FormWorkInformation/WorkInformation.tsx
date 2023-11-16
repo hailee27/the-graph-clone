@@ -12,6 +12,7 @@ interface Props {
 }
 function WorkInformation(props: Props) {
   const { disabledLabel, type } = props;
+  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
@@ -51,7 +52,11 @@ function WorkInformation(props: Props) {
         >
           <div className="flex items-center justify-center space-x-[32px] w-full">
             <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">会社名</span>
-            <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'workInfor', 'placeOfWork', 'companyName']}>
+            <Form.Item
+              className=" flex-1 !mb-0"
+              name={[`${type}`, 'workInfor', 'placeOfWork', 'companyName']}
+              rules={[{ max: 30, message: '30文字以内' }]}
+            >
               <BasicInput
                 className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                 placeholder="日本リアライズ株式会社"
@@ -61,7 +66,24 @@ function WorkInformation(props: Props) {
           <div className="flex w-full items-center space-x-[8px]">
             <div className="flex items-center justify-center space-x-[32px] w-full">
               <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">資本金</span>
-              <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'workInfor', 'placeOfWork', 'capital']}>
+              <Form.Item
+                className=" flex-1 !mb-0"
+                name={[`${type}`, 'workInfor', 'placeOfWork', 'capital']}
+                rules={[
+                  { max: 12, message: '半角数字、12文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、12文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                   placeholder="100000000"
@@ -74,7 +96,24 @@ function WorkInformation(props: Props) {
           <div className="flex w-full items-center space-x-[8px]">
             <div className="flex items-center justify-center space-x-[32px] w-full">
               <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">社員数</span>
-              <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'workInfor', 'placeOfWork', 'numberOfEmployees']}>
+              <Form.Item
+                className=" flex-1 !mb-0"
+                name={[`${type}`, 'workInfor', 'placeOfWork', 'numberOfEmployees']}
+                rules={[
+                  { max: 10, message: '半角数字、10文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、10文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                   placeholder="50"
@@ -105,11 +144,28 @@ function WorkInformation(props: Props) {
           <div className="flex w-full items-center space-x-[8px]">
             <div className="flex items-center justify-center space-x-[32px] flex-1 w-full">
               <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">年収</span>
-              <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'workInfor', 'salary', 'annualIncome']}>
+              <Form.Item
+                className=" flex-1 !mb-0"
+                name={[`${type}`, 'workInfor', 'salary', 'annualIncome']}
+                rules={[
+                  { max: 10, message: '半角数字、10文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、10文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                   placeholder="300"
-                  type="number"
+                  // type="number"
                 />
               </Form.Item>
             </div>
@@ -118,7 +174,21 @@ function WorkInformation(props: Props) {
           <div className="flex w-full items-center space-x-[8px]">
             <div className="flex items-center justify-center space-x-[32px] flex-1 w-full">
               <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">月手取り</span>
-              <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'workInfor', 'salary', 'monthlytakehomePay']}>
+              <Form.Item
+                className=" flex-1 !mb-0"
+                name={[`${type}`, 'workInfor', 'salary', 'monthlytakehomePay']}
+                rules={[
+                  { max: 10, message: '半角数字、10文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (RegexKatakanaHalfWidth.test(value)) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject('半角数字、10文字以内');
+                    },
+                  },
+                ]}
+              >
                 <BasicInput
                   className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                   placeholder="20"
@@ -146,7 +216,11 @@ function WorkInformation(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '}         
             flex  items-center  pt-[48px]`}
         >
-          <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'dutyStation']}>
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'workInfor', 'dutyStation']}
+            rules={[{ required: true, message: '10文字以内' }]}
+          >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
               placeholder="新宿区新宿"
@@ -170,7 +244,21 @@ function WorkInformation(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '}
             flex space-x-[8px] items-center  pt-[48px]`}
         >
-          <Form.Item className="!mb-0 !w-full flex-1" name={[`${type}`, 'workInfor', 'lengthOfService']}>
+          <Form.Item
+            className="!mb-0 !w-full flex-1"
+            name={[`${type}`, 'workInfor', 'lengthOfService']}
+            rules={[
+              // { max: 2, message: '半角数字、2文字以内' },
+              {
+                validator: (_, value) => {
+                  if (value?.length <= 2 && RegexKatakanaHalfWidth.test(value)) {
+                    return Promise.resolve();
+                  }
+                  return Promise.reject('半角数字、2文字以内');
+                },
+              },
+            ]}
+          >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
               placeholder="5"
@@ -284,7 +372,24 @@ function WorkInformation(props: Props) {
             </Radio.Group>
           </Form.Item>
           <div className="flex items-center space-x-[8px]">
-            <Form.Item className="!mb-0 !w-full flex-1" name={[`${type}`, 'workInfor', 'commutingTime', 'time']}>
+            <Form.Item
+              className="!mb-0 !w-full flex-1"
+              name={[`${type}`, 'workInfor', 'commutingTime', 'time']}
+              rules={[
+                { max: 3, message: '半角数字、3文字以内' },
+                {
+                  validator: (_, value) => {
+                    if (value) {
+                      if (RegexKatakanaHalfWidth.test(value)) {
+                        return Promise.resolve();
+                      }
+                      return Promise.reject('半角数字、3文字以内');
+                    }
+                    return Promise.resolve();
+                  },
+                },
+              ]}
+            >
               <BasicInput
                 className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                 placeholder="20"
@@ -312,7 +417,11 @@ function WorkInformation(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '}
             flex flex-col space-y-[24px] pb-[66px] rounded-b-[16px] print:pt-[24px]  `}
         >
-          <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'memo']}>
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'workInfor', 'memo']}
+            rules={[{ max: 60, message: '60文字以内' }]}
+          >
             <BasicTextArea
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
               placeholder="ご自由に記入ください"

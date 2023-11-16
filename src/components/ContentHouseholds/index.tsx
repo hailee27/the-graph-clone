@@ -21,17 +21,19 @@ function ContentHouseholds() {
     }
     return 'single';
   }, [slug]);
+  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
 
   // px-[48] -24
   return (
     <>
-      <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:p-0 ">
-        <Form
-          form={form}
-          name="formContentHouseholds"
-          onFinish={(e) => console.log(e)}
-          scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
-        >
+      <Form
+        form={form}
+        name="formContentHouseholds"
+        onFinish={(e) => console.log(e)}
+        scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
+        validateTrigger={['onBlur', 'onInput']}
+      >
+        <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:p-0 ">
           <FormInformationBasic typeContent={typeContent} />
 
           <div className="mt-[68px] print:mt-0 print:pt-0  print:break-before-page">
@@ -46,80 +48,112 @@ function ContentHouseholds() {
           <div className=" print:break-before-page">
             <FormScholarships />
           </div>
-        </Form>
-      </div>
-      <div className="mt-[24px] bg-[#ffffff] min-h-[585px] rounded-[16px] flex items-center justify-center flex-col print:hidden">
-        <h2 className="font-bold text-[40px] text-primary pb-[64px]">新生活で毎月支払う固定費</h2>
-        <div className="flex justify-between space-x-[8px]">
-          <CardFix
-            content={
-              <span className="text-[48px] font-bold">
-                0<span className="text-[24px] ml-[8px]">円</span>
-              </span>
-            }
-            title="希望家賃"
-          />
-          <CardFix
-            content={
-              <span className="text-[48px] font-bold">
-                0<span className="text-[24px] ml-[8px]">円</span>
-              </span>
-            }
-            title={
-              <span className="text-[#ffffff]">
-                生命保険料 <span className="text-[16px]">（定期）</span>
-              </span>
-            }
-          />
-          <CardFix
-            content={
-              <span className="text-[48px] font-bold">
-                0<span className="text-[24px] ml-[8px]">円</span>
-              </span>
-            }
-            title="返済等"
-          />
-          <CardFix
-            content={
-              <div className="px-[34px] flex space-x-[8px] items-center">
-                <BasicInput className="bg-primary-light" placeholder="10,000" type="number" />
-                <span className="text-[14px] font-bold">円</span>
-              </div>
-            }
-            title="税金  "
-          />
-          <CardFix
-            content={
-              <div className="px-[34px] flex space-x-[8px] items-center">
-                <BasicInput className="bg-primary-light" placeholder="10,000" type="number" />
-                <span className="text-[14px] font-bold">円</span>
-              </div>
-            }
-            title="電気代"
-          />
         </div>
-        <div className="flex space-x-[40px] max-h-[51px] mt-[40px] print:hidden">
-          <div className="flex items-end justify-center space-x-[36px] ">
-            <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
-            <span className="text-[70px] font-bold leading-[32px]">
-              0<span className="text-[40px] ml-[8px]">円</span>
-            </span>
+        <div className="mt-[24px] bg-[#ffffff] min-h-[585px] rounded-[16px] flex items-center justify-center flex-col print:hidden">
+          <h2 className="font-bold text-[40px] text-primary pb-[64px]">新生活で毎月支払う固定費</h2>
+          <div className="flex justify-between space-x-[8px]">
+            <CardFix
+              content={
+                <span className="text-[48px] font-bold">
+                  0<span className="text-[24px] ml-[8px]">円</span>
+                </span>
+              }
+              title="希望家賃"
+            />
+            <CardFix
+              content={
+                <span className="text-[48px] font-bold">
+                  0<span className="text-[24px] ml-[8px]">円</span>
+                </span>
+              }
+              title={
+                <span className="text-[#ffffff]">
+                  生命保険料 <span className="text-[16px]">（定期）</span>
+                </span>
+              }
+            />
+            <CardFix
+              content={
+                <span className="text-[48px] font-bold">
+                  0<span className="text-[24px] ml-[8px]">円</span>
+                </span>
+              }
+              title="返済等"
+            />
+            <CardFix
+              content={
+                <div className="px-[34px] flex space-x-[8px] items-center">
+                  <Form.Item
+                    className="!mb-0"
+                    name="tax"
+                    rules={[
+                      { max: 10, message: '半角数字、10文字以内' },
+                      {
+                        validator: (_, value) => {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字10文字以内');
+                        },
+                      },
+                    ]}
+                  >
+                    <BasicInput className="bg-primary-light" placeholder="10,000" type="number" />
+                  </Form.Item>
+                  <span className="text-[14px] font-bold">円</span>
+                </div>
+              }
+              title="税金  "
+            />
+            <CardFix
+              content={
+                <div className="px-[34px] flex space-x-[8px] items-center">
+                  <Form.Item
+                    className="!mb-0"
+                    name="electricBill"
+                    rules={[
+                      { max: 10, message: '半角数字、10文字以内' },
+                      {
+                        validator: (_, value) => {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字10文字以内');
+                        },
+                      },
+                    ]}
+                  >
+                    <BasicInput className="bg-primary-light" placeholder="10,000" type="number" />
+                  </Form.Item>
+                  <span className="text-[14px] font-bold">円</span>
+                </div>
+              }
+              title="電気代"
+            />
           </div>
-          <div className="flex items-center justify-center space-x-[36px] ">
-            <div className="flex flex-col">
-              <span className=" text-primary text-[14px] font-bold">二人の手取り給与に</span>
-              <span className=" text-primary text-[14px] font-bold underline underline-offset-[14px]">
-                対する固定費の割合
+          <div className="flex space-x-[40px] max-h-[51px] mt-[40px] print:hidden">
+            <div className="flex items-end justify-center space-x-[36px] ">
+              <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
+              <span className="text-[70px] font-bold leading-[32px]">
+                0<span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>
-            <div>
-              <span className="text-[70px] font-bold leading-normal">
-                0<span className="text-[40px] ml-[8px]">%</span>
-              </span>
+            <div className="flex items-center justify-center space-x-[36px] ">
+              <div className="flex flex-col">
+                <span className=" text-primary text-[14px] font-bold">二人の手取り給与に</span>
+                <span className=" text-primary text-[14px] font-bold underline underline-offset-[14px]">
+                  対する固定費の割合
+                </span>
+              </div>
+              <div>
+                <span className="text-[70px] font-bold leading-normal">
+                  0<span className="text-[40px] ml-[8px]">%</span>
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </Form>
       <div className="flex items-center justify-center mt-[80px] mb-[200px] print:hidden">
         <BasicButton className="h-[77px] w-[400px]" onClick={() => form.submit()} type="secondary">
           <div className="flex items-center justify-center space-x-[10px]">

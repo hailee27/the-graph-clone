@@ -1,7 +1,7 @@
-import React, { lazy, Suspense, useRef, useState } from 'react';
+import React, { lazy, Suspense, useRef } from 'react';
 import Tab from '../../components/common/Tab';
-import { useParams } from 'react-router-dom';
-import { useReactToPrint } from 'react-to-print';
+import { createSearchParams, useNavigate, useParams, useSearchParams } from 'react-router-dom';
+// import { useReactToPrint } from 'react-to-print';
 
 import { Form, Spin } from 'antd';
 
@@ -11,26 +11,47 @@ const FutureHome = lazy(() => import('../../components/FutureHome'));
 
 function Households() {
   const { slug } = useParams();
-  const [spin, setSpin] = useState<boolean>(false);
+  // const [spin, setSpin] = useState<boolean>(false);
   const ref = useRef<HTMLDivElement | null>(null);
-  const handlePrint = useReactToPrint({
-    content: () => ref?.current,
-    copyStyles: true,
-    onBeforeGetContent: () => setSpin(true),
-    onAfterPrint: () => setSpin(false),
-  });
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+
+  // const handlePrint = useReactToPrint({
+  //   content: () => ref?.current,
+  //   copyStyles: true,
+  //   onBeforeGetContent: () => setSpin(true),
+  //   onAfterPrint: () => setSpin(false),
+  // });
 
   return (
-    <Form.Provider
-      onFormFinish={() => {
-        setSpin(true);
-        handlePrint();
-      }}
-    >
-      <div className="mt-[40px] print:mt-0 w-full" ref={ref}>
-        <Spin size="large" spinning={spin}>
+    <>
+      <Form.Provider
+        onFormFinish={(name) => {
+          if (name === 'formContentHouseholds') {
+            // setKey('2');
+            navigate({
+              search: createSearchParams({
+                step: '2',
+              }).toString(),
+            });
+          }
+          if (name === 'formFutureHome') {
+            navigate({
+              search: createSearchParams({
+                step: '3',
+              }).toString(),
+            });
+          }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // setSpin(true);
+          // handlePrint();
+        }}
+      >
+        <div className="mt-[40px] print:mt-0 w-full" ref={ref}>
+          {/* <Spin size="large" spinning={spin}> */}
           <Tab
-            defaultValue="1"
+            defaultValue={searchParams.get('step') ?? '1'}
             items={[
               {
                 key: '1',
@@ -79,9 +100,10 @@ function Households() {
               },
             ]}
           />
-        </Spin>
-      </div>
-    </Form.Provider>
+          {/* </Spin> */}
+        </div>
+      </Form.Provider>
+    </>
   );
 }
 
