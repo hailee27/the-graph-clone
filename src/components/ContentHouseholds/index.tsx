@@ -10,11 +10,19 @@ import CardFix from './CardFix';
 import BasicInput from '../common/BasicInput';
 import { Form } from 'antd';
 import { useParams } from 'react-router-dom';
+import { formatNumber } from '../../utils/formatNumber';
+import Currency from '../common/Currency';
 
 function ContentHouseholds() {
-  const [form] = Form.useForm();
   const { slug } = useParams();
-
+  const [form] = Form.useForm();
+  const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
+  const peopleLifeInsuranceTypeWatch = Form.useWatch(['people', 'inforBasic', 'lifeInsurancePremium'], form);
+  const husbandLifeInsuranceTypeWatch = Form.useWatch(['husband', 'inforBasic', 'lifeInsurancePremium'], form);
+  const wifeLifeInsuranceTypeWatch = Form.useWatch(['wife', 'inforBasic', 'lifeInsurancePremium'], form);
+  // const monthlyWatch = Form.useWatch(['common', 'scholarships', 'borrowing', 'monthly'], form);
+  const electricBillWatch = Form.useWatch('electricBill', form);
+  const taxWatch = Form.useWatch('tax', form);
   const typeContent = useMemo<'single' | 'multiple' | string>(() => {
     if (slug) {
       return slug;
@@ -23,13 +31,15 @@ function ContentHouseholds() {
   }, [slug]);
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
 
-  // px-[48] -24
   return (
     <>
       <Form
         form={form}
         name="formContentHouseholds"
         onFinish={(e) => console.log(e)}
+        onValuesChange={(e) => {
+          form.setFieldValue('monthly', e?.common?.scholarships?.borrowing?.monthly);
+        }}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         validateTrigger={['onBlur', 'onInput']}
       >
@@ -54,17 +64,26 @@ function ContentHouseholds() {
           <div className="flex justify-between space-x-[8px]">
             <CardFix
               content={
-                <span className="text-[48px] font-bold">
-                  0<span className="text-[24px] ml-[8px]">円</span>
-                </span>
+                <>
+                  <span className="text-[48px] font-bold truncate">{formatNumber(desiredRentWatch ?? 0)}</span>
+                  <span className="text-[24px] ml-[8px] font-bold">円</span>
+                </>
               }
               title="希望家賃"
             />
             <CardFix
               content={
-                <span className="text-[48px] font-bold">
-                  0<span className="text-[24px] ml-[8px]">円</span>
-                </span>
+                <Form.Item name="lifeInsurancePremium" noStyle>
+                  {/* <Currency  /> */}
+                  <span className="text-[48px]  font-bold  truncate">
+                    {formatNumber(
+                      peopleLifeInsuranceTypeWatch ||
+                        Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) ||
+                        0
+                    )}
+                  </span>
+                  <span className="text-[24px] ml-[8px] font-bold">円</span>
+                </Form.Item>
               }
               title={
                 <span className="text-[#ffffff]">
@@ -74,9 +93,11 @@ function ContentHouseholds() {
             />
             <CardFix
               content={
-                <span className="text-[48px] font-bold">
-                  0<span className="text-[24px] ml-[8px]">円</span>
-                </span>
+                <Form.Item name="monthly" noStyle>
+                  <Currency />
+                  {/* <span className="text-[48px] font-bold truncate">{formatNumber(Number(monthlyWatch ?? 0))}</span>
+                  <span className="text-[24px] ml-[8px] font-bold">円</span> */}
+                </Form.Item>
               }
               title="返済等"
             />
@@ -134,14 +155,25 @@ function ContentHouseholds() {
           <div className="flex space-x-[40px] max-h-[51px] mt-[40px] print:hidden">
             <div className="flex items-end justify-center space-x-[36px] ">
               <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
-              <span className="text-[70px] font-bold leading-[32px]">
-                0<span className="text-[40px] ml-[8px]">円</span>
+              <span className="text-[70px] font-bold leading-[32px]  ">
+                {formatNumber(
+                  Number(
+                    peopleLifeInsuranceTypeWatch ||
+                      Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) ||
+                      0
+                  ) +
+                    Number(electricBillWatch ?? 0) +
+                    Number(taxWatch ?? 0) +
+                    // Number(monthlyWatch ?? 0) +
+                    Number(desiredRentWatch ?? 0)
+                )}
+                <span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>
             <div className="flex items-center justify-center space-x-[36px] ">
               <div className="flex flex-col">
-                <span className=" text-primary text-[14px] font-bold">二人の手取り給与に</span>
-                <span className=" text-primary text-[14px] font-bold underline underline-offset-[14px]">
+                <span className=" text-primary text-[14px] font-bold">2人の手取り給与に</span>
+                <span className=" text-primary text-[14px] font-bold underline underline-offset-[14px] decoration-2">
                   対する固定費の割合
                 </span>
               </div>

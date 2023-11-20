@@ -349,7 +349,7 @@ function WorkInformation(props: Props) {
         >
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'commutingTime', 'type']}>
             <Radio.Group className="!w-full">
-              <div className="flex space-x-[20px] print:space-x-0 justify-between">
+              <div className="flex space-x-[20px] print:space-x-0 ">
                 <BasicRadio value="0">
                   <span className="text-[14px] print:text-[10px] font-bold ">徒歩</span>
                 </BasicRadio>

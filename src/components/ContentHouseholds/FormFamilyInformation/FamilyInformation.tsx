@@ -7,6 +7,7 @@ import BasicRadio from '../../common/BasicRadio';
 import BasicTextArea from '../../common/BasicTextArea';
 import BasicButton from '../../common/BasicButton';
 import SelectButton from '../../common/SelectButton';
+import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 
 interface Props {
   disabledLabel?: boolean;
@@ -14,6 +15,7 @@ interface Props {
 }
 function FamilyInformation(props: Props) {
   const { disabledLabel, type } = props;
+  const { relationshipInParantHome } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text">
@@ -205,14 +207,7 @@ function FamilyInformation(props: Props) {
               name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome ', 'relationship']}
             >
               <SelectButton
-                options={[
-                  { value: '兄弟姉妹', label: '兄弟姉妹' },
-                  { value: '世帯主の父母', label: '世帯主の父母' },
-                  { value: '子供', label: '子供' },
-                  { value: '配偶者', label: '配偶者' },
-                  { value: '配偶者の父母', label: '配偶者の父母' },
-                  { value: 'その他', label: 'その他' },
-                ]}
+                options={relationshipInParantHome}
                 placeholder="選択してください"
                 type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
               />

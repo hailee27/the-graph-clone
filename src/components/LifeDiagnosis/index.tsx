@@ -3,16 +3,18 @@ import React from 'react';
 import BasicButton from '../common/BasicButton';
 import FormHouseHoldAndLivingEnvironmant from './FormHouseHoldAndLivingEnvironmant';
 import Form4MajorRisksOfLife from './Form4MajorRisksOfLife';
+import { useNavigate } from 'react-router-dom';
 
 function LifeDiagnosis() {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   return (
     <>
       <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] pt-[56px] print:p-0 print:break-before-page pb-[80px]">
         <h2 className="text-[26px] font-bold text-center">「人生１００年時代を幸せに生きる為に押さえるべき６項目」</h2>
-        {/* eslint-disable-next-line no-console */}
-        <Form className="mt-[64px] " form={form} name="formLifeDiagnosis" onFinish={(e) => console.log(e)}>
+
+        <Form className="mt-[64px] " form={form} name="formLifeDiagnosis" onFinish={() => navigate('/diagnosis')}>
           <FormHouseHoldAndLivingEnvironmant />
           <div className="mt-[56px] print:mt-0  print:break-before-page">
             <Form4MajorRisksOfLife />

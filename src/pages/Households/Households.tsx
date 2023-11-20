@@ -28,7 +28,6 @@ function Households() {
       <Form.Provider
         onFormFinish={(name) => {
           if (name === 'formContentHouseholds') {
-            // setKey('2');
             navigate({
               search: createSearchParams({
                 step: '2',

@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
 import React from 'react';
@@ -7,6 +6,7 @@ import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
 import SelectButton from '../../common/SelectButton';
 import BasicTextArea from '../../common/BasicTextArea';
+import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 
 interface Props {
   type?: string;
@@ -14,12 +14,23 @@ interface Props {
 
 function NewHouseInformation(props: Props) {
   const { type } = props;
+  const {
+    relationshipNewResident,
+    budgetAmountForNewHouse,
+    InitialCostMovingFee,
+    householdApplianceCosts,
+    others,
+    desiredRent,
+    selfPayAmount,
+    desiredFloorPlan,
+    breadth,
+  } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
       {/* Planned new home */}
       <div className="flex w-full h-full  items-start">
-        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">ご実家にお住まいの方</div>}
+        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">新居予定者</div>}
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
@@ -28,18 +39,7 @@ function NewHouseInformation(props: Props) {
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'relationship']}>
-              <SelectButton
-                options={[
-                  { value: '配偶者', label: '配偶者' },
-                  { value: '子供', label: '子供' },
-                  { value: '世帯主の父母', label: '世帯主の父母' },
-                  { value: '配偶者の父母', label: '配偶者の父母' },
-                  { value: '兄弟姉妹', label: '兄弟姉妹' },
-                  { value: 'その他', label: 'その他' },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={relationshipNewResident} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div>
@@ -82,28 +82,7 @@ function NewHouseInformation(props: Props) {
           } flex flex-col pl-[48px] space-y-[8px] `}
         >
           <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'newHouseInfor', 'budget', 'type']}>
-            <SelectButton
-              options={[
-                '100,000',
-                '150,000',
-                '200,000',
-                '250,000',
-                '300,000',
-                '350,000',
-                '400,000',
-                '450,000',
-                '500,000',
-                '600,000',
-                '700,000',
-                '800,000',
-                '900,000',
-                '1,000,000',
-                '2,000,000',
-                '3,000,000',
-              ].map((e) => ({ value: e, label: e }))}
-              placeholder="選択してください"
-              type="primary"
-            />
+            <SelectButton options={budgetAmountForNewHouse} placeholder="選択してください" type="primary" />
           </Form.Item>
           <div className="flex items-center flex-1 w-full min-h-[58px]">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">内訳</span>
@@ -130,29 +109,7 @@ function NewHouseInformation(props: Props) {
               引越代金
             </span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'budget', 'initialCostMovingFee']}>
-              <SelectButton
-                options={[
-                  '50,000',
-                  '100,000',
-                  '150,000',
-                  '200,000',
-                  '250,000',
-                  '300,000',
-                  '350,000',
-                  '400,000',
-                  '450,000',
-                  '500,000',
-                  '600,000',
-                  '700,000',
-                  '800,000',
-                  '900,000',
-                  '1,000,000',
-                  '2,000,000',
-                  '3,000,000',
-                ].map((e) => ({ value: e, label: e }))}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={InitialCostMovingFee} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
@@ -165,57 +122,13 @@ function NewHouseInformation(props: Props) {
               className="!mb-0 flex-1"
               name={[`${type}`, 'newHouseInfor', 'budget', 'householdAppliancesCost']}
             >
-              <SelectButton
-                options={[
-                  '50,000',
-                  '100,000',
-                  '150,000',
-                  '200,000',
-                  '250,000',
-                  '300,000',
-                  '350,000',
-                  '400,000',
-                  '450,000',
-                  '500,000',
-                  '600,000',
-                  '700,000',
-                  '800,000',
-                  '900,000',
-                  '1,000,000',
-                  '2,000,000',
-                  '3,000,000',
-                ].map((e) => ({ value: e, label: e }))}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={householdApplianceCosts} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">その他</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'budget', 'others']}>
-              <SelectButton
-                options={[
-                  '50,000',
-                  '100,000',
-                  '150,000',
-                  '200,000',
-                  '250,000',
-                  '300,000',
-                  '350,000',
-                  '400,000',
-                  '450,000',
-                  '500,000',
-                  '600,000',
-                  '700,000',
-                  '800,000',
-                  '900,000',
-                  '1,000,000',
-                  '2,000,000',
-                  '3,000,000',
-                ].map((e) => ({ value: e, label: e }))}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={others} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
         </div>
@@ -234,36 +147,7 @@ function NewHouseInformation(props: Props) {
             name={[`${type}`, 'newHouseInfor', 'desiredRent', 'type']}
             rules={[{ required: true, message: '' }]}
           >
-            <SelectButton
-              options={[
-                '50,000',
-                '60,000',
-                '70,000',
-                '50,000',
-                '80,000',
-                '90,000',
-                '100,000',
-                '110,000',
-                '120,000',
-                '130,000',
-                '140,000',
-                '150,000',
-                '160,000',
-                '170,000',
-                '180,000',
-                '190,000',
-                '200,000',
-                '210,000',
-                '220,000',
-                '230,000',
-                '240,000',
-                '250,000',
-                '300,000',
-                '300,000 ~',
-              ].map((e) => ({ value: e, label: e }))}
-              placeholder="選択してください"
-              type="primary"
-            />
+            <SelectButton options={desiredRent} placeholder="選択してください" type="primary" />
           </Form.Item>
 
           <div className="flex items-center flex-1 w-full ">
@@ -273,36 +157,7 @@ function NewHouseInformation(props: Props) {
               負担額
             </span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredRent', 'selfBurdenAmount']}>
-              <SelectButton
-                options={[
-                  '50,000',
-                  '60,000',
-                  '70,000',
-                  '50,000',
-                  '80,000',
-                  '90,000',
-                  '100,000',
-                  '110,000',
-                  '120,000',
-                  '130,000',
-                  '140,000',
-                  '150,000',
-                  '160,000',
-                  '170,000',
-                  '180,000',
-                  '190,000',
-                  '200,000',
-                  '210,000',
-                  '220,000',
-                  '230,000',
-                  '240,000',
-                  '250,000',
-                  '300,000',
-                  '300,000 ~',
-                ].map((e) => ({ value: e, label: e }))}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={selfPayAmount} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
@@ -357,57 +212,13 @@ function NewHouseInformation(props: Props) {
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">間取り</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredFloorPlan', 'floorPlan']}>
-              <SelectButton
-                options={[
-                  '1R',
-                  '1K',
-                  '1DK',
-                  '1LDK',
-                  '2K',
-                  '2DK',
-                  '2LDK',
-                  '3K',
-                  '3DK',
-                  '3LDK',
-                  '4K',
-                  '4DK',
-                  '4LDK',
-                  '5K',
-                  '5DK',
-                  '5LDK',
-                  '6K',
-                  '6DK',
-                  '6LDK',
-                  '7K',
-                  '7DK',
-                  '7LDK',
-                  '8K',
-                  '8DK',
-                  '8LDK',
-                  '9K',
-                  '9DK',
-                  '9LDK',
-                  '10K',
-                  '10DK',
-                  '10LDK',
-                  '10LDK以上',
-                ].map((e) => ({ value: e, label: e }))}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={desiredFloorPlan} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">広さ</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredFloorPlan', 'breadth']}>
-              <SelectButton
-                options={['20', '25', '30', '35', '40', '45', '50', '60', '70', '80', '90', '100', '100~'].map((e) => ({
-                  value: e,
-                  label: e,
-                }))}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={breadth} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
         </div>

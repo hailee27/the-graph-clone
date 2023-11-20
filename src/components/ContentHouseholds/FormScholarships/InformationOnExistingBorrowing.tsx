@@ -6,6 +6,7 @@ import BasicInput from '../../common/BasicInput';
 import BasicRadio from '../../common/BasicRadio';
 import BasicTextArea from '../../common/BasicTextArea';
 import SelectButton from '../../common/SelectButton';
+import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 
 interface Props {
   type: string;
@@ -13,6 +14,7 @@ interface Props {
 
 function InformationOnExistingBorrowing(props: Props) {
   const { type } = props;
+  const { borrowing } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
@@ -29,16 +31,7 @@ function InformationOnExistingBorrowing(props: Props) {
               <div className="flex items-center  w-full ">
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">種類</span>
                 <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'scholarships', 'borrowing', 'kinds']}>
-                  <SelectButton
-                    options={[
-                      { value: 'jack', label: 'Jack' },
-                      { value: 'lucy', label: 'Lucy' },
-                      { value: 'Yiminghe', label: 'yiminghe' },
-                      { value: 'disabled', label: 'Disabled', disabled: true },
-                    ]}
-                    placeholder="選択してください"
-                    type="primary"
-                  />
+                  <SelectButton options={borrowing} placeholder="選択してください" type="primary" />
                 </Form.Item>
               </div>
               <div className="flex items-center w-full ">

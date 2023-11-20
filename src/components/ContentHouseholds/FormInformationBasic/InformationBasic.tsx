@@ -11,6 +11,7 @@ import BasicTextArea from '../../common/BasicTextArea';
 import moment from 'moment';
 import DatePicker from '../../common/DatePicker';
 import { isKatakana, toKatakana } from 'wanakana';
+import { useLazyGetMasterDataDistinctQuery } from '../../../redux/endpoints/masterData';
 
 interface Props {
   disabledLabel?: boolean;
@@ -34,6 +35,9 @@ function InformationBasic(props: Props) {
 
   const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
   const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
+
+  const lifeInsuranceTypeWatch = Form.useWatch([`${type}`, 'inforBasic', 'lifeInsurance', 'type'], form);
+
   const savingRate = useMemo(() => {
     if (savingMonth && savingTotalAmount) {
       return Math.round((Number(savingMonth) / Number(savingTotalAmount)) * 100);
@@ -43,6 +47,7 @@ function InformationBasic(props: Props) {
 
   // const RegexKatakanaFullWidth = /^([ァ-ン]|ー)+$/;
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
+  const [trigger, { data: dataAddress, isLoading }] = useLazyGetMasterDataDistinctQuery();
 
   useEffect(() => {
     form.setFieldsValue({
@@ -56,9 +61,36 @@ function InformationBasic(props: Props) {
       },
     });
   }, [firstName, lastName]);
+  useEffect(() => {
+    form.setFieldsValue({
+      [`${type}`]: {
+        inforBasic: {
+          address: {
+            prefectures: dataAddress?.data?.[0]?.prefecture,
+            municipalities:
+              String(dataAddress?.data?.[0]?.city ?? '') + String(dataAddress?.data?.[0]?.neighborhood ?? ''),
+          },
+        },
+      },
+    });
+  }, [dataAddress?.data?.[0]]);
+  useEffect(() => {
+    if (lifeInsuranceTypeWatch === '1') {
+      form.setFieldValue(
+        [`${type}`, 'inforBasic', 'lifeInsurancePremium'],
+        form.getFieldValue([`${type}`, 'inforBasic', 'lifeInsurance', 'fee'])
+      );
+    } else {
+      form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], null);
+    }
+  }, [lifeInsuranceTypeWatch]);
 
   return (
     <div className="h-full w-full text-primary-text">
+      {/* lifeInsurancePremium */}
+      <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'lifeInsurancePremium']}>
+        <BasicInput />
+      </Form.Item>
       {(type === 'husband' || type === 'wife') && (
         <div className="flex w-full h-full">
           {!disabledLabel && <div className="w-[176px] print:w-[70px]"></div>}
@@ -368,7 +400,17 @@ function InformationBasic(props: Props) {
                       type="number"
                     />
                   </Form.Item>
-                  <BasicButton className="h-[34px] w-[108px]" type="default">
+                  <BasicButton
+                    className="h-[34px] min-w-[108px]"
+                    loading={isLoading}
+                    onClick={() =>
+                      trigger({
+                        code: Number(form.getFieldValue([`${type}`, 'inforBasic', 'address', 'code'])) || null,
+                        distinct: 'code',
+                      })
+                    }
+                    type="default"
+                  >
                     <span className="text-[12px]">郵便番号検索</span>
                   </BasicButton>
                 </div>
@@ -496,6 +538,11 @@ function InformationBasic(props: Props) {
                   >
                     <BasicInput
                       className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+                      onBlur={(e) => {
+                        if (lifeInsuranceTypeWatch === '1') {
+                          form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], e.target.value);
+                        }
+                      }}
                       placeholder="15000"
                       type="number"
                     />
