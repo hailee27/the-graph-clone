@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 interface TypeTabItems {
   key: string;
   label: string;
@@ -7,6 +8,7 @@ interface TypeTabItems {
 }
 function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: string | undefined }) {
   const [selectTab, setSelectedTab] = useState<string | undefined>(defaultValue);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSelectedTab(defaultValue);
@@ -31,7 +33,14 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
               <div
                 className="px-[32px] py-[10px] w-[352px] cursor-pointer rounded-t-[16px] flex items-center justify-center"
                 key={item.key}
-                onClick={() => setSelectedTab(item?.key)}
+                onClick={() => {
+                  setSelectedTab(item?.key);
+                  navigate({
+                    search: createSearchParams({
+                      step: String(item?.key),
+                    }).toString(),
+                  });
+                }}
                 style={{
                   background:
                     selectTab === item.key

@@ -31,6 +31,8 @@ function DatePicker(
     return (
       <div className={combinedClassName}>
         <Select
+          filterOption={(input, option) => (String(option?.label) ?? '').includes(String(input))}
+          optionFilterProp="children"
           options={years(numberYear ?? 100).map((e) => ({
             label: e,
             value: e,

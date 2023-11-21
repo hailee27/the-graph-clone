@@ -12,6 +12,12 @@
       padding: 0px 20px;
       border-width: 1px;
     }
+    .ant-select-status-error:not(.ant-select-disabled):not(.ant-select-customize-input):not(
+        .ant-pagination-size-changer
+      )
+      .ant-select-selector {
+      border-width: 1px;
+    }
     // .ant-select-selector {
     //   border: 0px !important;
     // }
@@ -78,6 +84,15 @@
       .ant-select-selector {
       border-color: var(--primary);
       padding: 0px 20px;
+      border-width: 1px;
+    }
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector .ant-select-selection-search-input {
+      padding: 0 10px;
+    }
+    .ant-select-status-error:not(.ant-select-disabled):not(.ant-select-customize-input):not(
+        .ant-pagination-size-changer
+      )
+      .ant-select-selector {
       border-width: 1px;
     }
     // .ant-select-selector {

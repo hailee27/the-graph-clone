@@ -6,6 +6,7 @@ import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
 import SelectButton from '../../common/SelectButton';
 import BasicTextArea from '../../common/BasicTextArea';
+import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 
 interface Props {
   type?: string;
@@ -13,11 +14,23 @@ interface Props {
 
 function NewHouseInformation(props: Props) {
   const { type } = props;
+  const {
+    relationshipNewResident,
+    budgetAmountForNewHouse,
+    InitialCostMovingFee,
+    householdApplianceCosts,
+    others,
+    desiredRent,
+    selfPayAmount,
+    desiredFloorPlan,
+    breadth,
+  } = useHouseHoldsContext();
+  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
       {/* Planned new home */}
       <div className="flex w-full h-full  items-start">
-        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">ご実家にお住まいの方</div>}
+        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">新居予定者</div>}
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
@@ -26,24 +39,30 @@ function NewHouseInformation(props: Props) {
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'relationship']}>
-              <SelectButton
-                options={[
-                  { value: '1', label: '配偶者' },
-                  { value: '2', label: '子供' },
-                  { value: '3', label: '世帯主の父母' },
-                  { value: '4', label: '配偶者の父母' },
-                  { value: '5', label: '兄弟姉妹' },
-                  { value: '6', label: 'その他' },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={relationshipNewResident} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div>
             <div className="flex items-center flex-1 w-full  mt-[20px]">
               <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
-              <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'age']}>
+              <Form.Item
+                className="!mb-0 flex-1"
+                name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'age']}
+                rules={[
+                  { max: 3, message: '半角数字、3文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、3文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
                 <BasicInput className="bg-primary-light" placeholder="30" type="number" />
               </Form.Item>
               <span className="text-[14px] font-bold ml-[8px] ">歳</span>
@@ -63,16 +82,7 @@ function NewHouseInformation(props: Props) {
           } flex flex-col pl-[48px] space-y-[8px] `}
         >
           <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'newHouseInfor', 'budget', 'type']}>
-            <SelectButton
-              options={[
-                { value: 'jack', label: 'Jack' },
-                { value: 'lucy', label: 'Lucy' },
-                { value: 'Yiminghe', label: 'yiminghe' },
-                { value: 'disabled', label: 'Disabled', disabled: true },
-              ]}
-              placeholder="選択してください"
-              type="primary"
-            />
+            <SelectButton options={budgetAmountForNewHouse} placeholder="選択してください" type="primary" />
           </Form.Item>
           <div className="flex items-center flex-1 w-full min-h-[58px]">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">内訳</span>
@@ -99,16 +109,7 @@ function NewHouseInformation(props: Props) {
               引越代金
             </span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'budget', 'initialCostMovingFee']}>
-              <SelectButton
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={InitialCostMovingFee} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
@@ -121,31 +122,13 @@ function NewHouseInformation(props: Props) {
               className="!mb-0 flex-1"
               name={[`${type}`, 'newHouseInfor', 'budget', 'householdAppliancesCost']}
             >
-              <SelectButton
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={householdApplianceCosts} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">その他</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'budget', 'others']}>
-              <SelectButton
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={others} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
         </div>
@@ -159,17 +142,12 @@ function NewHouseInformation(props: Props) {
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col pl-[48px] space-y-[8px] `}
         >
-          <Form.Item className=" flex-1 !mb-0" name={[`${type}`, 'newHouseInfor', 'desiredRent', 'type']}>
-            <SelectButton
-              options={[
-                { value: 'jack', label: 'Jack' },
-                { value: 'lucy', label: 'Lucy' },
-                { value: 'Yiminghe', label: 'yiminghe' },
-                { value: 'disabled', label: 'Disabled', disabled: true },
-              ]}
-              placeholder="選択してください"
-              type="primary"
-            />
+          <Form.Item
+            className=" flex-1 !mb-0"
+            name={[`${type}`, 'newHouseInfor', 'desiredRent', 'type']}
+            rules={[{ required: true, message: '' }]}
+          >
+            <SelectButton options={desiredRent} placeholder="選択してください" type="primary" />
           </Form.Item>
 
           <div className="flex items-center flex-1 w-full ">
@@ -179,23 +157,31 @@ function NewHouseInformation(props: Props) {
               負担額
             </span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredRent', 'selfBurdenAmount']}>
-              <SelectButton
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={selfPayAmount} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">駐車場</span>
             <div className="flex w-full items-center">
-              <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredRent', 'parking']}>
-                <BasicInput className="bg-primary-light" placeholder="2" type="number" />
+              <Form.Item
+                className="!mb-0 flex-1"
+                name={[`${type}`, 'newHouseInfor', 'desiredRent', 'parking']}
+                rules={[
+                  { max: 2, message: '半角数字、2文字以内' },
+                  {
+                    validator: (_, value) => {
+                      if (value) {
+                        if (RegexKatakanaHalfWidth.test(value)) {
+                          return Promise.resolve();
+                        }
+                        return Promise.reject('半角数字、2文字以内');
+                      }
+                      return Promise.resolve();
+                    },
+                  },
+                ]}
+              >
+                <BasicInput className="bg-primary-light" placeholder="2" />
               </Form.Item>
               <span className="text-[14px] font-bold pl-[8px] pr-[40px]">台</span>
               <Form.Item className="!mb-0" name={[`${type}`, 'newHouseInfor', 'desiredRent', 'other']}>
@@ -226,31 +212,13 @@ function NewHouseInformation(props: Props) {
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">間取り</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredFloorPlan', 'floorPlan']}>
-              <SelectButton
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={desiredFloorPlan} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
           <div className="flex items-center flex-1 w-full ">
             <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">広さ</span>
             <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'desiredFloorPlan', 'breadth']}>
-              <SelectButton
-                options={[
-                  { value: 'jack', label: 'Jack' },
-                  { value: 'lucy', label: 'Lucy' },
-                  { value: 'Yiminghe', label: 'yiminghe' },
-                  { value: 'disabled', label: 'Disabled', disabled: true },
-                ]}
-                placeholder="選択してください"
-                type="primary"
-              />
+              <SelectButton options={breadth} placeholder="選択してください" type="primary" />
             </Form.Item>
           </div>
         </div>
@@ -264,10 +232,14 @@ function NewHouseInformation(props: Props) {
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col pl-[48px] space-y-[24px]  rounded-b-[16px] `}
         >
-          <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'newHouseInfor', 'desiredAreaConditions']}>
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'newHouseInfor', 'desiredAreaConditions']}
+            rules={[{ max: 60, message: '60文字以内' }]}
+          >
             <BasicTextArea
               className="bg-primary-light"
-              placeholder="Ex）○○町周辺　初期費用抑えたい&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;&#13;理由は...二人の実家の中間なので"
+              placeholder="Ex）○○町周辺　初期費用抑えたい&#13;理由は...二人の実家の中間なので"
               style={{ height: '136px', resize: 'none' }}
             />
           </Form.Item>
@@ -282,7 +254,11 @@ function NewHouseInformation(props: Props) {
             type === 'wife' && 'bg-secondary-thin '
           } flex flex-col pl-[48px] space-y-[24px] pb-[66px] rounded-b-[16px] `}
         >
-          <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'newHouseInfor', 'memo']}>
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'newHouseInfor', 'memo']}
+            rules={[{ max: 60, message: '60文字以内' }]}
+          >
             <BasicTextArea
               className="bg-primary-light"
               placeholder="自由にご記入ください"
