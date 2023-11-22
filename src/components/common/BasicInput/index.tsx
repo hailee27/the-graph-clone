@@ -3,17 +3,18 @@ import React from 'react';
 import styles from './index.module.scss';
 
 function BasicInput(props: InputProps) {
-  const { type } = props;
+  const { type, ...rest } = props;
 
   return (
     <div className={styles.customInput}>
       <Input
-        {...props}
+        {...rest}
         onKeyDown={(event) => {
           if (type === 'number' && /\+|-/.test(event.key)) {
             event.preventDefault();
           }
         }}
+        onWheel={(e) => e.currentTarget.blur()}
         type={type}
       />
     </div>

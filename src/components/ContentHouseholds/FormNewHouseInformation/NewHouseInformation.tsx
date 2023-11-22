@@ -171,7 +171,7 @@ function NewHouseInformation(props: Props) {
                   {
                     validator: (_, value) => {
                       if (value) {
-                        if (RegexKatakanaHalfWidth.test(value)) {
+                        if (!/^([ァ-ン０-９]|ー)+$/.test(value)) {
                           return Promise.resolve();
                         }
                         return Promise.reject('半角数字、2文字以内');
@@ -239,6 +239,7 @@ function NewHouseInformation(props: Props) {
           >
             <BasicTextArea
               className="bg-primary-light"
+              maxLength={60}
               placeholder="Ex）○○町周辺　初期費用抑えたい&#13;理由は...二人の実家の中間なので"
               style={{ height: '136px', resize: 'none' }}
             />
@@ -261,6 +262,7 @@ function NewHouseInformation(props: Props) {
           >
             <BasicTextArea
               className="bg-primary-light"
+              maxLength={60}
               placeholder="自由にご記入ください"
               style={{ height: '136px', resize: 'none' }}
             />

@@ -1,5 +1,6 @@
+/* eslint-disable max-lines-per-function */
 /* eslint-disable no-console */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
 import FormWorkInformation from './FormWorkInformation';
@@ -17,12 +18,20 @@ function ContentHouseholds() {
   const { slug } = useParams();
   const [form] = Form.useForm();
   const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
+  // lifeInsurancePremium
   const peopleLifeInsuranceTypeWatch = Form.useWatch(['people', 'inforBasic', 'lifeInsurancePremium'], form);
   const husbandLifeInsuranceTypeWatch = Form.useWatch(['husband', 'inforBasic', 'lifeInsurancePremium'], form);
   const wifeLifeInsuranceTypeWatch = Form.useWatch(['wife', 'inforBasic', 'lifeInsurancePremium'], form);
-  // const monthlyWatch = Form.useWatch(['common', 'scholarships', 'borrowing', 'monthly'], form);
+  // monthlytakehomePay
+  const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form);
+  const husbandMonthlytakehomePay = Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form);
+  const wifeMonthlytakehomePay = Form.useWatch(['wife', 'workInfor', 'salary', 'monthlytakehomePay'], form);
+
+  const monthlyWatch = Form.useWatch('monthly', form);
+  const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
   const electricBillWatch = Form.useWatch('electricBill', form);
   const taxWatch = Form.useWatch('tax', form);
+
   const typeContent = useMemo<'single' | 'multiple' | string>(() => {
     if (slug) {
       return slug;
@@ -31,6 +40,40 @@ function ContentHouseholds() {
   }, [slug]);
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
 
+  useEffect(() => {
+    form.setFieldValue(
+      'lifeInsurancePremium',
+      peopleLifeInsuranceTypeWatch || Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) || 0
+    );
+  }, [peopleLifeInsuranceTypeWatch, husbandLifeInsuranceTypeWatch, wifeLifeInsuranceTypeWatch]);
+  const total = useMemo(() => {
+    return new Intl.NumberFormat('ja-JP', {
+      maximumFractionDigits: 0,
+    }).format(
+      Number(lifeInsurancePremiumWatch ?? 0) +
+        Number(electricBillWatch ?? 0) +
+        Number(taxWatch ?? 0) +
+        Number(monthlyWatch ?? 0) +
+        Number(desiredRentWatch ?? 0)
+    );
+  }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
+
+  const totalmonths = useMemo(() => {
+    return (
+      Number(husbandMonthlytakehomePay ?? 0) + Number(wifeMonthlytakehomePay ?? 0) ||
+      Number(peopleMonthlytakehomePay ?? 0)
+    );
+  }, [husbandMonthlytakehomePay, wifeMonthlytakehomePay, peopleMonthlytakehomePay]);
+  const percents = useMemo(() => {
+    const totals =
+      Number(lifeInsurancePremiumWatch ?? 0) +
+        Number(electricBillWatch ?? 0) +
+        Number(taxWatch ?? 0) +
+        Number(monthlyWatch ?? 0) +
+        Number(desiredRentWatch ?? 0) || 1;
+    return Math.floor((totalmonths / totals) * 100);
+  }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
+  console.log(percents);
   return (
     <>
       <Form
@@ -41,7 +84,7 @@ function ContentHouseholds() {
           form.setFieldValue('monthly', e?.common?.scholarships?.borrowing?.monthly);
         }}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
-        validateTrigger={['onBlur', 'onInput']}
+        // validateTrigger={['onBlur']}
       >
         <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:p-0 ">
           <FormInformationBasic typeContent={typeContent} />
@@ -66,7 +109,6 @@ function ContentHouseholds() {
               content={
                 <>
                   <span className="text-[48px] font-bold truncate">{formatNumber(desiredRentWatch ?? 0)}</span>
-                  <span className="text-[24px] ml-[8px] font-bold">円</span>
                 </>
               }
               title="希望家賃"
@@ -74,15 +116,7 @@ function ContentHouseholds() {
             <CardFix
               content={
                 <Form.Item name="lifeInsurancePremium" noStyle>
-                  {/* <Currency  /> */}
-                  <span className="text-[48px]  font-bold  truncate">
-                    {formatNumber(
-                      peopleLifeInsuranceTypeWatch ||
-                        Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) ||
-                        0
-                    )}
-                  </span>
-                  <span className="text-[24px] ml-[8px] font-bold">円</span>
+                  <Currency />
                 </Form.Item>
               }
               title={
@@ -95,8 +129,6 @@ function ContentHouseholds() {
               content={
                 <Form.Item name="monthly" noStyle>
                   <Currency />
-                  {/* <span className="text-[48px] font-bold truncate">{formatNumber(Number(monthlyWatch ?? 0))}</span>
-                  <span className="text-[24px] ml-[8px] font-bold">円</span> */}
                 </Form.Item>
               }
               title="返済等"
@@ -156,17 +188,7 @@ function ContentHouseholds() {
             <div className="flex items-end justify-center space-x-[36px] ">
               <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
               <span className="text-[70px] font-bold leading-[32px]  ">
-                {formatNumber(
-                  Number(
-                    peopleLifeInsuranceTypeWatch ||
-                      Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) ||
-                      0
-                  ) +
-                    Number(electricBillWatch ?? 0) +
-                    Number(taxWatch ?? 0) +
-                    // Number(monthlyWatch ?? 0) +
-                    Number(desiredRentWatch ?? 0)
-                )}
+                {total}
                 <span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>
@@ -179,7 +201,8 @@ function ContentHouseholds() {
               </div>
               <div>
                 <span className="text-[70px] font-bold leading-normal">
-                  0<span className="text-[40px] ml-[8px]">%</span>
+                  {percents}
+                  <span className="text-[40px] ml-[8px]">%</span>
                 </span>
               </div>
             </div>

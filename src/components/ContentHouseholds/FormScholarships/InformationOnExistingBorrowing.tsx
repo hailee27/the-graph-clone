@@ -210,6 +210,7 @@ function InformationOnExistingBorrowing(props: Props) {
           >
             <BasicTextArea
               className="bg-primary-light"
+              maxLength={60}
               placeholder="自由にご記入ください"
               style={{ height: '136px', resize: 'none' }}
             />

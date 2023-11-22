@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo } from 'react';
-import { useGetMasterDataQuery } from '../../../redux/endpoints/masterData';
+import { useGetMasterDataDistinctQuery, useGetMasterDataQuery } from '../../../redux/endpoints/masterData';
 import { DefaultOptionType } from 'antd/es/select';
 
 interface TypeHouseHoldsContext {
@@ -14,10 +14,20 @@ interface TypeHouseHoldsContext {
   desiredFloorPlan?: DefaultOptionType[] | undefined;
   breadth?: DefaultOptionType[] | undefined;
   borrowing?: DefaultOptionType[] | undefined;
+  currentAddressPrefecture?: DefaultOptionType[] | undefined;
 }
 const HouseHoldsContext = createContext<TypeHouseHoldsContext | undefined>(undefined);
 export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: masterData } = useGetMasterDataQuery();
+  const { data: dataPrefecture } = useGetMasterDataDistinctQuery({ distinct: 'prefecture' });
+
+  // dataPrefecture
+  const currentAddressPrefecture = useMemo(() => {
+    return dataPrefecture?.data.map((e) => ({
+      label: e.prefecture,
+      value: e.prefecture,
+    }));
+  }, [dataPrefecture]);
 
   // Relationship with prospective new resident
   const relationshipInParantHome = useMemo(() => {
@@ -119,6 +129,7 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
 
   const contextValue = useMemo(
     () => ({
+      currentAddressPrefecture,
       relationshipInParantHome,
       relationshipNewResident,
       budgetAmountForNewHouse,
@@ -132,6 +143,7 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
       borrowing,
     }),
     [
+      currentAddressPrefecture,
       relationshipInParantHome,
       relationshipNewResident,
       budgetAmountForNewHouse,
