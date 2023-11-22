@@ -424,6 +424,7 @@ function WorkInformation(props: Props) {
           >
             <BasicTextArea
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              maxLength={60}
               placeholder="ご自由に記入ください"
               style={{ height: '136px', resize: 'none' }}
             />

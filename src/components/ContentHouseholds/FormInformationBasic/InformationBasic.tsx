@@ -12,6 +12,8 @@ import moment from 'moment';
 import DatePicker from '../../common/DatePicker';
 import { isKatakana, toKatakana } from 'wanakana';
 import { useLazyGetMasterDataDistinctQuery } from '../../../redux/endpoints/masterData';
+import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
+import { useNotificationContext } from '../../context/NotificationContext';
 
 interface Props {
   disabledLabel?: boolean;
@@ -26,6 +28,9 @@ function InformationBasic(props: Props) {
     month: false,
     day: false,
   });
+  const [trigger, { data: dataAddress, isLoading, isSuccess }] = useLazyGetMasterDataDistinctQuery();
+  const { currentAddressPrefecture } = useHouseHoldsContext();
+  const { openNotification } = useNotificationContext();
   const year = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'year'], form);
   const month = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form);
   const day = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
@@ -47,20 +52,20 @@ function InformationBasic(props: Props) {
 
   // const RegexKatakanaFullWidth = /^([ァ-ン]|ー)+$/;
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
-  const [trigger, { data: dataAddress, isLoading }] = useLazyGetMasterDataDistinctQuery();
 
   useEffect(() => {
     form.setFieldsValue({
       [`${type}`]: {
         inforBasic: {
           nameKatakana: {
-            firstName: toKatakana(firstName),
+            firstName: toKatakana(firstName, { upcaseKatakana: true }),
             lastName: toKatakana(lastName),
           },
         },
       },
     });
   }, [firstName, lastName]);
+
   useEffect(() => {
     form.setFieldsValue({
       [`${type}`]: {
@@ -74,6 +79,31 @@ function InformationBasic(props: Props) {
       },
     });
   }, [dataAddress?.data?.[0]]);
+  useEffect(() => {
+    if (dataAddress?.data?.length === 0 && isSuccess) {
+      openNotification.error({
+        message: <div className="pr-[24px]">郵便番号が正しくないので、検索できません。 再度ご確認お願いします。</div>,
+        placement: 'top',
+        icon: (
+          <svg
+            aria-hidden="true"
+            data-icon="close-circle"
+            fill="currentColor"
+            fillRule="evenodd"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M512 64c247.4 0 448 200.6 448 448S759.4 960 512 960 64 759.4 64 512 264.6 64 512 64zm127.98 274.82h-.04l-.08.06L512 466.75 384.14 338.88c-.04-.05-.06-.06-.08-.06a.12.12 0 00-.07 0c-.03 0-.05.01-.09.05l-45.02 45.02a.2.2 0 00-.05.09.12.12 0 000 .07v.02a.27.27 0 00.06.06L466.75 512 338.88 639.86c-.05.04-.06.06-.06.08a.12.12 0 000 .07c0 .03.01.05.05.09l45.02 45.02a.2.2 0 00.09.05.12.12 0 00.07 0c.02 0 .04-.01.08-.05L512 557.25l127.86 127.87c.04.04.06.05.08.05a.12.12 0 00.07 0c.03 0 .05-.01.09-.05l45.02-45.02a.2.2 0 00.05-.09.12.12 0 000-.07v-.02a.27.27 0 00-.05-.06L557.25 512l127.87-127.86c.04-.04.05-.06.05-.08a.12.12 0 000-.07c0-.03-.01-.05-.05-.09l-45.02-45.02a.2.2 0 00-.09-.05.12.12 0 00-.07 0z"
+              fill="#ff4d4f"
+            ></path>
+          </svg>
+        ),
+      });
+    }
+  }, [dataAddress, isSuccess]);
   useEffect(() => {
     if (lifeInsuranceTypeWatch === '1') {
       form.setFieldValue(
@@ -180,7 +210,7 @@ function InformationBasic(props: Props) {
               {
                 validator: (_, value) => {
                   if (value) {
-                    if (value.length < 10 && isKatakana(value)) {
+                    if (value?.length < 10 && isKatakana(value)) {
                       return Promise.resolve();
                     }
 
@@ -200,13 +230,15 @@ function InformationBasic(props: Props) {
             className="!mb-0 w-full"
             name={[`${type}`, 'inforBasic', 'nameKatakana', 'lastName']}
             rules={[
-              { required: true, message: '' },
               {
                 validator: (_, value) => {
-                  if (value.length < 10 || !isKatakana(value)) {
-                    return Promise.resolve();
+                  if (value) {
+                    if (value?.length < 10 && isKatakana(value)) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject('カタカナのみ、10文字以内');
                   }
-                  return Promise.reject('カタカナのみ、10文字以内');
+                  return Promise.reject('');
                 },
               },
             ]}
@@ -384,9 +416,10 @@ function InformationBasic(props: Props) {
                     className=" flex-1 !mb-0"
                     name={[`${type}`, 'inforBasic', 'address', 'code']}
                     rules={[
+                      { max: 7, message: '半角数字7桁,ハイフン（-）なし' },
                       {
                         validator: (_, value) => {
-                          if (RegexKatakanaHalfWidth.test(value) || !value) {
+                          if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
                           return Promise.reject('半角数字7桁,ハイフン（-）なし');
@@ -423,12 +456,7 @@ function InformationBasic(props: Props) {
                   rules={[{ required: true, message: '' }]}
                 >
                   <SelectButton
-                    options={[
-                      { value: 'jack', label: 'Jack' },
-                      { value: 'lucy', label: 'Lucy' },
-                      { value: 'Yiminghe', label: 'yiminghe' },
-                      { value: 'disabled', label: 'Disabled', disabled: true },
-                    ]}
+                    options={currentAddressPrefecture}
                     placeholder="東京都"
                     type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
                   />
@@ -698,6 +726,7 @@ function InformationBasic(props: Props) {
           >
             <BasicTextArea
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              maxLength={60}
               placeholder="自由にご記入ください"
               style={{ height: '100px', resize: 'none' }}
             />
@@ -727,6 +756,7 @@ function InformationBasic(props: Props) {
           >
             <BasicTextArea
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              maxLength={60}
               placeholder="自由にご記入ください"
               style={{ height: '100px', resize: 'none' }}
             />
@@ -756,6 +786,7 @@ function InformationBasic(props: Props) {
           >
             <BasicTextArea
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              maxLength={60}
               placeholder="ご自由に記入ください"
               style={{ height: '136px', resize: 'none' }}
             />

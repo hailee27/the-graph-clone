@@ -47,7 +47,7 @@ export type MasterDataResponseDistinct = {
 };
 export type MasterDataDistinctParams = {
   distinct: 'code' | string;
-  code: number | null;
+  code?: number | null;
 };
 export { injectedRtkApi as MasterDataApi };
 export const {
