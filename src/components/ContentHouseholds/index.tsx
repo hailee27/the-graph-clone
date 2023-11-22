@@ -1,5 +1,3 @@
-/* eslint-disable max-lines-per-function */
-/* eslint-disable no-console */
 import React, { useEffect, useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
@@ -17,6 +15,7 @@ import Currency from '../common/Currency';
 function ContentHouseholds() {
   const { slug } = useParams();
   const [form] = Form.useForm();
+  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
   // lifeInsurancePremium
   const peopleLifeInsuranceTypeWatch = Form.useWatch(['people', 'inforBasic', 'lifeInsurancePremium'], form);
@@ -27,7 +26,8 @@ function ContentHouseholds() {
   const husbandMonthlytakehomePay = Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form);
   const wifeMonthlytakehomePay = Form.useWatch(['wife', 'workInfor', 'salary', 'monthlytakehomePay'], form);
 
-  const monthlyWatch = Form.useWatch('monthly', form);
+  const monthlyWatch = Form.useWatch(['common', 'scholarships', 'borrowing', 'monthly'], form);
+
   const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
   const electricBillWatch = Form.useWatch('electricBill', form);
   const taxWatch = Form.useWatch('tax', form);
@@ -38,8 +38,22 @@ function ContentHouseholds() {
     }
     return 'single';
   }, [slug]);
-  const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
 
+  const totalmonths = useMemo(() => {
+    return (
+      Number(husbandMonthlytakehomePay ?? 0) + Number(wifeMonthlytakehomePay ?? 0) ||
+      Number(peopleMonthlytakehomePay ?? 0)
+    );
+  }, [husbandMonthlytakehomePay, wifeMonthlytakehomePay, peopleMonthlytakehomePay]);
+  const percents = useMemo(() => {
+    const totals =
+      Number(lifeInsurancePremiumWatch ?? 0) +
+        Number(electricBillWatch ?? 0) +
+        Number(taxWatch ?? 0) +
+        Number(monthlyWatch ?? 0) +
+        Number(desiredRentWatch ?? 0) || 1;
+    return Math.floor((totalmonths / totals) * 100);
+  }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
   useEffect(() => {
     form.setFieldValue(
       'lifeInsurancePremium',
@@ -58,31 +72,12 @@ function ContentHouseholds() {
     );
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
 
-  const totalmonths = useMemo(() => {
-    return (
-      Number(husbandMonthlytakehomePay ?? 0) + Number(wifeMonthlytakehomePay ?? 0) ||
-      Number(peopleMonthlytakehomePay ?? 0)
-    );
-  }, [husbandMonthlytakehomePay, wifeMonthlytakehomePay, peopleMonthlytakehomePay]);
-  const percents = useMemo(() => {
-    const totals =
-      Number(lifeInsurancePremiumWatch ?? 0) +
-        Number(electricBillWatch ?? 0) +
-        Number(taxWatch ?? 0) +
-        Number(monthlyWatch ?? 0) +
-        Number(desiredRentWatch ?? 0) || 1;
-    return Math.floor((totalmonths / totals) * 100);
-  }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
-  console.log(percents);
   return (
     <>
       <Form
         form={form}
         name="formContentHouseholds"
-        onFinish={(e) => console.log(e)}
-        onValuesChange={(e) => {
-          form.setFieldValue('monthly', e?.common?.scholarships?.borrowing?.monthly);
-        }}
+        // onFinish={(e) => console.log(e)}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
       >
@@ -125,14 +120,7 @@ function ContentHouseholds() {
                 </span>
               }
             />
-            <CardFix
-              content={
-                <Form.Item name="monthly" noStyle>
-                  <Currency />
-                </Form.Item>
-              }
-              title="返済等"
-            />
+            <CardFix content={<Currency value={monthlyWatch} />} title="返済等" />
             <CardFix
               content={
                 <div className="px-[34px] flex space-x-[8px] items-center">
@@ -226,4 +214,4 @@ function ContentHouseholds() {
   );
 }
 
-export default ContentHouseholds;
+export default React.memo(ContentHouseholds);

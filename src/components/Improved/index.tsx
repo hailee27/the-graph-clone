@@ -1,63 +1,109 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TemplateCard from '../common/TemplateCard';
 import { dataImprovement } from './data';
 import ProblemsAndRisks from './ProblemsAndRisks';
+import { Form, Input } from 'antd';
 
 function Improved() {
+  const [form] = Form.useForm();
+  useEffect(() => {
+    const { riskValue, ...totalRisk } = form.getFieldsValue();
+    form.setFieldValue(
+      'riskValue',
+      Object.values(totalRisk)
+        ?.flatMap((t) => Object.values(t as string))
+        ?.filter((c) => c === '1')?.length
+    );
+  }, [form]);
   return (
-    <>
+    <Form
+      form={form}
+      onValuesChange={(_, values) => {
+        const { riskValue, ...totalRisk } = values;
+        form.setFieldValue(
+          'riskValue',
+          Object.values(totalRisk)
+            ?.flatMap((t) => Object.values(t as string))
+            ?.filter((c) => c === '1')?.length
+        );
+      }}
+    >
+      <Form.Item className="!hidden" name="riskValue">
+        <Input />
+      </Form.Item>
       <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[80px] ">
         <div className="font-bold text-[28px] text-center mb-[64px]">
           賃貸住宅と比較してマイホームで改善できる問題について
         </div>
         <div className="flex flex-col space-y-[16px] ">
-          <TemplateCard
-            content={dataImprovement.householdBudget.content}
-            image={dataImprovement.householdBudget.image}
-            title={dataImprovement.householdBudget.title}
-            type="secondary"
-          />
-          <TemplateCard
-            content={dataImprovement.livingEnvironmentProblem.content}
-            image={dataImprovement.livingEnvironmentProblem.image}
-            title={dataImprovement.livingEnvironmentProblem.title}
-            type="secondary"
-          />
+          <Form.Item name={['householdBudget']}>
+            <TemplateCard
+              content={dataImprovement.householdBudget.content}
+              image={dataImprovement.householdBudget.image}
+              name="householdBudget"
+              title={dataImprovement.householdBudget.title}
+              type="secondary"
+            />
+          </Form.Item>
+          <Form.Item name={['livingEnvironmentProblem']}>
+            <TemplateCard
+              content={dataImprovement.livingEnvironmentProblem.content}
+              image={dataImprovement.livingEnvironmentProblem.image}
+              name="livingEnvironmentProblem"
+              title={dataImprovement.livingEnvironmentProblem.title}
+              type="secondary"
+            />
+          </Form.Item>
         </div>
         <div className="font-bold text-[28px] text-center my-[64px]">
           マイホームと比較した賃貸住宅での、人生4大リスクの対策について
         </div>
         <div className="flex flex-col space-y-[16px]">
-          <TemplateCard
-            content={dataImprovement.justInCaseRisk.content}
-            image={dataImprovement.justInCaseRisk.image}
-            title={dataImprovement.justInCaseRisk.title}
-            type="secondary"
-          />
-          <TemplateCard
-            content={dataImprovement.oldAgeRisk.content}
-            image={dataImprovement.oldAgeRisk.image}
-            title={dataImprovement.oldAgeRisk.title}
-            type="secondary"
-          />
-          <TemplateCard
-            content={dataImprovement.disasterRisk.content}
-            image={dataImprovement.disasterRisk.image}
-            title={dataImprovement.disasterRisk.title}
-            type="secondary"
-          />
-          <TemplateCard
-            content={dataImprovement.sickRisk.content}
-            image={dataImprovement.sickRisk.image}
-            title={dataImprovement.sickRisk.title}
-            type="secondary"
-          />
-          <TemplateCard
-            content={dataImprovement.other.content}
-            image={dataImprovement.other.image}
-            title={dataImprovement.other.title}
-            type="secondary"
-          />
+          <Form.Item name={['justInCaseRisk']}>
+            <TemplateCard
+              content={dataImprovement.justInCaseRisk.content}
+              image={dataImprovement.justInCaseRisk.image}
+              name="justInCaseRisk"
+              title={dataImprovement.justInCaseRisk.title}
+              type="secondary"
+            />
+          </Form.Item>
+          <Form.Item name={['oldAgeRisk']}>
+            <TemplateCard
+              content={dataImprovement.oldAgeRisk.content}
+              image={dataImprovement.oldAgeRisk.image}
+              name="oldAgeRisk"
+              title={dataImprovement.oldAgeRisk.title}
+              type="secondary"
+            />
+          </Form.Item>
+          <Form.Item name={['disasterRisk']}>
+            <TemplateCard
+              content={dataImprovement.disasterRisk.content}
+              image={dataImprovement.disasterRisk.image}
+              name="disasterRisk"
+              title={dataImprovement.disasterRisk.title}
+              type="secondary"
+            />
+          </Form.Item>
+          <Form.Item name={['sickRisk']}>
+            <TemplateCard
+              content={dataImprovement.sickRisk.content}
+              image={dataImprovement.sickRisk.image}
+              name="sickRisk"
+              title={dataImprovement.sickRisk.title}
+              type="secondary"
+            />
+          </Form.Item>
+          <Form.Item name={['other']}>
+            <TemplateCard
+              content={dataImprovement.other.content}
+              image={dataImprovement.other.image}
+              name="other"
+              title={dataImprovement.other.title}
+              type="secondary"
+            />
+          </Form.Item>
         </div>
       </div>
       <div className="mt-[24px]">
@@ -79,7 +125,7 @@ function Improved() {
           <span className="tracking-[2.24px] font-bold text-[28px]">その根拠をお伝えします！</span>
         </div>
       </div>
-    </>
+    </Form>
   );
 }
 

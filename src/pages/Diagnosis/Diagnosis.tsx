@@ -1,11 +1,13 @@
 import React from 'react';
 import Tab from '../../components/common/Tab';
 import BeforeImprovement from '../../components/BeforeImprovement';
+
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Improved from '../../components/Improved';
-import { useNavigate } from 'react-router-dom';
 
 function Diagnosis() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   return (
     <div className="w-full  mt-[40px]">
       <div className="flex justify-between mb-[64px]">
@@ -20,7 +22,7 @@ function Diagnosis() {
         </div>
         <button
           className="bg-[#ffffff] w-[240px] py-[24px] h-[58px] rounded-[70px] flex items-center justify-center space-x-3"
-          onClick={() => navigate('/house-holds/single')}
+          onClick={() => navigate(`/house-holds/${searchParams.get('slug')}`)}
         >
           <svg fill="none" height="8" viewBox="0 0 6 8" width="6" xmlns="http://www.w3.org/2000/svg">
             <path

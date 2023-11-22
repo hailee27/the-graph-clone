@@ -12,4 +12,4 @@ function FormScholarships() {
   );
 }
 
-export default FormScholarships;
+export default React.memo(FormScholarships);

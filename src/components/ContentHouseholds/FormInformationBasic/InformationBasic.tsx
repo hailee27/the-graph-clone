@@ -31,9 +31,9 @@ function InformationBasic(props: Props) {
   const [trigger, { data: dataAddress, isLoading, isSuccess }] = useLazyGetMasterDataDistinctQuery();
   const { currentAddressPrefecture } = useHouseHoldsContext();
   const { openNotification } = useNotificationContext();
-  const year = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'year'], form);
-  const month = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form);
-  const day = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
+  const year: string = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'year'], form);
+  const month: string = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form);
+  const day: string = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
 
   const firstName = Form.useWatch([`${type}`, 'inforBasic', 'nameKanji', 'firstName']);
   const lastName = Form.useWatch([`${type}`, 'inforBasic', 'nameKanji', 'lastName']);
@@ -49,10 +49,17 @@ function InformationBasic(props: Props) {
     }
     return '00';
   }, [savingMonth, savingTotalAmount]);
-
+  const age = useMemo(() => {
+    return moment().diff(moment(`${year}-${month}-${day}`), 'year') || '00';
+  }, [year, month, day]);
   // const RegexKatakanaFullWidth = /^([ァ-ン]|ー)+$/;
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
 
+  useEffect(() => {
+    if (age) {
+      form.setFieldValue([`${type}`, 'inforBasic', 'age'], age);
+    }
+  }, [age]);
   useEffect(() => {
     form.setFieldsValue({
       [`${type}`]: {
@@ -119,6 +126,9 @@ function InformationBasic(props: Props) {
     <div className="h-full w-full text-primary-text">
       {/* lifeInsurancePremium */}
       <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'lifeInsurancePremium']}>
+        <BasicInput />
+      </Form.Item>
+      <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'age']}>
         <BasicInput />
       </Form.Item>
       {(type === 'husband' || type === 'wife') && (
@@ -372,7 +382,7 @@ function InformationBasic(props: Props) {
             } `}
           >
             {'('}
-            {moment().diff(moment(`${year}-${month}-${day}`), 'year') || '00'}歳{')'}
+            {age}歳{')'}
           </div>
         </div>
       </div>

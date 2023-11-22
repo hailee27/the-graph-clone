@@ -53,7 +53,7 @@ function InputRuler(props: (SliderSingleProps | SliderRangeProps) & { type?: 'pr
 
   return (
     <div className={combinedClassName}>
-      <Slider marks={marks} max={27.5} min={0.5} step={null} {...rest} />
+      <Slider marks={marks} max={27.5} min={0.5} step={null} tooltip={{ formatter: null }} {...rest} />
     </div>
   );
 }
