@@ -1,4 +1,4 @@
-export const formatNumber = (num: number, digits?: number): string | JSX.Element => {
+export const formatNumber = (num: number, isNumber?: boolean): string | JSX.Element => {
   // if (!number) {
   //   return `${displaySign ? '+0' : '0'}`;
   // }
@@ -9,6 +9,7 @@ export const formatNumber = (num: number, digits?: number): string | JSX.Element
   // }
 
   // return number as string;
+
   const lookup = [
     { value: 1, symbol: '' },
     { value: 1e4, symbol: '万' },
@@ -21,9 +22,15 @@ export const formatNumber = (num: number, digits?: number): string | JSX.Element
     .find(function (e) {
       return num >= e.value;
     });
+  if (isNumber) {
+    return new Intl.NumberFormat('ja-JP', {
+      maximumFractionDigits: 0,
+      minimumIntegerDigits: 4,
+    }).format(num);
+  }
   return (
     <>
-      {item ? (num / item.value).toFixed(digits ?? 1).replace(rx, '$1') : '0'}
+      {item ? (num / item.value).toFixed(1).replace(rx, '$1') : '0'}
 
       <span className="text-[24px] font-bold">{<span>{item?.symbol}</span>}円</span>
     </>

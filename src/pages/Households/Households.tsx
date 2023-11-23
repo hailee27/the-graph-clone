@@ -26,11 +26,13 @@ function Households() {
   return (
     <>
       <Form.Provider
-        onFormFinish={(name) => {
+        onFormFinish={(name, { values }) => {
           if (name === 'formContentHouseholds') {
+            const age = values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age;
             navigate({
               search: createSearchParams({
                 step: '2',
+                age,
               }).toString(),
             });
           }
@@ -38,6 +40,16 @@ function Households() {
             navigate({
               search: createSearchParams({
                 step: '3',
+                annual: values?.retirementSaving?.annual,
+                untilAge60: values?.retirementSaving?.untilAge60,
+              }).toString(),
+            });
+          }
+          if (name === 'formLifeDiagnosis') {
+            navigate({
+              pathname: '/diagnosis',
+              search: createSearchParams({
+                slug: slug as string,
               }).toString(),
             });
           }

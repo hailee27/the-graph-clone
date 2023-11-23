@@ -1,10 +1,38 @@
 import { Form, Radio } from 'antd';
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import BasicRadio from '../common/BasicRadio';
 import BasicTextArea from '../common/BasicTextArea';
 import BasicInput from '../common/BasicInput';
+import { useSearchParams } from 'react-router-dom';
+import { formatNumber } from '../../utils/formatNumber';
 
 function FormFutureHome() {
+  const form = Form.useFormInstance();
+  const buyHomeAge = Form.useWatch(['buyHome', 'age'], form);
+  const retirementSaving = Form.useWatch(['retirementSaving', 'maximum'], form);
+  const [searchParams] = useSearchParams();
+
+  const leftYear = useMemo<number>(() => {
+    return Number(buyHomeAge) - Number(searchParams.get('age'));
+  }, [buyHomeAge, searchParams]);
+  const untilAge60 = useMemo<number>(() => {
+    return 60 - Number(searchParams.get('age'));
+  }, [searchParams]);
+
+  const annual = useMemo(() => {
+    return formatNumber(untilAge60 * 12 * (retirementSaving ?? 0), true);
+  }, [untilAge60, retirementSaving]);
+
+  useEffect(() => {
+    form.setFieldsValue({
+      retirementSaving: {
+        ...form.getFieldValue(['retirementSaving']),
+        untilAge60,
+        annual,
+      },
+    });
+  }, [untilAge60, annual]);
+
   return (
     <div className="text-primary-text flex flex-col space-y-[48px]">
       <div className="flex">
@@ -35,6 +63,7 @@ function FormFutureHome() {
         <Form.Item className="!m-0 flex-1" name="reasonPurchasingHome">
           <BasicTextArea
             className="bg-primary-light"
+            maxLength={60}
             placeholder="Ex）何年後に実家に帰るか？実家の建て直し、リフォームは？ずっと賃貸でいいと思える理由は？等"
             style={{ height: '136px', resize: 'none' }}
           />
@@ -54,13 +83,14 @@ function FormFutureHome() {
             <div className="flex items-center space-x-[40px]">
               <span className="text-[14px] font-bold ">歳</span>
               <span className="text-[30px] font-bold">
-                00 <span className="text-[14px]">年後</span>
+                {leftYear ? (leftYear <= 0 ? '00' : leftYear) : '00'} <span className="text-[14px]">年後</span>
               </span>
             </div>
           </div>
           <Form.Item className="!mb-0 " name={['buyHome', 'note']}>
             <BasicTextArea
               className="bg-primary-light"
+              maxLength={60}
               placeholder="Ex）先にする理由は、頭金が貯まってから。　子供が生まれてからでいいかな。　"
               style={{ height: '136px', resize: 'none' }}
             />
@@ -91,6 +121,7 @@ function FormFutureHome() {
           <Form.Item className="!mb-0 " name={['ownHome', 'note']}>
             <BasicTextArea
               className="bg-primary-light"
+              maxLength={60}
               placeholder="Ex）先にする理由は、頭金が貯まってから。　子供が生まれてからでいいかな。　"
               style={{ height: '136px', resize: 'none' }}
             />
@@ -107,18 +138,28 @@ function FormFutureHome() {
           <div className="flex space-x-[40px] items-center">
             <span className="font-bold text-[14px]">今出来る月々の最大貯蓄額</span>
             <div className="flex flex-1 items-center space-x-[8px] w-full">
-              <Form.Item className="!m-0" name="retirementSaving">
+              <Form.Item className="!m-0" name={['retirementSaving', 'maximum']}>
                 <BasicInput className="bg-primary-light" placeholder="50000" type="number" />
               </Form.Item>
               <span className="text-[14px] font-bold">円</span>
             </div>
           </div>
           <div className="font-bold text-[14px]">
+            <Form.Item className="hidden" name={['retirementSaving', 'untilAge60']}>
+              <BasicInput />
+            </Form.Item>
+            <Form.Item className="hidden" name={['retirementSaving', 'annual']}>
+              <BasicInput />
+            </Form.Item>
+
             <span>
               60歳まで
-              <span className="text-[30px]">00</span>
+              <span className="text-[30px]">{untilAge60}</span>
               年間の貯蓄額は、
-              <span className="text-[28px]">0,000 万円</span>
+              <span className="text-[28px]">
+                {Number(annual) <= 0 ? '0,000' : annual}
+                万円
+              </span>
             </span>
           </div>
         </div>
@@ -131,6 +172,7 @@ function FormFutureHome() {
         <Form.Item className="!m-0 flex-1" name="other">
           <BasicTextArea
             className="bg-primary-light"
+            maxLength={60}
             placeholder="自由にご記入ください"
             style={{ height: '136px', resize: 'none' }}
           />

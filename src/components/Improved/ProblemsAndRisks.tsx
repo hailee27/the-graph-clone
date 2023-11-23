@@ -1,15 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import InputRuler from '../common/InputRuler';
+import { Form } from 'antd';
 
 function ProblemsAndRisks() {
-  const [value, setValue] = useState<number>(27);
+  const [total, setToal] = useState<number>(27);
+  const form = Form.useFormInstance();
+  const value = Form.useWatch('riskValue', form);
+  useEffect(() => {
+    const { riskValue, ...totalRisk } = form.getFieldsValue();
+    const length = Object.values(totalRisk)?.flatMap((e) => Object.values(e as string))?.length;
+    setToal(length);
+  }, [form]);
   return (
     <div className="bg-[#ffffff] rounded-[16px] py-[106px] flex items-center justify-center flex-col ">
       <div className="text-[28px] font-bold">
         <span className="tracking-[2.24px]">人生100年にとっての問題・リスクを</span>
         <span className="text-[32px] tracking-[2.56px]">合計</span>
         <span className="text-[44px] tracking-[3.52px]">{value}</span>
-        <span className="tracking-[2.24px]">/27 抱えている！</span>
+        <span className="tracking-[2.24px]">/{total} 抱えている！</span>
       </div>
       <span className="text-[18px] font-medium mt-[72px] pb-[24px] tracking-[1.44px]">
         マイホームを選んだ場合の改善効果を可視化
@@ -49,7 +57,7 @@ function ProblemsAndRisks() {
         >
           <span className="text-[24px] font-bold text-secondary">マイホームでは全てオールインワンで解消出来る！</span>
           <div className="w-full">
-            <InputRuler defaultValue={value} onChange={(e) => setValue(e)} type="secondary" />
+            <InputRuler reverse={true} type="secondary" value={value} />
           </div>
         </div>
         <div className="bg-tertiary w-[160px] rounded-[8px] flex flex-col items-center justify-center space-y-[8px]">

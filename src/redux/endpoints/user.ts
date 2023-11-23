@@ -16,6 +16,13 @@ const injectedRtkApi = api.injectEndpoints({
         // body: queryArg,
       }),
     }),
+    postVerifyPassword: build.mutation<PostVerifyPasswordResponse, PostVerifyParams>({
+      query: (queryArg) => ({
+        url: '/auth/verify-password',
+        method: 'POST',
+        body: queryArg,
+      }),
+    }),
   }),
 });
 
@@ -23,6 +30,8 @@ export type PostLoginResponse = {
   accessToken?: string | undefined | null;
   refreshToken?: string | undefined | null;
   user?: TypeUser;
+  email?: string | undefined | null;
+  verifyToken?: string | undefined | null;
 };
 export type TypeUser = {
   id?: number;
@@ -44,5 +53,12 @@ export type PostLoginParams = {
   email: string;
   password: string;
 };
+
+export type PostVerifyPasswordResponse = void;
+export type PostVerifyParams = {
+  token: string;
+  password: string;
+  passwordConfirm: string;
+};
 export { injectedRtkApi as UserApi };
-export const { usePostLoginMutation, usePostLogoutMutation } = injectedRtkApi;
+export const { usePostLoginMutation, usePostLogoutMutation, usePostVerifyPasswordMutation } = injectedRtkApi;

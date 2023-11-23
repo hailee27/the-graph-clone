@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Form, Spin } from 'antd';
 import BasicButton from '../../components/common/BasicButton';
 import BasicInput from '../../components/common/BasicInput';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateAccessToken, updateUserProfile } from '../../redux/slices/auth.slice';
 import { usePostLoginMutation } from '../../redux/endpoints/user';
@@ -13,6 +13,8 @@ function Login() {
   const dispatch = useDispatch();
   const [trigger, { data, isLoading, isError, isSuccess }] = usePostLoginMutation();
   const { openNotification } = useNotificationContext();
+
+  const navigate = useNavigate();
   useEffect(() => {
     if (isError) {
       openNotification.error({
@@ -77,8 +79,21 @@ function Login() {
           trigger({ email: e.email, password: e.password })
             .unwrap()
             .then((res) => {
-              dispatch(updateAccessToken(res.accessToken as string));
-              dispatch(updateUserProfile(res.user ?? {}));
+              const { accessToken, user, verifyToken, email } = res;
+              if (accessToken && user) {
+                dispatch(updateAccessToken(accessToken as string));
+                dispatch(updateUserProfile(user ?? {}));
+              }
+              if (verifyToken && email) {
+                sessionStorage.setItem(
+                  'verifyPassword',
+                  JSON.stringify({
+                    verifyToken,
+                    email,
+                  })
+                );
+                navigate('/forgot-password');
+              }
             })
         }
       >
