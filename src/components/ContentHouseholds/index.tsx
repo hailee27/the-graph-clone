@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useEffect, useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
@@ -77,7 +78,9 @@ function ContentHouseholds() {
       <Form
         form={form}
         name="formContentHouseholds"
-        // onFinish={(e) => console.log(e)}
+        onFinish={(e) => {
+          console.log(Object.values(e.husband));
+        }}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
       >

@@ -4,7 +4,7 @@ import styles from './index.module.scss';
 
 function InputPassword(props: InputProps) {
   return (
-    <div className={styles.customInput}>
+    <div className={styles.customInputPassword}>
       <Input.Password {...props} />
     </div>
   );

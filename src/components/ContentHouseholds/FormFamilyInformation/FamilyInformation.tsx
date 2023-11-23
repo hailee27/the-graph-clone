@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
-import React from 'react';
+import React, { useState } from 'react';
 import { Form, Radio } from 'antd';
 import BasicInput from '../../common/BasicInput';
 import BasicRadio from '../../common/BasicRadio';
@@ -17,6 +17,19 @@ function FamilyInformation(props: Props) {
   const { disabledLabel, type } = props;
   const { relationshipInParantHome } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
+  const form = Form.useFormInstance();
+  const [familyHome, setFamilyHome] = useState<{ id?: number; type?: string; age?: number }[]>([
+    {
+      id: 1,
+      type: '1',
+      age: 0,
+    },
+  ]);
+
+  const [thoseWholiveAtHome, setThoseWholiveAtHome] = useState<{ id?: number; relationship?: string; age?: number }[]>([
+    { id: 1, relationship: '', age: 0 },
+  ]);
+
   return (
     <div className="h-full w-full text-primary-text">
       {(type === 'husband' || type === 'wife') && (
@@ -86,58 +99,102 @@ function FamilyInformation(props: Props) {
            flex  space-x-[8px] items-center pt-[42px]`}
         >
           <div className="w-full">
-            <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'familyInfor', 'familyHome', 'type']}>
-              <Radio.Group className="!w-full">
-                <div className="flex space-x-[24px] print:space-x-0 print:justify-between">
-                  <BasicRadio value="1">
-                    <span className="text-[14px] print:text-[10px] font-bold ">持ち家</span>
-                  </BasicRadio>
-                  <BasicRadio value="2">
-                    <span className="text-[14px] print:text-[10px] font-bold ">借家</span>
-                  </BasicRadio>
-                  <BasicRadio value="3">
-                    <span className="text-[14px] print:text-[10px] font-bold ">一戸建て</span>
-                  </BasicRadio>
-                  <BasicRadio value="4">
-                    <span className="text-[14px] print:text-[10px] font-bold ">マンション</span>
-                  </BasicRadio>
-                  <BasicRadio value="5">
-                    <span className="text-[14px] print:text-[10px] font-bold ">無</span>
-                  </BasicRadio>
-                </div>
-              </Radio.Group>
-            </Form.Item>
-            <div className="flex items-center flex-1 w-full  mt-[20px]">
-              <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
-              <Form.Item
-                className="!mb-0 flex-1"
-                name={[`${type}`, 'familyInfor', 'familyHome', 'age']}
-                rules={[
-                  { max: 3, message: '半角数字、3文字以内' },
-                  {
-                    validator: (_, value) => {
-                      if (value) {
-                        if (RegexKatakanaHalfWidth.test(value)) {
+            {familyHome.map((item) => (
+              <div className="mb-[14px]" key={item.id}>
+                <Form.Item
+                  className="!mb-0 !w-full"
+                  name={[`${type}`, 'familyInfor', 'familyHome', `familyHome${item.id}`, 'type']}
+                >
+                  <Radio.Group className="!w-full">
+                    <div className="flex space-x-[24px] print:space-x-0 print:justify-between">
+                      <BasicRadio value="1">
+                        <span className="text-[14px] print:text-[10px] font-bold ">持ち家</span>
+                      </BasicRadio>
+                      <BasicRadio value="2">
+                        <span className="text-[14px] print:text-[10px] font-bold ">借家</span>
+                      </BasicRadio>
+                      <BasicRadio value="3">
+                        <span className="text-[14px] print:text-[10px] font-bold ">一戸建て</span>
+                      </BasicRadio>
+                      <BasicRadio value="4">
+                        <span className="text-[14px] print:text-[10px] font-bold ">マンション</span>
+                      </BasicRadio>
+                      <BasicRadio value="5">
+                        <span className="text-[14px] print:text-[10px] font-bold ">無</span>
+                      </BasicRadio>
+                    </div>
+                  </Radio.Group>
+                </Form.Item>
+                <div className="flex items-center flex-1 w-full  mt-[20px]">
+                  <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
+                  <Form.Item
+                    className="!mb-0 flex-1"
+                    name={[`${type}`, 'familyInfor', 'familyHome', `familyHome${item.id}`, 'age']}
+                    rules={[
+                      { max: 3, message: '半角数字、3文字以内' },
+                      {
+                        validator: (_, value) => {
+                          if (value) {
+                            if (RegexKatakanaHalfWidth.test(value)) {
+                              return Promise.resolve();
+                            }
+                            return Promise.reject('半角数字、3文字以内');
+                          }
                           return Promise.resolve();
-                        }
-                        return Promise.reject('半角数字、3文字以内');
-                      }
-                      return Promise.resolve();
-                    },
-                  },
-                ]}
-              >
-                <BasicInput
-                  className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-                  placeholder="20"
-                  type="number"
-                />
-              </Form.Item>
-              <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">年</span>
+                        },
+                      },
+                    ]}
+                  >
+                    <BasicInput
+                      className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+                      placeholder="20"
+                      type="number"
+                    />
+                  </Form.Item>
+                  <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">年</span>
+                </div>
+              </div>
+            ))}
+            <div className="flex w-full justify-between space-x-[8px]">
+              {familyHome.length < 5 && (
+                <BasicButton
+                  className="h-[58px]  flex-1"
+                  onClick={() =>
+                    setFamilyHome((prev) => [
+                      ...prev,
+                      {
+                        id: Number(prev?.[prev.length - 1]?.id) + 1,
+                        age: 0,
+                        type: '1',
+                      },
+                    ])
+                  }
+                  type="default"
+                >
+                  <span className="text-[14px] print:text-[10px] text-primary-text">+ 追加する</span>
+                </BasicButton>
+              )}
+              {familyHome.length > 1 && (
+                <BasicButton
+                  className="h-[58px]  flex-1"
+                  onClick={() => {
+                    const lastIndex = familyHome[familyHome.length - 1];
+                    setFamilyHome((prev) => prev.filter((e) => e !== lastIndex));
+                    form.setFieldValue(
+                      [`${type}`, 'familyInfor', 'familyHome', `familyHome${lastIndex.id}`, 'type'],
+                      null
+                    );
+                    form.setFieldValue(
+                      [`${type}`, 'familyInfor', 'familyHome', `familyHome${lastIndex.id}`, 'age'],
+                      null
+                    );
+                  }}
+                  type="default"
+                >
+                  <span className="text-[14px] print:text-[10px] text-primary-text">− 削除する</span>
+                </BasicButton>
+              )}
             </div>
-            <BasicButton className="h-[58px] mt-[14px]" type="default">
-              <span className="text-[14px] print:text-[10px] text-secondary-text">+ 追加する</span>
-            </BasicButton>
           </div>
         </div>
       </div>
@@ -198,53 +255,99 @@ function FamilyInformation(props: Props) {
             } 
             ${type === 'husband' && 'bg-primary-light '} 
             ${type === 'wife' && 'bg-secondary-thin '}
-            flex flex-col   pt-[48px]`}
+            flex flex-col  space-y-[14px]  pt-[48px]`}
         >
-          <div className="flex items-center flex-1 w-full ">
-            <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
-            <Form.Item
-              className="!mb-0 flex-1"
-              name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome ', 'relationship']}
-            >
-              <SelectButton
-                options={relationshipInParantHome}
-                placeholder="選択してください"
-                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
-              />
-            </Form.Item>
-          </div>
-          <div>
-            <div className="flex items-center flex-1 w-full  mt-[20px]">
-              <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
-              <Form.Item
-                className="!mb-0 flex-1"
-                name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', 'age']}
-                rules={[
-                  { max: 3, message: '半角数字、3文字以内' },
-                  {
-                    validator: (_, value) => {
-                      if (value) {
-                        if (RegexKatakanaHalfWidth.test(value)) {
-                          return Promise.resolve();
+          {thoseWholiveAtHome.map((item) => (
+            <div key={item.id}>
+              <div className="flex items-center flex-1 w-full ">
+                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[
+                    `${type}`,
+                    'familyInfor',
+                    'thoseWholiveAtHome',
+                    `thoseWholiveAtHome${item.id}`,
+                    'relationship',
+                  ]}
+                >
+                  <SelectButton
+                    options={relationshipInParantHome}
+                    placeholder="選択してください"
+                    type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                  />
+                </Form.Item>
+              </div>
+
+              <div className="flex items-center flex-1 w-full  mt-[20px]">
+                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', `thoseWholiveAtHome${item.id}`, 'age']}
+                  rules={[
+                    { max: 3, message: '半角数字、3文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、3文字以内');
                         }
-                        return Promise.reject('半角数字、3文字以内');
-                      }
-                      return Promise.resolve();
+                        return Promise.resolve();
+                      },
                     },
-                  },
-                ]}
-              >
-                <BasicInput
-                  className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-                  placeholder="50"
-                  type="number"
-                />
-              </Form.Item>
-              <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">歳</span>
+                  ]}
+                >
+                  <BasicInput
+                    className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+                    placeholder="50"
+                    type="number"
+                  />
+                </Form.Item>
+                <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">歳</span>
+              </div>
             </div>
-            <BasicButton className="h-[58px] mt-[14px]" type="default">
-              <span className="text-[14px] print:text-[10px] text-secondary-text">+ 追加する</span>
-            </BasicButton>
+          ))}
+          <div className="flex w-full justify-between space-x-[8px]">
+            {thoseWholiveAtHome.length < 5 && (
+              <BasicButton
+                className="h-[58px]  flex-1"
+                onClick={() =>
+                  setThoseWholiveAtHome((prev) => [
+                    ...prev,
+                    {
+                      id: Number(prev?.[prev.length - 1]?.id) + 1,
+                      age: 0,
+                      type: '1',
+                    },
+                  ])
+                }
+                type="default"
+              >
+                <span className="text-[14px] print:text-[10px] text-primary-text">+ 追加する</span>
+              </BasicButton>
+            )}
+            {thoseWholiveAtHome.length > 1 && (
+              <BasicButton
+                className="h-[58px]  flex-1"
+                onClick={() => {
+                  const lastIndex = thoseWholiveAtHome[thoseWholiveAtHome.length - 1];
+                  setThoseWholiveAtHome((prev) => prev.filter((e) => e !== lastIndex));
+                  form.setFieldValue(
+                    [`${type}`, 'familyInfor', 'thoseWholiveAtHome', `thoseWholiveAtHome${lastIndex.id}`, 'type'],
+                    null
+                  );
+                  form.setFieldValue(
+                    [`${type}`, 'familyInfor', 'thoseWholiveAtHome', `thoseWholiveAtHome${lastIndex.id}`, 'age'],
+                    null
+                  );
+                }}
+                type="default"
+              >
+                <span className="text-[14px] print:text-[10px] text-primary-text">− 削除する</span>
+              </BasicButton>
+            )}
           </div>
         </div>
       </div>
