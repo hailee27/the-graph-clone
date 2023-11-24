@@ -1,6 +1,7 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
-import React from 'react';
+import React, { useState } from 'react';
 import BasicRadio from '../../common/BasicRadio';
 import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
@@ -25,6 +26,11 @@ function NewHouseInformation(props: Props) {
     desiredFloorPlan,
     breadth,
   } = useHouseHoldsContext();
+  const form = Form.useFormInstance();
+  const [plannedNewHome, setPlannedNewHome] = useState<{ id?: number; relationship?: string; age?: number }[]>([
+    { id: 1, relationship: '', age: 0 },
+  ]);
+
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
@@ -34,42 +40,84 @@ function NewHouseInformation(props: Props) {
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
-          } flex pl-[48px] flex-col `}
+          } flex pl-[48px] space-y-[14px] flex-col `}
         >
-          <div className="flex items-center flex-1 w-full ">
-            <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
-            <Form.Item className="!mb-0 flex-1" name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'relationship']}>
-              <SelectButton options={relationshipNewResident} placeholder="選択してください" type="primary" />
-            </Form.Item>
-          </div>
-          <div>
-            <div className="flex items-center flex-1 w-full  mt-[20px]">
-              <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
-              <Form.Item
-                className="!mb-0 flex-1"
-                name={[`${type}`, 'newHouseInfor', 'plannedNewHome', 'age']}
-                rules={[
-                  { max: 3, message: '半角数字、3文字以内' },
-                  {
-                    validator: (_, value) => {
-                      if (value) {
-                        if (RegexKatakanaHalfWidth.test(value)) {
-                          return Promise.resolve();
+          {plannedNewHome.map((item) => (
+            <div key={item.id}>
+              <div className="flex items-center flex-1 w-full ">
+                <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'newHouseInfor', 'plannedNewHome', `plannedNewHome${item.id}`, 'relationship']}
+                >
+                  <SelectButton options={relationshipNewResident} placeholder="選択してください" type="primary" />
+                </Form.Item>
+              </div>
+              <div className="flex items-center flex-1 w-full  mt-[20px]">
+                <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
+                <Form.Item
+                  className="!mb-0 flex-1"
+                  name={[`${type}`, 'newHouseInfor', 'plannedNewHome', `plannedNewHome${item.id}`, 'age']}
+                  rules={[
+                    { max: 3, message: '半角数字、3文字以内' },
+                    {
+                      validator: (_, value) => {
+                        if (value) {
+                          if (RegexKatakanaHalfWidth.test(value)) {
+                            return Promise.resolve();
+                          }
+                          return Promise.reject('半角数字、3文字以内');
                         }
-                        return Promise.reject('半角数字、3文字以内');
-                      }
-                      return Promise.resolve();
+                        return Promise.resolve();
+                      },
                     },
-                  },
-                ]}
-              >
-                <BasicInput className="bg-primary-light" placeholder="30" type="number" />
-              </Form.Item>
-              <span className="text-[14px] font-bold ml-[8px] ">歳</span>
+                  ]}
+                >
+                  <BasicInput className="bg-primary-light" placeholder="30" type="number" />
+                </Form.Item>
+                <span className="text-[14px] font-bold ml-[8px] ">歳</span>
+              </div>
             </div>
-            <BasicButton className="h-[58px] mt-[14px]" type="default">
-              <span className="text-[14px] text-secondary-text">+ 追加する</span>
-            </BasicButton>
+          ))}
+          <div className="flex w-full justify-between space-x-[8px]">
+            {plannedNewHome.length < 5 && (
+              <BasicButton
+                className="h-[58px]  flex-1"
+                onClick={() =>
+                  setPlannedNewHome((prev) => [
+                    ...prev,
+                    {
+                      id: Number(prev?.[prev.length - 1]?.id) + 1,
+                      age: 0,
+                      type: '1',
+                    },
+                  ])
+                }
+                type="default"
+              >
+                <span className="text-[14px] print:text-[10px] text-primary-text">+ 追加する</span>
+              </BasicButton>
+            )}
+            {plannedNewHome.length > 1 && (
+              <BasicButton
+                className="h-[58px]  flex-1"
+                onClick={() => {
+                  const lastIndex = plannedNewHome[plannedNewHome.length - 1];
+                  setPlannedNewHome((prev) => prev.filter((e) => e !== lastIndex));
+                  form.setFieldValue(
+                    [`${type}`, 'familyInfor', 'plannedNewHome', `plannedNewHome${lastIndex.id}`, 'type'],
+                    null
+                  );
+                  form.setFieldValue(
+                    [`${type}`, 'familyInfor', 'plannedNewHome', `plannedNewHome${lastIndex.id}`, 'age'],
+                    null
+                  );
+                }}
+                type="default"
+              >
+                <span className="text-[14px] print:text-[10px] text-primary-text">− 削除する</span>
+              </BasicButton>
+            )}
           </div>
         </div>
       </div>

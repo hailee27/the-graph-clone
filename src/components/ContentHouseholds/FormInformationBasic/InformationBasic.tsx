@@ -28,6 +28,20 @@ function InformationBasic(props: Props) {
     month: false,
     day: false,
   });
+  const [numberLifeInsurance, setNumberLifeInsurance] = useState<
+    {
+      id?: number;
+      fee: number;
+      type?: string;
+    }[]
+  >([
+    {
+      id: 1,
+      fee: 0,
+      type: '1',
+    },
+  ]);
+
   const [trigger, { data: dataAddress, isLoading, isSuccess }] = useLazyGetMasterDataDistinctQuery();
   const { currentAddressPrefecture } = useHouseHoldsContext();
   const { openNotification } = useNotificationContext();
@@ -40,8 +54,6 @@ function InformationBasic(props: Props) {
 
   const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
   const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
-
-  const lifeInsuranceTypeWatch = Form.useWatch([`${type}`, 'inforBasic', 'lifeInsurance', 'type'], form);
 
   const savingRate = useMemo(() => {
     if (savingMonth && savingTotalAmount) {
@@ -112,15 +124,12 @@ function InformationBasic(props: Props) {
     }
   }, [dataAddress, isSuccess]);
   useEffect(() => {
-    if (lifeInsuranceTypeWatch === '1') {
-      form.setFieldValue(
-        [`${type}`, 'inforBasic', 'lifeInsurancePremium'],
-        form.getFieldValue([`${type}`, 'inforBasic', 'lifeInsurance', 'fee'])
-      );
-    } else {
-      form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], null);
-    }
-  }, [lifeInsuranceTypeWatch]);
+    const sum = Number(
+      numberLifeInsurance.map((e) => Number(e?.fee ?? 0)).reduce((prev, cur) => Number(prev) + Number(cur))
+    );
+
+    form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], sum);
+  }, [numberLifeInsurance]);
 
   return (
     <div className="h-full w-full text-primary-text">
@@ -524,31 +533,58 @@ function InformationBasic(props: Props) {
             flex  space-x-[8px] items-center pt-[42px]`}
         >
           <div className="w-full flex flex-col space-y-[24px]">
-            {[0].map((item) => (
-              <div key={item}>
+            {numberLifeInsurance.map((item, index) => (
+              <div key={item.id}>
                 <Form.Item
                   className={`!mb-0 ${type === 'husband' || type === 'wife' ? 'w-full' : 'w-[416px]'} `}
-                  name={[`${type}`, 'inforBasic', 'lifeInsurance', 'type']}
+                  name={[`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${item.id}`, 'type']}
                 >
-                  <Radio.Group className="!w-full">
+                  <Radio.Group
+                    className="!w-full"
+                    onChange={(e) => {
+                      numberLifeInsurance[index].type = e.target.value;
+                      setNumberLifeInsurance((prev) => {
+                        return [...prev];
+                      });
+
+                      // if (e.target.value === '1') {
+                      //   const lifeInsuranceFee = form.getFieldValue([
+                      //     `${type}`,
+                      //     'inforBasic',
+                      //     'lifeInsurance',
+                      //     `lifeInsurance${item.id}`,
+                      //     'fee',
+                      //   ]);
+                      //   numberLifeInsurance[index].fee = lifeInsuranceFee;
+                      //   setNumberLifeInsurance((prev) => {
+                      //     return [...prev];
+                      //   });
+                      // } else {
+                      //   numberLifeInsurance[index].fee = 0;
+                      //   setNumberLifeInsurance((prev) => {
+                      //     return [...prev];
+                      //   });
+                      // }
+                    }}
+                  >
                     <div className="flex justify-between">
                       <BasicRadio value="1">
-                        <span className="text-[14px] print:text-[10px] font-bold ">定期</span>
+                        <span className="text-[14px] print:text-[10px] font-bold ">死亡</span>
                       </BasicRadio>
                       <BasicRadio value="2">
-                        <span className="text-[14px] print:text-[10px] font-bold ">終身</span>
-                      </BasicRadio>
-                      <BasicRadio value="3">
-                        <span className="text-[14px] print:text-[10px] font-bold ">養老</span>
-                      </BasicRadio>
-                      <BasicRadio value="4">
                         <span className="text-[14px] print:text-[10px] font-bold ">医療</span>
                       </BasicRadio>
+                      <BasicRadio value="3">
+                        <span className="text-[14px] print:text-[10px] font-bold ">がん</span>
+                      </BasicRadio>
+                      <BasicRadio value="4">
+                        <span className="text-[14px] print:text-[10px] font-bold ">養老</span>
+                      </BasicRadio>
                       <BasicRadio value="5">
-                        <span className="text-[14px] print:text-[10px] font-bold ">ガン</span>
+                        <span className="text-[14px] print:text-[10px] font-bold ">その他</span>
                       </BasicRadio>
                       <BasicRadio value="6">
-                        <span className="text-[14px] print:text-[10px] font-bold ">無</span>
+                        <span className="text-[14px] print:text-[10px] font-bold ">無し</span>
                       </BasicRadio>
                     </div>
                   </Radio.Group>
@@ -560,7 +596,12 @@ function InformationBasic(props: Props) {
                   </span>
                   <Form.Item
                     className="!mb-0 flex-1"
-                    name={[`${type}`, 'inforBasic', 'lifeInsurance', 'fee']}
+                    // initialValue={0}
+                    name={
+                      item.type === '6'
+                        ? undefined
+                        : [`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${item.id}`, 'fee']
+                    }
                     rules={[
                       { required: true, message: '' },
                       { max: 10, message: '半角数字、10文字以内' },
@@ -576,10 +617,22 @@ function InformationBasic(props: Props) {
                   >
                     <BasicInput
                       className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-                      onBlur={(e) => {
-                        if (lifeInsuranceTypeWatch === '1') {
-                          form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], e.target.value);
-                        }
+                      disabled={item.type === '6'}
+                      onChange={(e) => {
+                        // const lifeInsuranceType = form.getFieldValue([
+                        //   `${type}`,
+                        //   'inforBasic',
+                        //   'lifeInsurance',
+                        //   `lifeInsurance${item.id}`,
+                        //   'type',
+                        // ]);
+
+                        numberLifeInsurance[index].fee = Number(e.target.value);
+                        setNumberLifeInsurance((prev) => {
+                          return [...prev];
+                        });
+
+                        // form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], e.target.value);
                       }}
                       placeholder="15000"
                       type="number"
@@ -589,10 +642,46 @@ function InformationBasic(props: Props) {
                 </div>
               </div>
             ))}
-            {/* eslint-disable-next-line no-console */}
-            <BasicButton className="h-[58px] mt-[14px]" onClick={() => console.log('aloo')} type="default">
-              <span className="text-[14px] print:text-[10px] text-primary-text">+ 追加する</span>
-            </BasicButton>
+            <div className="flex w-full justify-between space-x-[8px]">
+              {numberLifeInsurance.length < 5 && (
+                <BasicButton
+                  className="h-[58px] mt-[14px] flex-1"
+                  onClick={() =>
+                    setNumberLifeInsurance((prev) => [
+                      ...prev,
+                      {
+                        id: Number(prev?.[prev.length - 1]?.id) + 1,
+                        fee: 0,
+                        type: '1',
+                      },
+                    ])
+                  }
+                  type="default"
+                >
+                  <span className="text-[14px] print:text-[10px] text-primary-text">+ 追加する</span>
+                </BasicButton>
+              )}
+              {numberLifeInsurance.length > 1 && (
+                <BasicButton
+                  className="h-[58px] mt-[14px] flex-1"
+                  onClick={() => {
+                    const lastIndex = numberLifeInsurance[numberLifeInsurance.length - 1];
+                    setNumberLifeInsurance((prev) => prev.filter((e) => e !== lastIndex));
+                    form.setFieldValue(
+                      [`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${lastIndex.id}`, 'type'],
+                      null
+                    );
+                    form.setFieldValue(
+                      [`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${lastIndex.id}`, 'fee'],
+                      null
+                    );
+                  }}
+                  type="default"
+                >
+                  <span className="text-[14px] print:text-[10px] text-primary-text">− 削除する</span>
+                </BasicButton>
+              )}
+            </div>
           </div>
         </div>
       </div>
