@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-console */
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
 import FormWorkInformation from './FormWorkInformation';
@@ -19,16 +20,15 @@ function ContentHouseholds() {
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
   // lifeInsurancePremium
-  const peopleLifeInsuranceTypeWatch = Form.useWatch(['people', 'inforBasic', 'lifeInsurancePremium'], form);
-  const husbandLifeInsuranceTypeWatch = Form.useWatch(['husband', 'inforBasic', 'lifeInsurancePremium'], form);
-  const wifeLifeInsuranceTypeWatch = Form.useWatch(['wife', 'inforBasic', 'lifeInsurancePremium'], form);
+  // const peopleLifeInsuranceTypeWatch = Form.useWatch(['people', 'inforBasic', 'lifeInsurancePremium'], form);
+  // const husbandLifeInsuranceTypeWatch = Form.useWatch(['husband', 'inforBasic', 'lifeInsurancePremium'], form);
+  // const wifeLifeInsuranceTypeWatch = Form.useWatch(['wife', 'inforBasic', 'lifeInsurancePremium'], form);
   // monthlytakehomePay
   const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form);
   const husbandMonthlytakehomePay = Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form);
   const wifeMonthlytakehomePay = Form.useWatch(['wife', 'workInfor', 'salary', 'monthlytakehomePay'], form);
 
-  const monthlyWatch = Form.useWatch(['common', 'scholarships', 'borrowing', 'monthly'], form);
-
+  const monthlyWatch = Form.useWatch('monthly', form);
   const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
   const electricBillWatch = Form.useWatch('electricBill', form);
   const taxWatch = Form.useWatch('tax', form);
@@ -55,21 +55,21 @@ function ContentHouseholds() {
         Number(desiredRentWatch ?? 0) || 1;
     return Math.floor((totalmonths / totals) * 100);
   }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
-  useEffect(() => {
-    form.setFieldValue(
-      'lifeInsurancePremium',
-      peopleLifeInsuranceTypeWatch || Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) || 0
-    );
-  }, [peopleLifeInsuranceTypeWatch, husbandLifeInsuranceTypeWatch, wifeLifeInsuranceTypeWatch]);
+  // useEffect(() => {
+  //   form.setFieldValue(
+  //     'lifeInsurancePremium',
+  //     peopleLifeInsuranceTypeWatch || Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) || 0
+  //   );
+  // }, [peopleLifeInsuranceTypeWatch, husbandLifeInsuranceTypeWatch, wifeLifeInsuranceTypeWatch]);
   const total = useMemo(() => {
-    return new Intl.NumberFormat('ja-JP', {
-      maximumFractionDigits: 0,
-    }).format(
+    return formatNumber(
       Number(lifeInsurancePremiumWatch ?? 0) +
         Number(electricBillWatch ?? 0) +
         Number(taxWatch ?? 0) +
         Number(monthlyWatch ?? 0) +
-        Number(desiredRentWatch ?? 0)
+        Number(desiredRentWatch ?? 0),
+      true,
+      1
     );
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
 
@@ -79,7 +79,12 @@ function ContentHouseholds() {
         form={form}
         name="formContentHouseholds"
         onFinish={(e) => {
-          console.log(Object.values(e.husband));
+          const none = e.people ? Object.assign.apply(Object, Object.values(e?.people) as any) : null;
+          const wife = e.wife ? Object.assign.apply(Object, Object.values(e?.wife) as any) : null;
+          const husband = e.husband ? Object.assign.apply(Object, Object.values(e.husband) as any) : null;
+          console.log(none);
+          console.log(wife);
+          console.log(husband);
         }}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
@@ -123,7 +128,14 @@ function ContentHouseholds() {
                 </span>
               }
             />
-            <CardFix content={<Currency value={monthlyWatch} />} title="返済等" />
+            <CardFix
+              content={
+                <Form.Item name="monthly" noStyle>
+                  <Currency value={monthlyWatch} />
+                </Form.Item>
+              }
+              title="返済等"
+            />
             <CardFix
               content={
                 <div className="px-[34px] flex space-x-[8px] items-center">

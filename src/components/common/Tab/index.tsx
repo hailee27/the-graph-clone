@@ -9,6 +9,7 @@ interface TypeTabItems {
 function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: string | undefined }) {
   const [selectTab, setSelectedTab] = useState<string | undefined>(defaultValue);
   const navigate = useNavigate();
+  // const [searchParams] = useSearchParams();
 
   useEffect(() => {
     setSelectedTab(defaultValue);

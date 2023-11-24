@@ -156,7 +156,7 @@ function FamilyInformation(props: Props) {
               </div>
             ))}
             <div className="flex w-full justify-between space-x-[8px]">
-              {familyHome.length < 5 && (
+              {familyHome.length < 4 && (
                 <BasicButton
                   className="h-[58px]  flex-1"
                   onClick={() =>
@@ -310,7 +310,7 @@ function FamilyInformation(props: Props) {
             </div>
           ))}
           <div className="flex w-full justify-between space-x-[8px]">
-            {thoseWholiveAtHome.length < 5 && (
+            {thoseWholiveAtHome.length < 11 && (
               <BasicButton
                 className="h-[58px]  flex-1"
                 onClick={() =>
