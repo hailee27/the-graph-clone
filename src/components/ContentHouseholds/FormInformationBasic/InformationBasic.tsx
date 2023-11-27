@@ -57,7 +57,7 @@ function InformationBasic(props: Props) {
 
   const savingRate = useMemo(() => {
     if (savingMonth && savingTotalAmount) {
-      return Math.round((Number(savingMonth) / Number(savingTotalAmount)) * 100);
+      return ((Number(savingMonth) / Number(savingTotalAmount)) * 100).toFixed(1);
     }
     return '00';
   }, [savingMonth, savingTotalAmount]);
@@ -128,15 +128,15 @@ function InformationBasic(props: Props) {
       numberLifeInsurance.map((e) => Number(e?.fee ?? 0)).reduce((prev, cur) => Number(prev) + Number(cur))
     );
 
-    form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], sum);
+    form.setFieldValue('lifeInsurancePremium', sum);
   }, [numberLifeInsurance]);
 
   return (
     <div className="h-full w-full text-primary-text">
       {/* lifeInsurancePremium */}
-      <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'lifeInsurancePremium']}>
+      {/* <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'lifeInsurancePremium']}>
         <BasicInput />
-      </Form.Item>
+      </Form.Item> */}
       <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'age']}>
         <BasicInput />
       </Form.Item>
@@ -317,74 +317,72 @@ function InformationBasic(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '} 
             flex  items-center  pt-[48px]`}
         >
-          <Form.Item
+          {/* <Form.Item
             className="!mb-0"
             name={[`${type}`, 'inforBasic', 'birthDay']}
             rules={[{ required: true, message: '' }]}
-          >
-            <div className="flex items-center justify-between space-x-[8px]">
-              <Form.Item
-                className="!mb-0"
-                name={[`${type}`, 'inforBasic', 'birthDay', 'year']}
-                rules={[{ required: !ruleBirthday.year, message: '半角数字' }]}
-              >
-                <DatePicker
-                  className={`${type === 'husband' || type === 'wife' ? '!w-[92px] print:!w-[70px] ' : ' !w-[120px]'} `}
-                  onSearch={(e) =>
-                    setRuleBirthday((prev) => ({
-                      ...prev,
-                      year: RegexKatakanaHalfWidth.test(e),
-                    }))
-                  }
-                  placeholder={moment().format('YYYY')}
-                  type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
-                  typePicker="year"
-                />
-              </Form.Item>
-              <span className="text-[14px] print:text-[10px] font-bold">年</span>
-              <Form.Item
-                className="!mb-0"
-                name={[`${type}`, 'inforBasic', 'birthDay', 'month']}
-                rules={[{ required: !ruleBirthday.month, message: '半角数字' }]}
-              >
-                <DatePicker
-                  className={`${type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[57px] ' : ' !w-[120px]'} `}
-                  onSearch={(e) =>
-                    setRuleBirthday((prev) => ({
-                      ...prev,
-                      month: RegexKatakanaHalfWidth.test(e),
-                    }))
-                  }
-                  placeholder={moment().format('MM')}
-                  type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
-                  typePicker="month"
-                />
-              </Form.Item>
-              <span className="text-[14px] print:text-[10px] font-bold">月</span>
-              <Form.Item
-                className="!mb-0"
-                name={[`${type}`, 'inforBasic', 'birthDay', 'day']}
-                rules={[{ required: !ruleBirthday.day, message: '半角数字' }]}
-              >
-                <DatePicker
-                  className={`${
-                    type === 'husband' || type === 'wife' ? '!w-[80px]  print:!w-[57px] ' : ' !w-[120px]'
-                  } `}
-                  monthInYear={month ?? moment().format('MM')}
-                  onSearch={(e) =>
-                    setRuleBirthday((prev) => ({
-                      ...prev,
-                      day: RegexKatakanaHalfWidth.test(e),
-                    }))
-                  }
-                  placeholder={moment().format('DD')}
-                  type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
-                  typePicker="day"
-                />
-              </Form.Item>
-              <span className="text-[14px] print:text-[10px] font-bold">日</span>
-            </div>
-          </Form.Item>
+          > */}
+          <div className="flex items-center justify-between space-x-[8px]">
+            <Form.Item
+              className="!mb-0"
+              name={[`${type}`, 'inforBasic', 'birthDay', 'year']}
+              rules={[{ required: !ruleBirthday.year, message: '半角数字' }]}
+            >
+              <DatePicker
+                className={`${type === 'husband' || type === 'wife' ? '!w-[92px] print:!w-[70px] ' : ' !w-[120px]'} `}
+                onSearch={(e) =>
+                  setRuleBirthday((prev) => ({
+                    ...prev,
+                    year: RegexKatakanaHalfWidth.test(e),
+                  }))
+                }
+                placeholder={moment().format('YYYY')}
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                typePicker="year"
+              />
+            </Form.Item>
+            <span className="text-[14px] print:text-[10px] font-bold">年</span>
+            <Form.Item
+              className="!mb-0"
+              name={[`${type}`, 'inforBasic', 'birthDay', 'month']}
+              rules={[{ required: !ruleBirthday.month, message: '半角数字' }]}
+            >
+              <DatePicker
+                className={`${type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[57px] ' : ' !w-[120px]'} `}
+                onSearch={(e) =>
+                  setRuleBirthday((prev) => ({
+                    ...prev,
+                    month: RegexKatakanaHalfWidth.test(e),
+                  }))
+                }
+                placeholder={moment().format('MM')}
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                typePicker="month"
+              />
+            </Form.Item>
+            <span className="text-[14px] print:text-[10px] font-bold">月</span>
+            <Form.Item
+              className="!mb-0"
+              name={[`${type}`, 'inforBasic', 'birthDay', 'day']}
+              rules={[{ required: !ruleBirthday.day, message: '半角数字' }]}
+            >
+              <DatePicker
+                className={`${type === 'husband' || type === 'wife' ? '!w-[80px]  print:!w-[57px] ' : ' !w-[120px]'} `}
+                monthInYear={month ?? moment().format('MM')}
+                onSearch={(e) =>
+                  setRuleBirthday((prev) => ({
+                    ...prev,
+                    day: RegexKatakanaHalfWidth.test(e),
+                  }))
+                }
+                placeholder={moment().format('DD')}
+                type={type === 'husband' || type === 'wife' ? 'default' : 'primary'}
+                typePicker="day"
+              />
+            </Form.Item>
+            <span className="text-[14px] print:text-[10px] font-bold">日</span>
+          </div>
+          {/* </Form.Item> */}
           <div
             className={`text-[14px] print:text-[10px] text-right font-bold ${
               type === 'husband' || type === 'wife' ? 'flex-1 ' : ' pl-[26px]'
@@ -643,7 +641,7 @@ function InformationBasic(props: Props) {
               </div>
             ))}
             <div className="flex w-full justify-between space-x-[8px]">
-              {numberLifeInsurance.length < 5 && (
+              {numberLifeInsurance.length < 6 && (
                 <BasicButton
                   className="h-[58px] mt-[14px] flex-1"
                   onClick={() =>

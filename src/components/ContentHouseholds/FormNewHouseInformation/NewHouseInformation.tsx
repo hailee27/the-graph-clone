@@ -80,7 +80,7 @@ function NewHouseInformation(props: Props) {
             </div>
           ))}
           <div className="flex w-full justify-between space-x-[8px]">
-            {plannedNewHome.length < 5 && (
+            {plannedNewHome.length < 6 && (
               <BasicButton
                 className="h-[58px]  flex-1"
                 onClick={() =>

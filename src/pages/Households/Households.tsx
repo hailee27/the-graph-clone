@@ -41,7 +41,7 @@ function Households() {
               search: createSearchParams({
                 step: '3',
                 annual: values?.retirementSaving?.annual,
-                untilAge60: values?.retirementSaving?.untilAge60,
+                untilAge60: values?.retirementSaving?.maximum,
               }).toString(),
             });
           }

@@ -1,6 +1,7 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
 import BasicRadio from '../../common/BasicRadio';
@@ -15,6 +16,7 @@ interface Props {
 function InformationOnExistingBorrowing(props: Props) {
   const { type } = props;
   const { borrowing } = useHouseHoldsContext();
+  const form = Form.useFormInstance();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const [numberBorrowing, setNumberBorrowing] = useState<
     {
@@ -41,6 +43,13 @@ function InformationOnExistingBorrowing(props: Props) {
       guarantor: '',
     },
   ]);
+  useEffect(() => {
+    const sum = Number(
+      numberBorrowing.map((e) => Number(e?.monthly ?? 0)).reduce((prev, cur) => Number(prev) + Number(cur))
+    );
+
+    form.setFieldValue('monthly', sum);
+  }, [numberBorrowing]);
 
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
@@ -52,7 +61,7 @@ function InformationOnExistingBorrowing(props: Props) {
             type === 'wife' && 'bg-secondary-thin '
           } flex pl-[48px] flex-col `}
         >
-          {numberBorrowing.map((item) => (
+          {numberBorrowing.map((item, index) => (
             <div className="flex justify-between space-x-[60px] pb-[14px]" key={item.id}>
               <div className="flex-1 flex-col space-y-[8px]">
                 <div className="flex items-center  w-full ">
@@ -108,7 +117,15 @@ function InformationOnExistingBorrowing(props: Props) {
                       },
                     ]}
                   >
-                    <BasicInput className="bg-primary-light" placeholder="ここに記入してください" type="number" />
+                    <BasicInput
+                      className="bg-primary-light"
+                      onChange={(e) => {
+                        numberBorrowing[index].monthly = Number(e.target.value);
+                        setNumberBorrowing((prev) => [...prev]);
+                      }}
+                      placeholder="ここに記入してください"
+                      type="number"
+                    />
                   </Form.Item>
                   <span className="text-[14px] font-bold pl-[8px]">円</span>
                 </div>
@@ -226,7 +243,7 @@ function InformationOnExistingBorrowing(props: Props) {
             </div>
           ))}
           <div className="flex w-full justify-between space-x-[8px]">
-            {numberBorrowing.length < 5 && (
+            {numberBorrowing.length < 6 && (
               <BasicButton
                 className="h-[58px]  flex-1"
                 onClick={() =>

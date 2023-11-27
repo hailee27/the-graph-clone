@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Form, Spin } from 'antd';
 import BasicButton from '../../components/common/BasicButton';
 import BasicInput from '../../components/common/BasicInput';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateAccessToken, updateUserProfile } from '../../redux/slices/auth.slice';
 import { usePostLoginMutation } from '../../redux/endpoints/user';
@@ -113,11 +113,11 @@ function Login() {
             <BasicInput disabled={isLoading} placeholder="パスワード（英数字8文字以上）" type="password" />
           </Form.Item>
         </div>
-        <Link to={'/forgot-password'}>
+        {/* <Link to={'/forgot-password'}>
           <div className="text-[13px] mt-[30px] text-primary-text text-center font-medium  cursor-pointer">
             パスワードを忘れた方はこちら
           </div>
-        </Link>
+        </Link> */}
       </Form>
       <Spin spinning={isLoading}>
         <BasicButton className="h-[60px] w-[280px]" onClick={() => form.submit()} type="secondary">
