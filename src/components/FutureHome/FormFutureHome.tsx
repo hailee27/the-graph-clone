@@ -20,7 +20,7 @@ function FormFutureHome() {
   }, [searchParams]);
 
   const annual = useMemo(() => {
-    return formatNumber(untilAge60 * 12 * (retirementSaving ?? 0), true);
+    return formatNumber((untilAge60 * 12 * (retirementSaving ?? 0)) / 10000, true);
   }, [untilAge60, retirementSaving]);
 
   useEffect(() => {

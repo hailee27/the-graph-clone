@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable no-console */
 import React, { useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
@@ -24,9 +22,10 @@ function ContentHouseholds() {
   // const husbandLifeInsuranceTypeWatch = Form.useWatch(['husband', 'inforBasic', 'lifeInsurancePremium'], form);
   // const wifeLifeInsuranceTypeWatch = Form.useWatch(['wife', 'inforBasic', 'lifeInsurancePremium'], form);
   // monthlytakehomePay
-  const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form);
-  const husbandMonthlytakehomePay = Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form);
-  const wifeMonthlytakehomePay = Form.useWatch(['wife', 'workInfor', 'salary', 'monthlytakehomePay'], form);
+  const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
+  const husbandMonthlytakehomePay =
+    Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
+  const wifeMonthlytakehomePay = Form.useWatch(['wife', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
 
   const monthlyWatch = Form.useWatch('monthly', form);
   const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
@@ -78,14 +77,14 @@ function ContentHouseholds() {
       <Form
         form={form}
         name="formContentHouseholds"
-        onFinish={(e) => {
-          const none = e.people ? Object.assign.apply(Object, Object.values(e?.people) as any) : null;
-          const wife = e.wife ? Object.assign.apply(Object, Object.values(e?.wife) as any) : null;
-          const husband = e.husband ? Object.assign.apply(Object, Object.values(e.husband) as any) : null;
-          console.log(none);
-          console.log(wife);
-          console.log(husband);
-        }}
+        // onFinish={(e) => {
+        //   const none = e.people ? Object.assign.apply(Object, Object.values(e?.people) as any) : null;
+        //   const wife = e.wife ? Object.assign.apply(Object, Object.values(e?.wife) as any) : null;
+        //   const husband = e.husband ? Object.assign.apply(Object, Object.values(e.husband) as any) : null;
+        //   console.log(none);
+        //   console.log(wife);
+        //   console.log(husband);
+        // }}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
       >

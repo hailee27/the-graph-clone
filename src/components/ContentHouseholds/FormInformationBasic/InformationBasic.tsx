@@ -413,13 +413,13 @@ function InformationBasic(props: Props) {
             <Form.Item name={[`${type}`, 'inforBasic', 'address', 'name']} rules={[{ required: true, message: '' }]}>
               <Radio.Group>
                 <div className="flex space-x-[24px]">
-                  <BasicRadio value="single">
+                  <BasicRadio value="実家">
                     <span className="text-[14px] print:text-[10px] font-bold ">実家</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple">
+                  <BasicRadio value="賃貸">
                     <span className="text-[14px] print:text-[10px] font-bold ">賃貸</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple1">
+                  <BasicRadio value="社宅">
                     <span className="text-[14px] print:text-[10px] font-bold ">社宅</span>
                   </BasicRadio>
                 </div>
@@ -566,22 +566,22 @@ function InformationBasic(props: Props) {
                     }}
                   >
                     <div className="flex justify-between">
-                      <BasicRadio value="1">
+                      <BasicRadio value="死亡">
                         <span className="text-[14px] print:text-[10px] font-bold ">死亡</span>
                       </BasicRadio>
-                      <BasicRadio value="2">
+                      <BasicRadio value="医療">
                         <span className="text-[14px] print:text-[10px] font-bold ">医療</span>
                       </BasicRadio>
-                      <BasicRadio value="3">
+                      <BasicRadio value="がん">
                         <span className="text-[14px] print:text-[10px] font-bold ">がん</span>
                       </BasicRadio>
-                      <BasicRadio value="4">
+                      <BasicRadio value="養老">
                         <span className="text-[14px] print:text-[10px] font-bold ">養老</span>
                       </BasicRadio>
-                      <BasicRadio value="5">
+                      <BasicRadio value="その他">
                         <span className="text-[14px] print:text-[10px] font-bold ">その他</span>
                       </BasicRadio>
-                      <BasicRadio value="6">
+                      <BasicRadio value="無し">
                         <span className="text-[14px] print:text-[10px] font-bold ">無し</span>
                       </BasicRadio>
                     </div>
@@ -702,10 +702,10 @@ function InformationBasic(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'inforBasic', 'household']}>
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
-                <BasicRadio value="1">
+                <BasicRadio value="Y">
                   <span className="text-[14px] print:text-[10px] font-bold ">付けている</span>
                 </BasicRadio>
-                <BasicRadio value="2">
+                <BasicRadio value="N">
                   <span className="text-[14px] print:text-[10px] font-bold ">付けていない</span>
                 </BasicRadio>
               </div>
@@ -804,13 +804,13 @@ function InformationBasic(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'inforBasic', 'gambling', 'type']}>
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
-                <BasicRadio value="1">
+                <BasicRadio value="無">
                   <span className="text-[14px] print:text-[10px] font-bold ">無</span>
                 </BasicRadio>
-                <BasicRadio value="2">
+                <BasicRadio value="パチンコ">
                   <span className="text-[14px] print:text-[10px] font-bold ">パチンコ</span>
                 </BasicRadio>
-                <BasicRadio value="3">
+                <BasicRadio value="公営ギャンブル">
                   <span className="text-[14px] print:text-[10px] font-bold ">公営ギャンブル</span>
                 </BasicRadio>
               </div>

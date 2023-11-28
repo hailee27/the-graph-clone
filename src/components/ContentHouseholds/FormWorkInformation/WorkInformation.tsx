@@ -288,10 +288,10 @@ function WorkInformation(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'transfer']}>
             <Radio.Group className="!w-full ">
               <div className="flex space-x-[24px]">
-                <BasicRadio value="single">
+                <BasicRadio value="有">
                   <span className="text-[14px] print:text-[10px] font-bold ">有</span>
                 </BasicRadio>
-                <BasicRadio value="multiple">
+                <BasicRadio value="無">
                   <span className="text-[14px] print:text-[10px] font-bold ">無</span>
                 </BasicRadio>
               </div>
@@ -318,10 +318,10 @@ function WorkInformation(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'desireToChangeJobs']}>
             <Radio.Group className="!w-full">
               <div className="flex space-x-[24px]">
-                <BasicRadio value="single">
+                <BasicRadio value="有">
                   <span className="text-[14px] print:text-[10px] font-bold ">有</span>
                 </BasicRadio>
-                <BasicRadio value="multiple">
+                <BasicRadio value="無">
                   <span className="text-[14px] print:text-[10px] font-bold ">無</span>
                 </BasicRadio>
               </div>
@@ -350,22 +350,22 @@ function WorkInformation(props: Props) {
           <Form.Item className="!mb-0 !w-full" name={[`${type}`, 'workInfor', 'commutingTime', 'type']}>
             <Radio.Group className="!w-full">
               <div className="flex space-x-[20px] print:space-x-0 ">
-                <BasicRadio value="0">
+                <BasicRadio value="徒歩">
                   <span className="text-[14px] print:text-[10px] font-bold ">徒歩</span>
                 </BasicRadio>
-                <BasicRadio value="1">
+                <BasicRadio value="自転車">
                   <span className="text-[14px] print:text-[10px] font-bold ">自転車</span>
                 </BasicRadio>
-                <BasicRadio value="2">
+                <BasicRadio value="バス">
                   <span className="text-[14px] print:text-[10px] font-bold ">バス</span>
                 </BasicRadio>
-                <BasicRadio value="3">
+                <BasicRadio value="電車">
                   <span className="text-[14px] print:text-[10px] font-bold ">電車</span>
                 </BasicRadio>
-                <BasicRadio value="4">
+                <BasicRadio value="車">
                   <span className="text-[14px] print:text-[10px] font-bold ">車</span>
                 </BasicRadio>
-                <BasicRadio value="5">
+                <BasicRadio value="その他">
                   <span className="text-[14px] print:text-[10px] font-bold ">その他</span>
                 </BasicRadio>
               </div>
@@ -419,7 +419,7 @@ function WorkInformation(props: Props) {
         >
           <Form.Item
             className="!mb-0 !w-full"
-            name={[`${type}`, 'workInfor', 'memo']}
+            name={[`${type}`, 'workInfor', 'workMemo']}
             rules={[{ max: 60, message: '60文字以内' }]}
           >
             <BasicTextArea

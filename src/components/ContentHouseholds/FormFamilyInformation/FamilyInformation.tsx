@@ -423,7 +423,7 @@ function FamilyInformation(props: Props) {
         >
           <Form.Item
             className="!mb-0 !w-full"
-            name={[`${type}`, 'familyInfor', 'memo']}
+            name={[`${type}`, 'familyInfor', 'familyMemo']}
             rules={[{ max: 60, message: '半角数字、60文字以内' }]}
           >
             <BasicTextArea
