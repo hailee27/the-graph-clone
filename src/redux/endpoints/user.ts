@@ -1,4 +1,5 @@
 import { api } from '../api';
+import { PostUsersProfileParams } from './userProflie';
 
 const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
@@ -48,6 +49,7 @@ export type TypeUser = {
   lastActive?: string;
   isVerifiedAt?: string;
   prefersEmailId?: number;
+  userProfile?: PostUsersProfileParams | null;
 };
 export type PostLoginParams = {
   email: string;

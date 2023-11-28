@@ -8,6 +8,8 @@ import BasicRadio from '../../common/BasicRadio';
 import BasicTextArea from '../../common/BasicTextArea';
 import SelectButton from '../../common/SelectButton';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   type: string;
@@ -17,10 +19,11 @@ function InformationOnExistingBorrowing(props: Props) {
   const { type } = props;
   const { borrowing } = useHouseHoldsContext();
   const form = Form.useFormInstance();
+  const { user } = useSelector((state: RootState) => state.auth);
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const [numberBorrowing, setNumberBorrowing] = useState<
     {
-      id: number;
+      id: number | null;
       kinds?: string | number;
       remainingDebt?: string | number;
       monthly?: string | number;
@@ -32,7 +35,7 @@ function InformationOnExistingBorrowing(props: Props) {
     }[]
   >([
     {
-      id: 1,
+      id: null,
       kinds: '',
       remainingDebt: '',
       monthly: '',
@@ -50,6 +53,25 @@ function InformationOnExistingBorrowing(props: Props) {
 
     form.setFieldValue('monthly', sum);
   }, [numberBorrowing]);
+  useEffect(() => {
+    if (user?.userProfile) {
+      const borrowings = user?.userProfile.borrowings;
+
+      setNumberBorrowing(
+        borrowings?.map((e, i) => ({
+          id: i + 1,
+          kinds: e.tax,
+          remainingDebt: e.remainingDebt,
+          monthly: e.monthly,
+          delay: e.delay,
+          borrower: e.borrower,
+          numberOfYearsLeft: e.numberOfYearsLeft,
+          bonus: e.bonus,
+          guarantor: e.guarantor,
+        })) ?? numberBorrowing
+      );
+    }
+  }, [user?.userProfile]);
 
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
@@ -68,6 +90,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">種類</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={item.kinds}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'kinds']}
                   >
                     <SelectButton options={borrowing} placeholder="選択してください" type="primary" />
@@ -77,6 +100,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">残債</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={String(item.remainingDebt)}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'remainingDebt']}
                     rules={[
                       { max: 10, message: '半角数字、10文字以内' },
@@ -101,6 +125,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">月々</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={String(item.monthly)}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'monthly']}
                     rules={[
                       { max: 10, message: '半角数字、10文字以内' },
@@ -133,6 +158,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">遅延</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={item.delay}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'delay']}
                   >
                     <Radio.Group className="!w-full ">
@@ -153,6 +179,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">借入先</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={String(item.borrower)}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'borrower']}
                     rules={[
                       { max: 2, message: '半角数字、2文字以内' },
@@ -177,6 +204,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">残年数</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={String(item.numberOfYearsLeft)}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'numberOfYearsLeft']}
                     rules={[
                       { max: 2, message: '半角数字、2文字以内' },
@@ -201,6 +229,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">ボーナス</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={String(item.bonus)}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'bonus']}
                     rules={[
                       { max: 10, message: '半角数字、10文字以内' },
@@ -225,6 +254,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">保証人</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={item.guarantor}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'guarantor']}
                   >
                     <Radio.Group className="!w-full ">

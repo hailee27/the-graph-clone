@@ -158,15 +158,15 @@ export interface AboutLifeDiagnosisDto {
 }
 
 export type RelationshipDto = {
-  age: number;
-  name: string;
+  age?: number;
+  name?: string;
 };
 export type LifeInsuranceDto = {
   name: string;
   monthlyPremium: number;
 };
 export type TypeBasicInformation = {
-  informationType?: 'NONE' | ' WIFE' | 'HUSBAND';
+  informationType?: 'NONE' | 'WIFE' | 'HUSBAND';
 
   firstName: string;
 
@@ -235,9 +235,9 @@ export type TypeBasicInformation = {
   // FamilyInformation
   birthPlace: string;
 
-  familyHomes: RelationshipDto[];
+  familyHomes?: RelationshipDto[];
 
-  brothers: string;
+  brother: string;
 
   yourRelationships: RelationshipDto[];
 

@@ -1,90 +1,90 @@
 export interface TypeContentHouseHold {
-  age: number;
-  nameKanji: {
-    firstName: string;
-    lastName: string;
+  age?: number;
+  nameKanji?: {
+    firstName?: string;
+    lastName?: string;
   };
-  nameKatakana: {
-    firstName: string;
-    lastName: string;
+  nameKatakana?: {
+    firstName?: string;
+    lastName?: string;
   };
-  gender: string;
-  birthDay: {
-    year: number;
-    month: number;
-    day: number;
+  gender?: string;
+  birthDay?: {
+    year?: number;
+    month?: number;
+    day?: number;
   };
-  address: {
-    name: string;
-    code: string;
-    prefectures: string;
-    municipalities: string;
-    street: string;
+  address?: {
+    name?: string;
+    code?: string;
+    prefectures?: string;
+    municipalities?: string;
+    street?: string;
   };
-  lifeInsurance: {
-    lifeInsurance1: {
-      type: string;
-      fee: string;
+  lifeInsurance?: {
+    lifeInsurance1?: {
+      type?: string;
+      fee?: string;
     };
-    lifeInsurance2: {
-      type: string;
-      fee: string;
-    };
-  };
-  household: string;
-  saving: {
-    monthly: string;
-    totalAmount: string;
-  };
-  gambling: {
-    type: string;
-    content: string;
-  };
-  hobbies: string;
-  memo: string;
-  placeOfWork: {
-    companyName: string;
-    capital: string;
-    numberOfEmployees: string;
-  };
-  salary: {
-    annualIncome: string;
-    monthlytakehomePay: string;
-  };
-  dutyStation: string;
-  lengthOfService: string;
-  transfer: string;
-  desireToChangeJobs: string;
-  commutingTime: {
-    type: string;
-    time: string;
-  };
-  placeOfBirth: string;
-  familyHome: {
-    familyHome1: {
-      type: string;
-      age: string;
-    };
-    familyHome2: {
-      type: string;
-      age: string;
+    lifeInsurance2?: {
+      type?: string;
+      fee?: string;
     };
   };
-  brothers: string;
-  thoseWholiveAtHome: {
-    thoseWholiveAtHome1: {
-      relationship: string;
-      age: string;
+  household?: string;
+  saving?: {
+    monthly?: string;
+    totalAmount?: string;
+  };
+  gambling?: {
+    type?: string;
+    content?: string;
+  };
+  hobbies?: string;
+  memo?: string;
+  placeOfWork?: {
+    companyName?: string;
+    capital?: string;
+    numberOfEmployees?: string;
+  };
+  salary?: {
+    annualIncome?: string;
+    monthlytakehomePay?: string;
+  };
+  dutyStation?: string;
+  lengthOfService?: string;
+  transfer?: string;
+  desireToChangeJobs?: string;
+  commutingTime?: {
+    type?: string;
+    time?: string;
+  };
+  placeOfBirth?: string;
+  familyHome?: {
+    familyHome1?: {
+      type?: string;
+      age?: string;
     };
-    thoseWholiveAtHome2: {
-      relationship: string;
-      age: string;
+    familyHome2?: {
+      type?: string;
+      age?: string;
     };
   };
-  inheritance: string;
-  nursingCare: string;
-  workMemo: string;
-  familyMemo: string;
+  brothers?: string;
+  thoseWholiveAtHome?: {
+    thoseWholiveAtHome1?: {
+      relationship?: string;
+      age?: string;
+    };
+    thoseWholiveAtHome2?: {
+      relationship?: string;
+      age?: string;
+    };
+  };
+  inheritance?: string;
+  nursingCare?: string;
+  workMemo?: string;
+  familyMemo?: string;
 }
 export interface CommonType {
   newHouseInfor: {

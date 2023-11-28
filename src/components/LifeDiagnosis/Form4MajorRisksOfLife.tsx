@@ -3,10 +3,13 @@
 import { Form } from 'antd';
 import React from 'react';
 import SelectButton from '../common/SelectButton';
-import { useSearchParams } from 'react-router-dom';
+import { formatNumber } from '../../utils/formatNumber';
+
+const ItemEmpty = ({ value }: { value?: string | number | undefined }) => {
+  return <span className="pl-[16px] text-[30px]">{formatNumber(value ?? 0, true)}</span>;
+};
 
 function Form4MajorRisksOfLife() {
-  const [searchParams] = useSearchParams();
   return (
     <div className="text-primary-text">
       <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] print:text-[16px] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
@@ -179,13 +182,19 @@ function Form4MajorRisksOfLife() {
               <span className="pr-[63px]">老後貯蓄はいくら出来ますか？</span>
               <span className="pr-[24px] flex items-center">
                 今出来る月々の最大貯蓄額
-                <span className="pl-[16px] text-[30px]">{searchParams.get('untilAge60')}円</span>
+                <Form.Item initialValue={'0,000'} name="maximum" noStyle>
+                  <ItemEmpty />
+                </Form.Item>
+                <span className="text-[30px]">円</span>
               </span>
               <hr />
               <span className="border-r h-6 border-tertiary"> </span>
               <span className="pl-[24px]  flex items-center">
-                60歳までの貯蓄額
-                <span className="pl-[16px] text-[30px]">{searchParams.get('annual')}万円</span>
+                60歳までの貯蓄額 今出来る月々の最大貯蓄額
+                <Form.Item initialValue={'0,000'} name="annual" noStyle>
+                  <ItemEmpty />
+                </Form.Item>
+                <span className=" text-[30px]">万円</span>
               </span>
             </div>
           </div>

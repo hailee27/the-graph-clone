@@ -14,6 +14,8 @@ import { isKatakana, toKatakana } from 'wanakana';
 import { useLazyGetMasterDataDistinctQuery } from '../../../redux/endpoints/masterData';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useNotificationContext } from '../../context/NotificationContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   disabledLabel?: boolean;
@@ -31,17 +33,17 @@ function InformationBasic(props: Props) {
   const [numberLifeInsurance, setNumberLifeInsurance] = useState<
     {
       id?: number;
-      fee: number;
+      fee?: number | null;
       type?: string;
     }[]
   >([
     {
-      id: 1,
-      fee: 0,
-      type: '1',
+      id: undefined,
+      fee: null,
+      type: undefined,
     },
   ]);
-
+  const { user } = useSelector((state: RootState) => state.auth);
   const [trigger, { data: dataAddress, isLoading, isSuccess }] = useLazyGetMasterDataDistinctQuery();
   const { currentAddressPrefecture } = useHouseHoldsContext();
   const { openNotification } = useNotificationContext();
@@ -130,13 +132,19 @@ function InformationBasic(props: Props) {
 
     form.setFieldValue('lifeInsurancePremium', sum);
   }, [numberLifeInsurance]);
+  useEffect(() => {
+    const InformationType = type === 'husband' ? 'HUSBAND' : type === 'wife' ? 'WIFE' : 'NONE';
+    if (user?.userProfile) {
+      const lifeInsurance = user?.userProfile.basicInformation.find((e) => e.informationType === InformationType)
+        ?.lifeInsurances;
+      setNumberLifeInsurance(
+        lifeInsurance?.map((e, i) => ({ id: i + 1, fee: e.monthlyPremium, type: e.name })) ?? numberLifeInsurance
+      );
+    }
+  }, [type, user?.userProfile]);
 
   return (
     <div className="h-full w-full text-primary-text">
-      {/* lifeInsurancePremium */}
-      {/* <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'lifeInsurancePremium']}>
-        <BasicInput />
-      </Form.Item> */}
       <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'age']}>
         <BasicInput />
       </Form.Item>
@@ -288,10 +296,10 @@ function InformationBasic(props: Props) {
             <Form.Item className="!mb-0 w-full" name={[`${type}`, 'inforBasic', 'gender']}>
               <Radio.Group>
                 <div className="flex space-x-[24px]">
-                  <BasicRadio value="single">
+                  <BasicRadio value="男性">
                     <span className="text-[14px] print:text-[10px] font-bold ">男性</span>
                   </BasicRadio>
-                  <BasicRadio value="multiple">
+                  <BasicRadio value="女性">
                     <span className="text-[14px] print:text-[10px] font-bold ">女性</span>
                   </BasicRadio>
                 </div>
@@ -317,11 +325,6 @@ function InformationBasic(props: Props) {
             ${type === 'wife' && 'bg-secondary-thin '} 
             flex  items-center  pt-[48px]`}
         >
-          {/* <Form.Item
-            className="!mb-0"
-            name={[`${type}`, 'inforBasic', 'birthDay']}
-            rules={[{ required: true, message: '' }]}
-          > */}
           <div className="flex items-center justify-between space-x-[8px]">
             <Form.Item
               className="!mb-0"
@@ -382,7 +385,7 @@ function InformationBasic(props: Props) {
             </Form.Item>
             <span className="text-[14px] print:text-[10px] font-bold">日</span>
           </div>
-          {/* </Form.Item> */}
+
           <div
             className={`text-[14px] print:text-[10px] text-right font-bold ${
               type === 'husband' || type === 'wife' ? 'flex-1 ' : ' pl-[26px]'
@@ -532,9 +535,10 @@ function InformationBasic(props: Props) {
         >
           <div className="w-full flex flex-col space-y-[24px]">
             {numberLifeInsurance.map((item, index) => (
-              <div key={item.id}>
+              <div key={index}>
                 <Form.Item
                   className={`!mb-0 ${type === 'husband' || type === 'wife' ? 'w-full' : 'w-[416px]'} `}
+                  initialValue={item.type}
                   name={[`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${item.id}`, 'type']}
                 >
                   <Radio.Group
@@ -544,25 +548,6 @@ function InformationBasic(props: Props) {
                       setNumberLifeInsurance((prev) => {
                         return [...prev];
                       });
-
-                      // if (e.target.value === '1') {
-                      //   const lifeInsuranceFee = form.getFieldValue([
-                      //     `${type}`,
-                      //     'inforBasic',
-                      //     'lifeInsurance',
-                      //     `lifeInsurance${item.id}`,
-                      //     'fee',
-                      //   ]);
-                      //   numberLifeInsurance[index].fee = lifeInsuranceFee;
-                      //   setNumberLifeInsurance((prev) => {
-                      //     return [...prev];
-                      //   });
-                      // } else {
-                      //   numberLifeInsurance[index].fee = 0;
-                      //   setNumberLifeInsurance((prev) => {
-                      //     return [...prev];
-                      //   });
-                      // }
                     }}
                   >
                     <div className="flex justify-between">
@@ -594,7 +579,7 @@ function InformationBasic(props: Props) {
                   </span>
                   <Form.Item
                     className="!mb-0 flex-1"
-                    // initialValue={0}
+                    initialValue={String(item.fee)}
                     name={
                       item.type === '6'
                         ? undefined
@@ -617,23 +602,14 @@ function InformationBasic(props: Props) {
                       className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
                       disabled={item.type === '6'}
                       onChange={(e) => {
-                        // const lifeInsuranceType = form.getFieldValue([
-                        //   `${type}`,
-                        //   'inforBasic',
-                        //   'lifeInsurance',
-                        //   `lifeInsurance${item.id}`,
-                        //   'type',
-                        // ]);
-
                         numberLifeInsurance[index].fee = Number(e.target.value);
                         setNumberLifeInsurance((prev) => {
                           return [...prev];
                         });
-
-                        // form.setFieldValue([`${type}`, 'inforBasic', 'lifeInsurancePremium'], e.target.value);
                       }}
                       placeholder="15000"
                       type="number"
+                      value={Number(item.fee)}
                     />
                   </Form.Item>
                   <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">円</span>

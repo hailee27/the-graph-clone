@@ -1,3 +1,5 @@
+/* eslint-disable max-lines */
+/* eslint-disable max-lines-per-function */
 import React, { useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
@@ -11,17 +13,18 @@ import { Form } from 'antd';
 import { useParams } from 'react-router-dom';
 import { formatNumber } from '../../utils/formatNumber';
 import Currency from '../common/Currency';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { CommonType, TypeContentHouseHold } from '../../pages/Households/type';
+import moment from 'moment';
 
 function ContentHouseholds() {
   const { slug } = useParams();
   const [form] = Form.useForm();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
-  // lifeInsurancePremium
-  // const peopleLifeInsuranceTypeWatch = Form.useWatch(['people', 'inforBasic', 'lifeInsurancePremium'], form);
-  // const husbandLifeInsuranceTypeWatch = Form.useWatch(['husband', 'inforBasic', 'lifeInsurancePremium'], form);
-  // const wifeLifeInsuranceTypeWatch = Form.useWatch(['wife', 'inforBasic', 'lifeInsurancePremium'], form);
-  // monthlytakehomePay
+  const { user } = useSelector((state: RootState) => state.auth);
+
   const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
   const husbandMonthlytakehomePay =
     Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
@@ -52,14 +55,9 @@ function ContentHouseholds() {
         Number(taxWatch ?? 0) +
         Number(monthlyWatch ?? 0) +
         Number(desiredRentWatch ?? 0) || 1;
-    return Math.floor((totalmonths / totals) * 100);
+    return Math.floor((totalmonths / totals) * 100) || 0;
   }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
-  // useEffect(() => {
-  //   form.setFieldValue(
-  //     'lifeInsurancePremium',
-  //     peopleLifeInsuranceTypeWatch || Number(husbandLifeInsuranceTypeWatch) + Number(wifeLifeInsuranceTypeWatch) || 0
-  //   );
-  // }, [peopleLifeInsuranceTypeWatch, husbandLifeInsuranceTypeWatch, wifeLifeInsuranceTypeWatch]);
+
   const total = useMemo(() => {
     return formatNumber(
       Number(lifeInsurancePremiumWatch ?? 0) +
@@ -72,19 +70,110 @@ function ContentHouseholds() {
     );
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
 
+  const initialValues = useMemo(() => {
+    const none = user?.userProfile?.basicInformation.find((e) => e.informationType === 'NONE');
+
+    if (none) {
+      return {
+        people: {
+          inforBasic: {
+            nameKanji: {
+              firstName: none.firstName,
+              lastName: none.lastName,
+            },
+            nameKatakana: {
+              firstName: none.firstNameKana,
+              lastName: none.lastNameKana,
+            },
+            gender: '男性',
+            birthDay: {
+              day: Number(moment(none.birthday).format('DD')),
+              month: Number(moment(none.birthday).format('MM')),
+              year: Number(moment(none.birthday).format('YYYY')),
+            },
+            address: {
+              name: none.currentAddress,
+              code: String(none.postCode ?? 0),
+              municipalities: none.municipality,
+              prefectures: none.prefecture,
+              street: none.buildingName,
+            },
+            household: none.householdAccountBook,
+            saving: {
+              monthly: none.savingsMonthly,
+              totalAmount: none.totalAmountOfSavings,
+            },
+            gambling: {
+              type: none.gambling,
+              content: none.gamblingOther,
+            },
+            hobbies: none.hobby,
+            memo: none.basicMemo,
+          } as TypeContentHouseHold,
+          workInfor: {
+            placeOfWork: {
+              companyName: none.workplaceCompanyName,
+              capital: none.workplaceCapital,
+              numberOfEmployees: none.workplaceNumberOfEmployees,
+            },
+            salary: {
+              annualIncome: none.salaryAnnual,
+              monthlytakehomePay: none.salaryMonthly,
+            },
+            dutyStation: none.workLocation,
+            lengthOfService: none.lengthService,
+            transfer: none.transfer,
+            desireToChangeJobs: none.desireJob,
+            commutingTime: {
+              type: none.commutingMethod,
+              time: String(none.commutingMethodNumber),
+            },
+            workMemo: none.workMemo,
+          } as TypeContentHouseHold,
+          familyInfor: {
+            placeOfBirth: none.birthPlace,
+            brothers: none.brother,
+            inheritance: none.inheritance,
+            nursingCare: none.nursingCare,
+            familyMemo: none.familyMemo,
+          } as TypeContentHouseHold,
+        },
+        common: {
+          newHouseInfor: {
+            budget: {
+              type: user?.userProfile?.budgetAmount,
+              breakdown: user?.userProfile?.breakdown,
+              householdAppliancesCost: user?.userProfile?.householdApplianceCost,
+              initialCostMovingFee: user?.userProfile?.initialCost,
+              others: user?.userProfile?.others,
+            },
+            desiredRent: {
+              type: Number(user?.userProfile?.desiredRent),
+              selfBurdenAmount: user?.userProfile?.selfPayAmount,
+              parking: user?.userProfile?.parking,
+              other: user?.userProfile?.parkingLotConsumptionTax,
+            },
+            desiredFloorPlan: {
+              floorPlan: user?.userProfile?.desiredFloorPlan,
+              breadth: user?.userProfile?.breadth,
+            },
+            desiredAreaConditions: user?.userProfile?.desiredArea,
+            memo: user?.userProfile?.newHomeMemo,
+          },
+          scholarships: {
+            memo: user?.userProfile?.borrowingMemo,
+          },
+        } as CommonType,
+      };
+    }
+  }, [user?.userProfile?.basicInformation]);
+
   return (
     <>
       <Form
         form={form}
+        initialValues={initialValues}
         name="formContentHouseholds"
-        // onFinish={(e) => {
-        //   const none = e.people ? Object.assign.apply(Object, Object.values(e?.people) as any) : null;
-        //   const wife = e.wife ? Object.assign.apply(Object, Object.values(e?.wife) as any) : null;
-        //   const husband = e.husband ? Object.assign.apply(Object, Object.values(e.husband) as any) : null;
-        //   console.log(none);
-        //   console.log(wife);
-        //   console.log(husband);
-        // }}
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
       >

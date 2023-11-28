@@ -1,4 +1,4 @@
-import { Form, Radio } from 'antd';
+import { Form, Input, Radio } from 'antd';
 import React, { useEffect, useMemo } from 'react';
 import BasicRadio from '../common/BasicRadio';
 import BasicTextArea from '../common/BasicTextArea';
@@ -13,10 +13,10 @@ function FormFutureHome() {
   const [searchParams] = useSearchParams();
 
   const leftYear = useMemo<number>(() => {
-    return Number(buyHomeAge) - Number(searchParams.get('age'));
+    return Number(buyHomeAge) - Number(form.getFieldValue('age'));
   }, [buyHomeAge, searchParams]);
   const untilAge60 = useMemo<number>(() => {
-    return 60 - Number(searchParams.get('age'));
+    return 60 - Number(form.getFieldValue('age') ?? 0);
   }, [searchParams]);
 
   const annual = useMemo(() => {
@@ -36,6 +36,9 @@ function FormFutureHome() {
   return (
     <div className="text-primary-text flex flex-col space-y-[48px]">
       <div className="flex">
+        <Form.Item className="!hidden" name="age">
+          <Input />
+        </Form.Item>
         <span className="w-[224px] text-[14px] font-bold pt-[5px]">老後の住まいは？</span>
         <Form.Item className="!m-0" name="liveInRetirement">
           <Radio.Group className="!w-full ">
@@ -145,9 +148,9 @@ function FormFutureHome() {
             </div>
           </div>
           <div className="font-bold text-[14px]">
-            <Form.Item className="hidden" name={['retirementSaving', 'untilAge60']}>
+            {/* <Form.Item className="hidden" name={['retirementSaving', 'untilAge60']}>
               <BasicInput />
-            </Form.Item>
+            </Form.Item> */}
             <Form.Item className="hidden" name={['retirementSaving', 'annual']}>
               <BasicInput />
             </Form.Item>
