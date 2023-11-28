@@ -123,7 +123,7 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
     const data = masterData?.find((e) => e.key === '56_borrowing')?.selections;
     return data?.map((e) => ({
       label: e.name,
-      value: e.nameEn,
+      value: e?.nameEn?.replace(',', ''),
     })) as DefaultOptionType[];
   }, [masterData]);
 

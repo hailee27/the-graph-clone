@@ -1,6 +1,6 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Radio } from 'antd';
 import BasicInput from '../../common/BasicInput';
 import BasicRadio from '../../common/BasicRadio';
@@ -8,6 +8,8 @@ import BasicTextArea from '../../common/BasicTextArea';
 import BasicButton from '../../common/BasicButton';
 import SelectButton from '../../common/SelectButton';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   disabledLabel?: boolean;
@@ -15,20 +17,35 @@ interface Props {
 }
 function FamilyInformation(props: Props) {
   const { disabledLabel, type } = props;
+  const { user } = useSelector((state: RootState) => state.auth);
   const { relationshipInParantHome } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const form = Form.useFormInstance();
-  const [familyHome, setFamilyHome] = useState<{ id?: number; type?: string; age?: number }[]>([
+  const [familyHome, setFamilyHome] = useState<{ id?: number | null; type?: string; age?: number | null }[]>([
     {
-      id: 1,
-      type: '1',
-      age: 0,
+      id: null,
+      type: '',
+      age: null,
     },
   ]);
 
-  const [thoseWholiveAtHome, setThoseWholiveAtHome] = useState<{ id?: number; relationship?: string; age?: number }[]>([
-    { id: 1, relationship: '', age: 0 },
-  ]);
+  const [thoseWholiveAtHome, setThoseWholiveAtHome] = useState<
+    { id?: number | null; relationship?: string; age?: number | null }[]
+  >([{ id: null, relationship: '', age: null }]);
+
+  useEffect(() => {
+    const InformationType = type === 'husband' ? 'HUSBAND' : type === 'wife' ? 'WIFE' : 'NONE';
+    if (user?.userProfile) {
+      const familyHomes = user?.userProfile.basicInformation.find((e) => e.informationType === InformationType)
+        ?.familyHomes;
+      const yourRelationships = user?.userProfile.basicInformation.find((e) => e.informationType === InformationType)
+        ?.yourRelationships;
+      setFamilyHome(familyHomes?.map((e, i) => ({ id: i + 1, type: e.name, age: e.age })) ?? familyHome);
+      setThoseWholiveAtHome(
+        yourRelationships?.map((e, i) => ({ id: i + 1, relationship: e.name, age: e.age })) ?? thoseWholiveAtHome
+      );
+    }
+  }, [user?.userProfile, type]);
 
   return (
     <div className="h-full w-full text-primary-text">
@@ -103,6 +120,7 @@ function FamilyInformation(props: Props) {
               <div className="mb-[14px]" key={item.id}>
                 <Form.Item
                   className="!mb-0 !w-full"
+                  initialValue={item.type}
                   name={[`${type}`, 'familyInfor', 'familyHome', `familyHome${item.id}`, 'type']}
                 >
                   <Radio.Group className="!w-full">
@@ -129,6 +147,7 @@ function FamilyInformation(props: Props) {
                   <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
                   <Form.Item
                     className="!mb-0 flex-1"
+                    initialValue={String(item.age)}
                     name={[`${type}`, 'familyInfor', 'familyHome', `familyHome${item.id}`, 'age']}
                     rules={[
                       { max: 3, message: '半角数字、3文字以内' },
@@ -263,6 +282,7 @@ function FamilyInformation(props: Props) {
                 <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
                 <Form.Item
                   className="!mb-0 flex-1"
+                  initialValue={item.relationship}
                   name={[
                     `${type}`,
                     'familyInfor',
@@ -283,6 +303,7 @@ function FamilyInformation(props: Props) {
                 <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
                 <Form.Item
                   className="!mb-0 flex-1"
+                  initialValue={String(item.age)}
                   name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', `thoseWholiveAtHome${item.id}`, 'age']}
                   rules={[
                     { max: 3, message: '半角数字、3文字以内' },

@@ -1,4 +1,8 @@
-export const formatNumber = (num: number, isNumber?: boolean, minimumInteger?: number): string | JSX.Element => {
+export const formatNumber = (
+  num: number | string,
+  isNumber?: boolean,
+  minimumInteger?: number
+): string | JSX.Element => {
   // if (!number) {
   //   return `${displaySign ? '+0' : '0'}`;
   // }
@@ -20,8 +24,11 @@ export const formatNumber = (num: number, isNumber?: boolean, minimumInteger?: n
     .slice()
     .reverse()
     .find(function (e) {
-      return num >= e.value;
+      return Number(num) >= e.value;
     });
+  if (typeof num === 'string') {
+    return num;
+  }
   if (isNumber) {
     return new Intl.NumberFormat('ja-JP', {
       maximumFractionDigits: 0,

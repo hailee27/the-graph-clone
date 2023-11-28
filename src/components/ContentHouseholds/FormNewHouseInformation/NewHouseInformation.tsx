@@ -1,13 +1,15 @@
 /* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import { Form, Radio } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BasicRadio from '../../common/BasicRadio';
 import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
 import SelectButton from '../../common/SelectButton';
 import BasicTextArea from '../../common/BasicTextArea';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../redux/store';
 
 interface Props {
   type?: string;
@@ -27,11 +29,22 @@ function NewHouseInformation(props: Props) {
     breadth,
   } = useHouseHoldsContext();
   const form = Form.useFormInstance();
-  const [plannedNewHome, setPlannedNewHome] = useState<{ id?: number; relationship?: string; age?: number }[]>([
-    { id: 1, relationship: '', age: 0 },
-  ]);
-
+  const { user } = useSelector((state: RootState) => state.auth);
+  const [plannedNewHome, setPlannedNewHome] = useState<
+    { id?: number | null; relationship?: string; age?: number | null }[]
+  >([{ id: null, relationship: '', age: null }]);
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
+
+  useEffect(() => {
+    if (user?.userProfile) {
+      const newHomePlans = user?.userProfile.newHomePlans;
+
+      setPlannedNewHome(
+        newHomePlans?.map((e, i) => ({ id: i + 1, relationship: e.name, age: e.age })) ?? plannedNewHome
+      );
+    }
+  }, [user?.userProfile]);
+
   return (
     <div className="h-full w-full text-primary-text flex flex-col space-y-[48px]">
       {/* Planned new home */}
@@ -48,6 +61,7 @@ function NewHouseInformation(props: Props) {
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">続柄</span>
                 <Form.Item
                   className="!mb-0 flex-1"
+                  initialValue={item.relationship}
                   name={[`${type}`, 'newHouseInfor', 'plannedNewHome', `plannedNewHome${item.id}`, 'relationship']}
                 >
                   <SelectButton options={relationshipNewResident} placeholder="選択してください" type="primary" />
@@ -57,6 +71,7 @@ function NewHouseInformation(props: Props) {
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
                 <Form.Item
                   className="!mb-0 flex-1"
+                  initialValue={String(item.age)}
                   name={[`${type}`, 'newHouseInfor', 'plannedNewHome', `plannedNewHome${item.id}`, 'age']}
                   rules={[
                     { max: 3, message: '半角数字、3文字以内' },
@@ -73,7 +88,7 @@ function NewHouseInformation(props: Props) {
                     },
                   ]}
                 >
-                  <BasicInput className="bg-primary-light" placeholder="30" type="number" />
+                  <BasicInput className="bg-primary-light" placeholder="30" type="number" value={Number(item.age)} />
                 </Form.Item>
                 <span className="text-[14px] font-bold ml-[8px] ">歳</span>
               </div>

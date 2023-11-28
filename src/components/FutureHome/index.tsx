@@ -1,10 +1,32 @@
 import { Form } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
 import FormFutureHome from './FormFutureHome';
 import BasicButton from '../common/BasicButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 function FutureHome() {
   const [form] = Form.useForm();
+  const { user } = useSelector((state: RootState) => state.auth);
+
+  const initialValues = useMemo(() => {
+    return {
+      liveInRetirement: user?.userProfile?.aboutFutureHome?.retirementLiveWith,
+      reasonPurchasingHome: user?.userProfile?.aboutFutureHome?.specificReasons,
+      buyHome: {
+        age: String(user?.userProfile?.aboutFutureHome?.planToBuyYourOwnHome),
+        note: user?.userProfile?.aboutFutureHome?.disadvantagesToOwningMemo,
+      },
+      ownHome: {
+        have: user?.userProfile?.aboutFutureHome?.disadvantagesToOwning,
+        note: user?.userProfile?.aboutFutureHome?.disadvantagesToOwningMemo,
+      },
+      retirementSaving: {
+        maximum: user?.userProfile?.aboutFutureHome?.maximumMonthlySavings,
+      },
+      other: user?.userProfile?.aboutFutureHome?.otherRequests,
+    };
+  }, []);
 
   return (
     <>
@@ -13,7 +35,7 @@ function FutureHome() {
           将来の住まいのご予定をお聞かせください
         </div>
         {/* eslint-disable-next-line no-console */}
-        <Form form={form} name="formFutureHome" onFinish={(e) => console.log(e)}>
+        <Form form={form} initialValues={initialValues} name="formFutureHome" onFinish={(e) => console.log(e)}>
           <FormFutureHome />
         </Form>
       </div>

@@ -38,7 +38,11 @@ function Households() {
   useEffect(() => {
     if (isError) {
       openNotification.error({
-        message: 'err',
+        message: (
+          <div className="mr-[20px]">
+            診断は失敗しました。 診断を送信する前に必須項目を入力する必要があります。もう一度確認してください！
+          </div>
+        ),
         icon: (
           <svg
             aria-hidden="true"
@@ -56,7 +60,6 @@ function Households() {
             ></path>
           </svg>
         ),
-        description: 'error',
       });
     }
     if (isSuccess) {
@@ -81,7 +84,7 @@ function Households() {
       });
     }
   }, [isError, isSuccess]);
-  console.log(isError);
+
   return (
     <>
       <Form.Provider
@@ -103,37 +106,42 @@ function Households() {
           const husband: TypeContentHouseHold = formContentHouseholds.husband
             ? Object.assign.apply(Object, Object.values(formContentHouseholds?.husband) as any)
             : null;
-          const age = values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age;
+          // const age = values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age;
 
           if (none) {
             basicInformation = [verifyBasicInformationValue({ data: none, informationType: 'NONE' })];
           }
           if (wife && husband) {
             basicInformation = [
-              verifyBasicInformationValue({ data: wife, informationType: ' WIFE' }),
+              verifyBasicInformationValue({ data: wife, informationType: 'WIFE' }),
               verifyBasicInformationValue({ data: husband, informationType: 'HUSBAND' }),
             ];
           }
 
           if (name === 'formContentHouseholds') {
+            forms.formFutureHome.setFieldValue(
+              'age',
+              values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age
+            );
             navigate({
               search: createSearchParams({
                 step: '2',
-                age,
               }).toString(),
             });
           }
 
           if (name === 'formFutureHome') {
+            forms.formLifeDiagnosis.setFieldValue('maximum', Number(values?.retirementSaving?.maximum));
+            forms.formLifeDiagnosis.setFieldValue('annual', values?.retirementSaving?.annual);
             navigate({
               search: createSearchParams({
                 step: '3',
-                annual: values?.retirementSaving?.annual,
-                untilAge60: values?.retirementSaving?.maximum,
               }).toString(),
             });
           }
           if (name === 'formLifeDiagnosis') {
+            forms.formContentHouseholds.submit();
+            console.log(forms.formContentHouseholds.getFieldsError());
             profileParams = {
               basicInformation: basicInformation,
               newHomePlans: Object.values(common?.newHouseInfor.plannedNewHome ?? {}).map((e) => ({
@@ -161,6 +169,7 @@ function Households() {
                 delay: String(e.delay),
                 guarantor: String(e.guarantor),
                 tax: Number(e.kinds),
+                // tax: 1,
                 electric: Number(e.bonus),
               })),
               borrowingMemo: common?.scholarships?.memo,
