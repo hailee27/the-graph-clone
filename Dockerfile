@@ -1,6 +1,6 @@
 # Step 1: Build the application
 FROM node:16 AS builder
-ARG MODE=staging
+ARG MODE=develop
 
 WORKDIR /app
 COPY package.json yarn.lock ./
