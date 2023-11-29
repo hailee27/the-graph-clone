@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite --port 5000",
     "build": "tsc && vite build",
+    "build:staging": "tsc && vite build --mode staging",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src/",
     "prettier": "prettier --check \"src/**/(*.tsx|*.ts|*.jsx|*.js|*.scss|*.css)\"",
