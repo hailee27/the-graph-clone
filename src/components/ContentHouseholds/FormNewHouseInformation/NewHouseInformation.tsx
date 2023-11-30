@@ -10,6 +10,7 @@ import BasicTextArea from '../../common/BasicTextArea';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+// import { useGetMeQuery } from '../../../redux/endpoints/user';
 
 interface Props {
   type?: string;
@@ -30,9 +31,10 @@ function NewHouseInformation(props: Props) {
   } = useHouseHoldsContext();
   const form = Form.useFormInstance();
   const { user } = useSelector((state: RootState) => state.auth);
+  // const { data: user } = useGetMeQuery();
   const [plannedNewHome, setPlannedNewHome] = useState<
-    { id?: number | null; relationship?: string; age?: number | null }[]
-  >([{ id: null, relationship: '', age: null }]);
+    { id?: number | null; relationship?: string | null; age?: number | null }[]
+  >([{ id: null, relationship: null, age: null }]);
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
 
   useEffect(() => {
@@ -71,7 +73,7 @@ function NewHouseInformation(props: Props) {
                 <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
                 <Form.Item
                   className="!mb-0 flex-1"
-                  initialValue={String(item.age)}
+                  initialValue={item.age ? String(item.age) : undefined}
                   name={[`${type}`, 'newHouseInfor', 'plannedNewHome', `plannedNewHome${item.id}`, 'age']}
                   rules={[
                     { max: 3, message: '半角数字、3文字以内' },

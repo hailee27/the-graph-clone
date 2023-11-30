@@ -6,6 +6,7 @@ import BasicRadio from '../../components/common/BasicRadio';
 
 function Home() {
   const [value, setValue] = useState<string | undefined>(undefined);
+
   const navigate = useNavigate();
 
   return (

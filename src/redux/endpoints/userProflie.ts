@@ -9,9 +9,20 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg,
       }),
     }),
+    updateUsersProfile: build.mutation<UpdateUsersProfileResponse, UpdateUsersProfileParams>({
+      query: (queryArg) => ({
+        url: `/users/${queryArg.id}/profile`,
+        method: 'PUT',
+        body: queryArg.params,
+      }),
+    }),
   }),
 });
-
+export type UpdateUsersProfileResponse = void;
+export type UpdateUsersProfileParams = {
+  id: string;
+  params: PostUsersProfileParams;
+};
 export type PostUsersProfileResponse = void;
 export type PostUsersProfileParams = {
   // basicInformation: TypeBasicInformation[];
@@ -31,7 +42,7 @@ export type PostUsersProfileParams = {
   // desiredArea: string;
   basicInformation: TypeBasicInformation[];
 
-  gender: string;
+  gender: string | undefined;
 
   budgetAmount: string;
 
@@ -57,7 +68,7 @@ export type PostUsersProfileParams = {
 
   desiredArea: string;
 
-  newHomeMemo: string;
+  newHouseMemo: string;
 
   borrowings: BorrowingDto[];
 
@@ -70,6 +81,8 @@ export type PostUsersProfileParams = {
   aboutFutureHome: AboutFutureHomeDto;
 
   aboutLifeDiagnosis: AboutLifeDiagnosisDto;
+  tax: number;
+  electricBill: number;
 };
 export interface BorrowingDto {
   borrower: number;
@@ -86,7 +99,7 @@ export interface BorrowingDto {
 
   guarantor: string;
 
-  tax: number;
+  kinds: number;
 
   electric: number;
 }
@@ -166,6 +179,8 @@ export type LifeInsuranceDto = {
   monthlyPremium: number;
 };
 export type TypeBasicInformation = {
+  id?: number | null | undefined;
+
   informationType?: 'NONE' | 'WIFE' | 'HUSBAND';
 
   firstName: string;
@@ -263,4 +278,4 @@ export type TypeBasicInformation = {
 //   electric: number;
 // };
 export { injectedRtkApi as UserProFileApi };
-export const { usePostUsersProfileMutation } = injectedRtkApi;
+export const { usePostUsersProfileMutation, useUpdateUsersProfileMutation } = injectedRtkApi;

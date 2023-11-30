@@ -10,6 +10,7 @@ import SelectButton from '../../common/SelectButton';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+// import { useGetMeQuery } from '../../../redux/endpoints/user';
 
 interface Props {
   type: string;
@@ -20,11 +21,12 @@ function InformationOnExistingBorrowing(props: Props) {
   const { borrowing } = useHouseHoldsContext();
   const form = Form.useFormInstance();
   const { user } = useSelector((state: RootState) => state.auth);
+  // const { data: user } = useGetMeQuery();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const [numberBorrowing, setNumberBorrowing] = useState<
     {
       id: number | null;
-      kinds?: string | number;
+      kinds?: string | number | null;
       remainingDebt?: string | number;
       monthly?: string | number;
       delay?: string | number;
@@ -36,7 +38,7 @@ function InformationOnExistingBorrowing(props: Props) {
   >([
     {
       id: null,
-      kinds: '',
+      kinds: null,
       remainingDebt: '',
       monthly: '',
       delay: '',
@@ -60,14 +62,14 @@ function InformationOnExistingBorrowing(props: Props) {
       setNumberBorrowing(
         borrowings?.map((e, i) => ({
           id: i + 1,
-          kinds: e.tax,
-          remainingDebt: e.remainingDebt,
-          monthly: e.monthly,
-          delay: e.delay,
-          borrower: e.borrower,
-          numberOfYearsLeft: e.numberOfYearsLeft,
-          bonus: e.bonus,
-          guarantor: e.guarantor,
+          kinds: e.kinds ?? null,
+          remainingDebt: e.remainingDebt ?? null,
+          monthly: e.monthly ?? null,
+          delay: e.delay ?? null,
+          borrower: e.borrower ?? null,
+          numberOfYearsLeft: e.numberOfYearsLeft ?? null,
+          bonus: e.bonus ?? null,
+          guarantor: e.guarantor ?? null,
         })) ?? numberBorrowing
       );
     }
@@ -281,8 +283,14 @@ function InformationOnExistingBorrowing(props: Props) {
                     ...prev,
                     {
                       id: Number(prev?.[prev.length - 1]?.id) + 1,
-                      age: 0,
-                      type: '1',
+                      kinds: null,
+                      remainingDebt: '',
+                      monthly: '',
+                      delay: '',
+                      borrower: '',
+                      numberOfYearsLeft: '',
+                      bonus: '',
+                      guarantor: '',
                     },
                   ])
                 }

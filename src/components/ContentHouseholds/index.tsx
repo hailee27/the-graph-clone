@@ -1,4 +1,3 @@
-/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 import React, { useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
@@ -15,8 +14,8 @@ import { formatNumber } from '../../utils/formatNumber';
 import Currency from '../common/Currency';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { CommonType, TypeContentHouseHold } from '../../pages/Households/type';
-import moment from 'moment';
+import { formatInitalValue } from '../../utils/formatInitalValue';
+// import { useGetMeQuery } from '../../redux/endpoints/user';
 
 function ContentHouseholds() {
   const { slug } = useParams();
@@ -24,7 +23,7 @@ function ContentHouseholds() {
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
   const { user } = useSelector((state: RootState) => state.auth);
-
+  // const { data: user } = useGetMeQuery();
   const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
   const husbandMonthlytakehomePay =
     Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
@@ -71,108 +70,31 @@ function ContentHouseholds() {
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
 
   const initialValues = useMemo(() => {
-    const none = user?.userProfile?.basicInformation.find((e) => e.informationType === 'NONE');
+    const none = user?.userProfile?.basicInformation.find((e) => e.informationType === 'NONE') ?? null;
+    const wife = user?.userProfile?.basicInformation.find((e) => e.informationType === 'WIFE') || null;
+    const husband = user?.userProfile?.basicInformation.find((e) => e.informationType === 'HUSBAND') || null;
 
     if (none) {
+      return formatInitalValue('people', none, user?.userProfile, String(user?.userProfile?.gender));
+    }
+    if (wife && husband) {
       return {
-        people: {
-          inforBasic: {
-            nameKanji: {
-              firstName: none.firstName,
-              lastName: none.lastName,
-            },
-            nameKatakana: {
-              firstName: none.firstNameKana,
-              lastName: none.lastNameKana,
-            },
-            gender: '男性',
-            birthDay: {
-              day: Number(moment(none.birthday).format('DD')),
-              month: Number(moment(none.birthday).format('MM')),
-              year: Number(moment(none.birthday).format('YYYY')),
-            },
-            address: {
-              name: none.currentAddress,
-              code: String(none.postCode ?? 0),
-              municipalities: none.municipality,
-              prefectures: none.prefecture,
-              street: none.buildingName,
-            },
-            household: none.householdAccountBook,
-            saving: {
-              monthly: none.savingsMonthly,
-              totalAmount: none.totalAmountOfSavings,
-            },
-            gambling: {
-              type: none.gambling,
-              content: none.gamblingOther,
-            },
-            hobbies: none.hobby,
-            memo: none.basicMemo,
-          } as TypeContentHouseHold,
-          workInfor: {
-            placeOfWork: {
-              companyName: none.workplaceCompanyName,
-              capital: none.workplaceCapital,
-              numberOfEmployees: none.workplaceNumberOfEmployees,
-            },
-            salary: {
-              annualIncome: none.salaryAnnual,
-              monthlytakehomePay: none.salaryMonthly,
-            },
-            dutyStation: none.workLocation,
-            lengthOfService: none.lengthService,
-            transfer: none.transfer,
-            desireToChangeJobs: none.desireJob,
-            commutingTime: {
-              type: none.commutingMethod,
-              time: String(none.commutingMethodNumber),
-            },
-            workMemo: none.workMemo,
-          } as TypeContentHouseHold,
-          familyInfor: {
-            placeOfBirth: none.birthPlace,
-            brothers: none.brother,
-            inheritance: none.inheritance,
-            nursingCare: none.nursingCare,
-            familyMemo: none.familyMemo,
-          } as TypeContentHouseHold,
-        },
-        common: {
-          newHouseInfor: {
-            budget: {
-              type: user?.userProfile?.budgetAmount,
-              breakdown: user?.userProfile?.breakdown,
-              householdAppliancesCost: user?.userProfile?.householdApplianceCost,
-              initialCostMovingFee: user?.userProfile?.initialCost,
-              others: user?.userProfile?.others,
-            },
-            desiredRent: {
-              type: Number(user?.userProfile?.desiredRent),
-              selfBurdenAmount: user?.userProfile?.selfPayAmount,
-              parking: user?.userProfile?.parking,
-              other: user?.userProfile?.parkingLotConsumptionTax,
-            },
-            desiredFloorPlan: {
-              floorPlan: user?.userProfile?.desiredFloorPlan,
-              breadth: user?.userProfile?.breadth,
-            },
-            desiredAreaConditions: user?.userProfile?.desiredArea,
-            memo: user?.userProfile?.newHomeMemo,
-          },
-          scholarships: {
-            memo: user?.userProfile?.borrowingMemo,
-          },
-        } as CommonType,
+        ...formatInitalValue('wife', wife, user?.userProfile),
+        ...formatInitalValue('husband', husband, user?.userProfile),
       };
     }
+    return undefined;
   }, [user?.userProfile?.basicInformation]);
 
   return (
     <>
       <Form
         form={form}
-        initialValues={initialValues}
+        initialValues={{
+          ...initialValues,
+          tax: String(user?.userProfile?.tax),
+          electricBill: String(user?.userProfile?.electricBill),
+        }}
         name="formContentHouseholds"
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
@@ -279,13 +201,13 @@ function ContentHouseholds() {
             <div className="flex items-end justify-center space-x-[36px] ">
               <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
               <span className="text-[70px] font-bold leading-[32px]  ">
-                {total}
+                {isNaN(total) ? 0 : total}
                 <span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>
             <div className="flex items-center justify-center space-x-[36px] ">
               <div className="flex flex-col">
-                <span className=" text-primary text-[14px] font-bold">2人の手取り給与に</span>
+                <span className=" text-primary text-[14px] font-bold">{slug === 'single' ? 1 : 2}人の手取り給与に</span>
                 <span className=" text-primary text-[14px] font-bold underline underline-offset-[14px] decoration-2">
                   対する固定費の割合
                 </span>

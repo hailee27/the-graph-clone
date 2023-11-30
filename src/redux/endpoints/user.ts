@@ -10,11 +10,11 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg,
       }),
     }),
-    postLogout: build.mutation({
-      query: () => ({
+    postLogout: build.mutation<PostLogoutResponse, PostLogoutParams>({
+      query: (queryArg) => ({
         url: '/auth/logout',
         method: 'POST',
-        // body: queryArg,
+        body: queryArg,
       }),
     }),
     postVerifyPassword: build.mutation<PostVerifyPasswordResponse, PostVerifyParams>({
@@ -24,8 +24,23 @@ const injectedRtkApi = api.injectEndpoints({
         body: queryArg,
       }),
     }),
+    getMe: build.query<GetGetMeResponse, GetGetParams>({
+      query: () => ({
+        url: '/me',
+        method: 'GET',
+      }),
+    }),
   }),
 });
+
+export type PostLogoutResponse = {
+  success: boolean;
+};
+export type PostLogoutParams = {
+  token: string;
+};
+export type GetGetParams = void;
+export type GetGetMeResponse = TypeUser;
 
 export type PostLoginResponse = {
   accessToken?: string | undefined | null;
@@ -63,4 +78,10 @@ export type PostVerifyParams = {
   passwordConfirm: string;
 };
 export { injectedRtkApi as UserApi };
-export const { usePostLoginMutation, usePostLogoutMutation, usePostVerifyPasswordMutation } = injectedRtkApi;
+export const {
+  usePostLoginMutation,
+  usePostLogoutMutation,
+  usePostVerifyPasswordMutation,
+  useGetMeQuery,
+  useLazyGetMeQuery,
+} = injectedRtkApi;

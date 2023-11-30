@@ -26,11 +26,7 @@ function Form4MajorRisksOfLife() {
                 <br />
                 必要保障
               </span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['regardingMeasures', 'necessarySecurity']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['regardingMeasures', 'necessarySecurity']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -46,11 +42,7 @@ function Form4MajorRisksOfLife() {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">遺族の住居確保</span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['regardingMeasures', 'survivingFamily']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['regardingMeasures', 'survivingFamily']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -74,11 +66,7 @@ function Form4MajorRisksOfLife() {
           <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">老後貯蓄の有無</span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['retirementMeasures', 'retirementSaving']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'retirementSaving']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -94,11 +82,7 @@ function Form4MajorRisksOfLife() {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">iDeCo等の運用資金</span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['retirementMeasures', 'operationalFunds']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'operationalFunds']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -114,11 +98,7 @@ function Form4MajorRisksOfLife() {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">資産形成</span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['retirementMeasures', 'assetFormation']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'assetFormation']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -138,11 +118,7 @@ function Form4MajorRisksOfLife() {
                 <br />
                 建て直し費、光熱費、医療費）
               </span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['retirementMeasures', 'reducingExpensesInRetirement']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'reducingExpensesInRetirement']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -158,11 +134,7 @@ function Form4MajorRisksOfLife() {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">老後の住居確保</span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['retirementMeasures', 'securingHousingForRetirement']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'securingHousingForRetirement']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -205,11 +177,7 @@ function Form4MajorRisksOfLife() {
           <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">地震、火災、台風</span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['disasterCountermeasures', 'earthquakeFireTyphoon']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['disasterCountermeasures', 'earthquakeFireTyphoon']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -228,11 +196,7 @@ function Form4MajorRisksOfLife() {
                 ライフラインの確保 <br />
                 （電気、ガス、水道）
               </span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['disasterCountermeasures', 'securingaLifeline']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['disasterCountermeasures', 'securingaLifeline']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -254,7 +218,6 @@ function Form4MajorRisksOfLife() {
               </span>
               <Form.Item
                 className="w-[120px] !mb-0"
-                initialValue={'no'}
                 name={['disasterCountermeasures', 'foodStockpilingAndDisasterPrevention']}
               >
                 <SelectButton
@@ -277,11 +240,7 @@ function Form4MajorRisksOfLife() {
                 <br />
                 社会復帰までの生活費等）
               </span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['disasterCountermeasures', 'securingFunds']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['disasterCountermeasures', 'securingFunds']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -306,11 +265,7 @@ function Form4MajorRisksOfLife() {
                 自炊環境 <br />
                 （健康維持のための食生活）
               </span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['healthMeasures', 'selfCateringEnvironment']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['healthMeasures', 'selfCateringEnvironment']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[
@@ -332,11 +287,7 @@ function Form4MajorRisksOfLife() {
                 <br />
                 リフレッシュ、温浴）
               </span>
-              <Form.Item
-                className="w-[120px] !mb-0"
-                initialValue={'no'}
-                name={['healthMeasures', 'immunityUpEnvironment']}
-              >
+              <Form.Item className="w-[120px] !mb-0" name={['healthMeasures', 'immunityUpEnvironment']}>
                 <SelectButton
                   className="text-[24px] !h-[66px]"
                   options={[

@@ -31,7 +31,7 @@ export const formatNumber = (
   }
   if (isNumber) {
     return new Intl.NumberFormat('ja-JP', {
-      maximumFractionDigits: 0,
+      maximumFractionDigits: 1,
       minimumIntegerDigits: minimumInteger || 4,
     }).format(num);
   }

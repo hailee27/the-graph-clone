@@ -10,6 +10,7 @@ import SelectButton from '../../common/SelectButton';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+// import { useGetMeQuery } from '../../../redux/endpoints/user';
 
 interface Props {
   disabledLabel?: boolean;
@@ -18,6 +19,7 @@ interface Props {
 function FamilyInformation(props: Props) {
   const { disabledLabel, type } = props;
   const { user } = useSelector((state: RootState) => state.auth);
+  // const { data: user } = useGetMeQuery();
   const { relationshipInParantHome } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const form = Form.useFormInstance();
@@ -30,8 +32,8 @@ function FamilyInformation(props: Props) {
   ]);
 
   const [thoseWholiveAtHome, setThoseWholiveAtHome] = useState<
-    { id?: number | null; relationship?: string; age?: number | null }[]
-  >([{ id: null, relationship: '', age: null }]);
+    { id?: number | null; relationship?: string | null; age?: number | null }[]
+  >([{ id: null, relationship: null, age: null }]);
 
   useEffect(() => {
     const InformationType = type === 'husband' ? 'HUSBAND' : type === 'wife' ? 'WIFE' : 'NONE';
@@ -147,7 +149,7 @@ function FamilyInformation(props: Props) {
                   <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">築年数</span>
                   <Form.Item
                     className="!mb-0 flex-1"
-                    initialValue={String(item.age)}
+                    initialValue={item.age ? String(item.age ?? '') : undefined}
                     name={[`${type}`, 'familyInfor', 'familyHome', `familyHome${item.id}`, 'age']}
                     rules={[
                       { max: 3, message: '半角数字、3文字以内' },
@@ -303,7 +305,7 @@ function FamilyInformation(props: Props) {
                 <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">年齢</span>
                 <Form.Item
                   className="!mb-0 flex-1"
-                  initialValue={String(item.age)}
+                  initialValue={item.age ? String(item.age) : undefined}
                   name={[`${type}`, 'familyInfor', 'thoseWholiveAtHome', `thoseWholiveAtHome${item.id}`, 'age']}
                   rules={[
                     { max: 3, message: '半角数字、3文字以内' },
