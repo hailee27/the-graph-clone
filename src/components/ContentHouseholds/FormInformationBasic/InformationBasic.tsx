@@ -16,6 +16,7 @@ import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useNotificationContext } from '../../context/NotificationContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+// import { useGetMeQuery } from '../../../redux/endpoints/user';
 
 interface Props {
   disabledLabel?: boolean;
@@ -44,6 +45,7 @@ function InformationBasic(props: Props) {
     },
   ]);
   const { user } = useSelector((state: RootState) => state.auth);
+  // const { data: user } = useGetMeQuery();
   const [trigger, { data: dataAddress, isLoading, isSuccess }] = useLazyGetMasterDataDistinctQuery();
   const { currentAddressPrefecture } = useHouseHoldsContext();
   const { openNotification } = useNotificationContext();
@@ -88,17 +90,19 @@ function InformationBasic(props: Props) {
   }, [firstName, lastName]);
 
   useEffect(() => {
-    form.setFieldsValue({
-      [`${type}`]: {
-        inforBasic: {
-          address: {
-            prefectures: dataAddress?.data?.[0]?.prefecture,
-            municipalities:
-              String(dataAddress?.data?.[0]?.city ?? '') + String(dataAddress?.data?.[0]?.neighborhood ?? ''),
+    if (dataAddress) {
+      form.setFieldsValue({
+        [`${type}`]: {
+          inforBasic: {
+            address: {
+              prefectures: dataAddress?.data?.[0]?.prefecture,
+              municipalities:
+                String(dataAddress?.data?.[0]?.city ?? '') + String(dataAddress?.data?.[0]?.neighborhood ?? ''),
+            },
           },
         },
-      },
-    });
+      });
+    }
   }, [dataAddress?.data?.[0]]);
   useEffect(() => {
     if (dataAddress?.data?.length === 0 && isSuccess) {
@@ -296,10 +300,10 @@ function InformationBasic(props: Props) {
             <Form.Item className="!mb-0 w-full" name={[`${type}`, 'inforBasic', 'gender']}>
               <Radio.Group>
                 <div className="flex space-x-[24px]">
-                  <BasicRadio value="男性">
+                  <BasicRadio value="MALE">
                     <span className="text-[14px] print:text-[10px] font-bold ">男性</span>
                   </BasicRadio>
-                  <BasicRadio value="女性">
+                  <BasicRadio value="FEMALE">
                     <span className="text-[14px] print:text-[10px] font-bold ">女性</span>
                   </BasicRadio>
                 </div>
@@ -625,8 +629,8 @@ function InformationBasic(props: Props) {
                       ...prev,
                       {
                         id: Number(prev?.[prev.length - 1]?.id) + 1,
-                        fee: 0,
-                        type: '1',
+                        fee: null,
+                        type: '',
                       },
                     ])
                   }

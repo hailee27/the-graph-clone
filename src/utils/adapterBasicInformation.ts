@@ -4,9 +4,11 @@ import { TypeBasicInformation } from '../redux/endpoints/userProflie';
 interface Props {
   data: TypeContentHouseHold;
   informationType: 'NONE' | 'WIFE' | 'HUSBAND';
+  id?: number | null;
 }
-export const verifyBasicInformationValue = ({ data, informationType }: Props) => {
+export const verifyBasicInformationValue = ({ data, informationType, id }: Props) => {
   const res: TypeBasicInformation = {
+    id,
     firstName: data?.nameKanji?.firstName ?? '',
     lastName: data?.nameKanji?.lastName ?? '',
     firstNameKana: data?.nameKatakana?.firstName ?? '',

@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
 /* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -11,10 +12,15 @@ import {
   PostUsersProfileParams,
   TypeBasicInformation,
   usePostUsersProfileMutation,
+  useUpdateUsersProfileMutation,
 } from '../../redux/endpoints/userProflie';
 import { CommonType, TypeContentHouseHold, TypeFormFutureHome, TypeFormLifeDiagnosis } from './type';
 import { verifyBasicInformationValue } from '../../utils/adapterBasicInformation';
 import { useNotificationContext } from '../../components/context/NotificationContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { useLazyGetMeQuery } from '../../redux/endpoints/user';
+import { updateUserProfile } from '../../redux/slices/auth.slice';
 
 const LifeDiagnosis = lazy(() => import('../../components/LifeDiagnosis'));
 const ContentHouseholds = lazy(() => import('../../components/ContentHouseholds'));
@@ -22,13 +28,17 @@ const FutureHome = lazy(() => import('../../components/FutureHome'));
 
 function Households() {
   const { slug } = useParams();
+  const dispatch = useDispatch();
+  const user = useSelector((state: RootState) => state.auth.user);
   // const [spin, setSpin] = useState<boolean>(false);
+  // const { data: user, isLoading } = useGetMeQuery();
   const ref = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-
+  const [triggerGetme] = useLazyGetMeQuery();
   const { openNotification } = useNotificationContext();
   const [trigger, { isError, isSuccess }] = usePostUsersProfileMutation();
+  const [triggerUpdate] = useUpdateUsersProfileMutation();
   // const handlePrint = useReactToPrint({
   //   content: () => ref?.current,
   //   copyStyles: true,
@@ -64,7 +74,7 @@ function Households() {
     }
     if (isSuccess) {
       openNotification.success({
-        message: '正常にログインしました',
+        message: '診断の送るに成功',
         icon: (
           <svg
             aria-hidden="true"
@@ -93,10 +103,10 @@ function Households() {
           let basicInformation: TypeBasicInformation[] = [];
 
           const formContentHouseholds = forms.formContentHouseholds.getFieldsValue();
-          const common: CommonType = forms.formContentHouseholds.getFieldValue(['common']);
+          const common: CommonType = formContentHouseholds.common;
           const formFutureHome: TypeFormFutureHome = forms.formFutureHome.getFieldsValue();
           const formLifeDiagnosis: TypeFormLifeDiagnosis = forms.formLifeDiagnosis.getFieldsValue();
-
+          console.log(common);
           const none: TypeContentHouseHold = formContentHouseholds.people
             ? Object.assign.apply(Object, Object.values(formContentHouseholds?.people) as any)
             : null;
@@ -109,20 +119,30 @@ function Households() {
           // const age = values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age;
 
           if (none) {
-            basicInformation = [verifyBasicInformationValue({ data: none, informationType: 'NONE' })];
+            const id = user?.userProfile
+              ? user?.userProfile?.basicInformation?.find((e) => e.informationType === 'NONE')?.id
+              : null;
+            basicInformation = [verifyBasicInformationValue({ data: none, informationType: 'NONE', id })];
           }
           if (wife && husband) {
+            const idWife = user?.userProfile
+              ? user?.userProfile?.basicInformation?.find((e) => e.informationType === 'WIFE')?.id
+              : null;
+            const idHusband = user?.userProfile
+              ? user?.userProfile?.basicInformation?.find((e) => e.informationType === 'HUSBAND')?.id
+              : null;
             basicInformation = [
-              verifyBasicInformationValue({ data: wife, informationType: 'WIFE' }),
-              verifyBasicInformationValue({ data: husband, informationType: 'HUSBAND' }),
+              verifyBasicInformationValue({ data: wife, informationType: 'WIFE', id: idWife }),
+              verifyBasicInformationValue({ data: husband, informationType: 'HUSBAND', id: idHusband }),
             ];
           }
-
           if (name === 'formContentHouseholds') {
             forms.formFutureHome.setFieldValue(
               'age',
               values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age
             );
+            console.log(basicInformation);
+
             navigate({
               search: createSearchParams({
                 step: '2',
@@ -140,8 +160,8 @@ function Households() {
             });
           }
           if (name === 'formLifeDiagnosis') {
-            forms.formContentHouseholds.submit();
-            console.log(forms.formContentHouseholds.getFieldsError());
+            // forms.formContentHouseholds.submit();
+
             profileParams = {
               basicInformation: basicInformation,
               newHomePlans: Object.values(common?.newHouseInfor.plannedNewHome ?? {}).map((e) => ({
@@ -159,7 +179,7 @@ function Households() {
               desiredFloorPlan: common?.newHouseInfor?.desiredFloorPlan?.floorPlan,
               breadth: String(common?.newHouseInfor?.desiredFloorPlan?.breadth),
               desiredArea: common?.newHouseInfor?.desiredAreaConditions,
-              newHomeMemo: common?.newHouseInfor?.memo,
+              newHouseMemo: common?.newHouseInfor?.memo,
               borrowings: Object.values(common?.scholarships?.borrowing ?? {}).map((e) => ({
                 borrower: Number(e.borrower),
                 remainingDebt: Number(e.remainingDebt),
@@ -168,14 +188,13 @@ function Households() {
                 bonus: Number(e.bonus),
                 delay: String(e.delay),
                 guarantor: String(e.guarantor),
-                tax: Number(e.kinds),
-                // tax: 1,
+                kinds: Number(e.kinds),
                 electric: Number(e.bonus),
               })),
               borrowingMemo: common?.scholarships?.memo,
               parkingLotConsumptionTax: common?.newHouseInfor?.desiredRent?.other,
               userType: slug === 'single' ? 'SINGLE' : 'MULTIPLE',
-              gender: 'NONE',
+              gender: slug === 'single' ? none.gender : 'NONE',
               aboutFutureHome: {
                 retirementLiveWith: formFutureHome.liveInRetirement,
                 disadvantagesToOwning: formFutureHome.ownHome.have,
@@ -218,17 +237,35 @@ function Households() {
                 measureSelfCatering: formLifeDiagnosis.healthMeasures.selfCateringEnvironment !== 'no',
                 measureImmunityBoosting: formLifeDiagnosis.healthMeasures.immunityUpEnvironment !== 'no',
               },
+              tax: formContentHouseholds.tax,
+              electricBill: formContentHouseholds.electricBill,
             };
-            trigger(profileParams)
-              .unwrap()
-              .then(() =>
-                navigate({
-                  pathname: '/diagnosis',
-                  search: createSearchParams({
-                    slug: slug as string,
-                  }).toString(),
-                })
-              );
+            if (user?.userProfile === null) {
+              trigger(profileParams)
+                .unwrap()
+                .then(() =>
+                  navigate({
+                    pathname: '/diagnosis',
+                    search: createSearchParams({
+                      slug: slug as string,
+                    }).toString(),
+                  })
+                );
+            } else {
+              triggerUpdate({ id: String(user?.id), params: profileParams })
+                .unwrap()
+                .then(() => {
+                  triggerGetme()
+                    .unwrap()
+                    .then((res) => dispatch(updateUserProfile(res ?? {})));
+                  navigate({
+                    pathname: '/diagnosis',
+                    search: createSearchParams({
+                      slug: slug as string,
+                    }).toString(),
+                  });
+                });
+            }
           }
           window.scrollTo({ top: 0, behavior: 'smooth' });
 

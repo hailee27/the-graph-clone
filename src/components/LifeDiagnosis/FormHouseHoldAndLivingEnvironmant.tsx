@@ -15,7 +15,7 @@ function FormHouseHoldAndLivingEnvironmant() {
         <div className="border-t-[3px] border-primary mt-[20px] grid grid-cols-3 gap-y-2 gap-x-[100px] print:gap-x-[30px] pt-[24px]">
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">現在の貯蓄状況</span>
-            <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['householdFinance', 'savingStatus']}>
+            <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'savingStatus']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -31,11 +31,7 @@ function FormHouseHoldAndLivingEnvironmant() {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">無駄な固定費</span>
-            <Form.Item
-              className="w-[120px] !mb-0"
-              initialValue={'no'}
-              name={['householdFinance', 'wastefulFixedCosts']}
-            >
+            <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'wastefulFixedCosts']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -51,7 +47,7 @@ function FormHouseHoldAndLivingEnvironmant() {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">家計削減環境「変動費」</span>
-            <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['householdFinance', 'variableCosts']}>
+            <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'variableCosts']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -67,7 +63,7 @@ function FormHouseHoldAndLivingEnvironmant() {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">ローン、借金</span>
-            <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['householdFinance', 'loanDebt']}>
+            <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'loanDebt']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -83,11 +79,7 @@ function FormHouseHoldAndLivingEnvironmant() {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">出産と育児の準備</span>
-            <Form.Item
-              className="w-[120px] !mb-0"
-              initialValue={'no'}
-              name={['householdFinance', 'childbirthAndChildcare']}
-            >
+            <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'childbirthAndChildcare']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -113,7 +105,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               快適性（音問題、
               <br /> プライバシー、ストレス）
             </span>
-            <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['livingEnvironment', 'comfort']}>
+            <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'comfort']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -133,7 +125,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               <br />
               設備、掃除、時間）
             </span>
-            <Form.Item className="w-[120px] !mb-0" initialValue={'no'} name={['livingEnvironment', 'housework']}>
+            <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'housework']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -149,11 +141,7 @@ function FormHouseHoldAndLivingEnvironmant() {
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">広さ、収納量</span>
-            <Form.Item
-              className="w-[120px] !mb-0"
-              initialValue={'no'}
-              name={['livingEnvironment', 'spaceStorageCapacity']}
-            >
+            <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'spaceStorageCapacity']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -173,11 +161,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               <br />
               （趣味、交友関係）
             </span>
-            <Form.Item
-              className="w-[120px] !mb-0"
-              initialValue={'no'}
-              name={['livingEnvironment', 'fulfillmentofPrivateLife']}
-            >
+            <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'fulfillmentofPrivateLife']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
@@ -197,11 +181,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               <br />
               休息環境
             </span>
-            <Form.Item
-              className="w-[120px] !mb-0"
-              initialValue={'no'}
-              name={['livingEnvironment', 'healthConsiderations']}
-            >
+            <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'healthConsiderations']}>
               <SelectButton
                 className="text-[24px] !h-[66px]"
                 options={[
