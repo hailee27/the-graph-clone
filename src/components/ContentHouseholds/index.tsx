@@ -201,7 +201,7 @@ function ContentHouseholds() {
             <div className="flex items-end justify-center space-x-[36px] ">
               <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
               <span className="text-[70px] font-bold leading-[32px]  ">
-                {isNaN(total) ? 0 : total}
+                {isNaN(Number(total)) ? 0 : total}
                 <span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>
