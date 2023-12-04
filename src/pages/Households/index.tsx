@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Households from './Households';
-import { HouseHoldsProvider } from '../../components/context/HouseHoldsContext';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 
@@ -25,11 +24,7 @@ function HouseholdsPage() {
     }
   }, [user?.userProfile]);
 
-  return (
-    <HouseHoldsProvider>
-      <Households />
-    </HouseHoldsProvider>
-  );
+  return <Households />;
 }
 
 export default HouseholdsPage;

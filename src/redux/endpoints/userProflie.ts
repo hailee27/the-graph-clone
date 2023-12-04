@@ -4,14 +4,14 @@ const injectedRtkApi = api.injectEndpoints({
   endpoints: (build) => ({
     postUsersProfile: build.mutation<PostUsersProfileResponse, PostUsersProfileParams>({
       query: (queryArg) => ({
-        url: '/users/profile',
+        url: '/users/information',
         method: 'POST',
         body: queryArg,
       }),
     }),
     updateUsersProfile: build.mutation<UpdateUsersProfileResponse, UpdateUsersProfileParams>({
       query: (queryArg) => ({
-        url: `/users/${queryArg.id}/profile`,
+        url: `/users/${queryArg.id}/information`,
         method: 'PUT',
         body: queryArg.params,
       }),
@@ -40,6 +40,7 @@ export type PostUsersProfileParams = {
   // desiredFloorPlan: string;
   // breadth: string;
   // desiredArea: string;
+  id?: number;
   basicInformation: TypeBasicInformation[];
 
   gender: string | undefined;

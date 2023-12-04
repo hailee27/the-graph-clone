@@ -7,15 +7,18 @@ import { persistor, store } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import './styles/index.scss';
 import { NotificationProvider } from './components/context/NotificationContext';
+import { HouseHoldsProvider } from './components/context/HouseHoldsContext';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <NotificationProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <HouseHoldsProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </HouseHoldsProvider>
         </NotificationProvider>
       </PersistGate>
     </Provider>
