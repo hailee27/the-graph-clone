@@ -4,7 +4,7 @@ import BasicButton from '../../components/common/BasicButton';
 import BasicInput from '../../components/common/BasicInput';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateAccessToken, updateRefreshToken } from '../../redux/slices/auth.slice';
+import { updateAccessToken, updateRefreshToken, updateUserProfile } from '../../redux/slices/auth.slice';
 import { usePostLoginMutation } from '../../redux/endpoints/user';
 import { useNotificationContext } from '../../components/context/NotificationContext';
 
@@ -83,7 +83,7 @@ function Login() {
               if (accessToken && user) {
                 dispatch(updateAccessToken(accessToken as string));
                 dispatch(updateRefreshToken(refreshToken as string));
-                // dispatch(updateUserProfile(user ?? {}));
+                dispatch(updateUserProfile(user ?? {}));
               }
               if (verifyToken && email) {
                 sessionStorage.setItem(
