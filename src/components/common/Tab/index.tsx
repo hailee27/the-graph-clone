@@ -6,7 +6,15 @@ interface TypeTabItems {
   children: string | JSX.Element;
   colorBgActive?: string;
 }
-function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: string | undefined }) {
+function Tab({
+  items,
+  defaultValue,
+  onChange,
+}: {
+  items: TypeTabItems[];
+  defaultValue?: string | undefined;
+  onChange?: (value?: string) => void;
+}) {
   const [selectTab, setSelectedTab] = useState<string | undefined>(defaultValue);
   const navigate = useNavigate();
   // const [searchParams] = useSearchParams();
@@ -26,7 +34,11 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
                 className={`${selectTab === item.key ? 'bg-secondary h-full' : 'bg-tertiary-light h-[61px]'} 
                 px-[32px] py-[10px] w-[352px] cursor-pointer rounded-t-[16px] flex items-center justify-center`}
                 key={item.key}
-                onClick={() => setSelectedTab(item?.key)}
+                // onChange={() => onChange?.(item?.key)}
+                onClick={() => {
+                  setSelectedTab(item?.key);
+                  onChange?.(item?.key);
+                }}
               >
                 <span className="text-[18px] font-bold text-[#ffffff]">{item.label}</span>
               </div>
@@ -36,6 +48,7 @@ function Tab({ items, defaultValue }: { items: TypeTabItems[]; defaultValue?: st
                 key={item.key}
                 onClick={() => {
                   setSelectedTab(item?.key);
+                  onChange?.(item?.key);
                   navigate({
                     search: createSearchParams({
                       step: String(item?.key),

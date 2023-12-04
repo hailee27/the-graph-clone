@@ -1,6 +1,4 @@
-/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
-/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { lazy, Suspense, useEffect, useRef } from 'react';
 import Tab from '../../components/common/Tab';
@@ -12,14 +10,15 @@ import {
   PostUsersProfileParams,
   TypeBasicInformation,
   usePostUsersProfileMutation,
-  useUpdateUsersProfileMutation,
+  // useUpdateUsersProfileMutation,
 } from '../../redux/endpoints/userProflie';
 import { CommonType, TypeContentHouseHold, TypeFormFutureHome, TypeFormLifeDiagnosis } from './type';
 import { verifyBasicInformationValue } from '../../utils/adapterBasicInformation';
 import { useNotificationContext } from '../../components/context/NotificationContext';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
-import { useLazyGetMeQuery } from '../../redux/endpoints/user';
+// import { useHouseHoldsContext } from '../../components/context/HouseHoldsContext';
+// import { useLazyGetMeQuery } from '../../redux/endpoints/user';
 import { updateUserProfile } from '../../redux/slices/auth.slice';
 
 const LifeDiagnosis = lazy(() => import('../../components/LifeDiagnosis'));
@@ -30,15 +29,16 @@ function Households() {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.user);
+
   // const [spin, setSpin] = useState<boolean>(false);
   // const { data: user, isLoading } = useGetMeQuery();
   const ref = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [triggerGetme] = useLazyGetMeQuery();
+  // const { formContentHouseholds: form } = useHouseHoldsContext();
   const { openNotification } = useNotificationContext();
   const [trigger, { isError, isSuccess }] = usePostUsersProfileMutation();
-  const [triggerUpdate] = useUpdateUsersProfileMutation();
+
   // const handlePrint = useReactToPrint({
   //   content: () => ref?.current,
   //   copyStyles: true,
@@ -106,7 +106,7 @@ function Households() {
           const common: CommonType = formContentHouseholds.common;
           const formFutureHome: TypeFormFutureHome = forms.formFutureHome.getFieldsValue();
           const formLifeDiagnosis: TypeFormLifeDiagnosis = forms.formLifeDiagnosis.getFieldsValue();
-          console.log(common);
+
           const none: TypeContentHouseHold = formContentHouseholds.people
             ? Object.assign.apply(Object, Object.values(formContentHouseholds?.people) as any)
             : null;
@@ -137,11 +137,11 @@ function Households() {
             ];
           }
           if (name === 'formContentHouseholds') {
+            // forms.formContentHouseholds.submit();
             forms.formFutureHome.setFieldValue(
               'age',
               values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age
             );
-            console.log(basicInformation);
 
             navigate({
               search: createSearchParams({
@@ -149,7 +149,6 @@ function Households() {
               }).toString(),
             });
           }
-
           if (name === 'formFutureHome') {
             forms.formLifeDiagnosis.setFieldValue('maximum', Number(values?.retirementSaving?.maximum));
             forms.formLifeDiagnosis.setFieldValue('annual', values?.retirementSaving?.annual);
@@ -240,32 +239,19 @@ function Households() {
               tax: formContentHouseholds.tax,
               electricBill: formContentHouseholds.electricBill,
             };
-            if (user?.userProfile === null) {
-              trigger(profileParams)
-                .unwrap()
-                .then(() =>
-                  navigate({
-                    pathname: '/diagnosis',
-                    search: createSearchParams({
-                      slug: slug as string,
-                    }).toString(),
-                  })
-                );
-            } else {
-              triggerUpdate({ id: String(user?.id), params: profileParams })
-                .unwrap()
-                .then(() => {
-                  triggerGetme()
-                    .unwrap()
-                    .then((res) => dispatch(updateUserProfile(res ?? {})));
-                  navigate({
-                    pathname: '/diagnosis',
-                    search: createSearchParams({
-                      slug: slug as string,
-                    }).toString(),
-                  });
+
+            dispatch(updateUserProfile({ userProfile: profileParams }));
+            trigger(profileParams)
+              .unwrap()
+              .then(() => {
+                navigate({
+                  pathname: '/diagnosis',
+                  search: createSearchParams({
+                    slug: slug as string,
+                  }).toString(),
                 });
-            }
+              });
+            // .finally(() => dispatch(updateUserProfile({ userProfile: profileParams })));
           }
           window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -324,6 +310,11 @@ function Households() {
                 ),
               },
             ]}
+            // onChange={(e) => {
+            //   if (e === '2') {
+            //     form?.submit();
+            //   }
+            // }}
           />
           {/* </Spin> */}
         </div>

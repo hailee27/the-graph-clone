@@ -26,7 +26,7 @@ function FutureHome() {
       },
       other: user?.userProfile?.aboutFutureHome?.otherRequests,
     };
-  }, []);
+  }, [user?.userProfile]);
 
   return (
     <>

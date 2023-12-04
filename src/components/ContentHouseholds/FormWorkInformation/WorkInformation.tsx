@@ -184,7 +184,7 @@ function WorkInformation(props: Props) {
                       if (RegexKatakanaHalfWidth.test(value)) {
                         return Promise.resolve();
                       }
-                      return Promise.reject('半角数字、10文字以内');
+                      return Promise.reject('必須項目で入力してください');
                     },
                   },
                 ]}

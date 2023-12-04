@@ -1,20 +1,38 @@
 import moment from 'moment';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { persistor, RootState } from '../../../redux/store';
 import { useNotificationContext } from '../../context/NotificationContext';
 import { usePostLogoutMutation } from '../../../redux/endpoints/user';
+import BasicButton from '../../common/BasicButton';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import { updateUserProfile } from '../../../redux/slices/auth.slice';
 // import { usePostLogoutMutation } from '../../../redux/endpoints/user';
 
 function Header() {
+  const navigate = useNavigate();
   const { user, refreshToken } = useSelector((state: RootState) => state.auth);
   const { openNotification } = useNotificationContext();
   const [trigger] = usePostLogoutMutation();
+  const location = useLocation();
+
+  const dispatch = useDispatch();
 
   return (
     <div className="pt-[40px]  ">
       <div className="flex items-center justify-end space-x-[32px]">
+        {location.pathname.split('/')[1] === 'house-holds' && (
+          <BasicButton
+            onClick={() => {
+              dispatch(updateUserProfile({}));
+              navigate(0);
+            }}
+          >
+            新規作成
+          </BasicButton>
+        )}
         <div className="text-primary-text h-[28px] flex items-center justify-center space-x-[6px]">
           <svg fill="none" height="12" viewBox="0 0 12 12" width="12" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -64,6 +82,9 @@ function Header() {
                     </svg>
                   ),
                 });
+              })
+              .catch(() => {
+                persistor.purge();
               });
           }}
         >

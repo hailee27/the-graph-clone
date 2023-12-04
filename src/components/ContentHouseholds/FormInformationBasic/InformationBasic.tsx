@@ -10,7 +10,7 @@ import BasicButton from '../../common/BasicButton';
 import BasicTextArea from '../../common/BasicTextArea';
 import moment from 'moment';
 import DatePicker from '../../common/DatePicker';
-import { isKatakana, toKatakana } from 'wanakana';
+import { isKatakana } from 'wanakana';
 import { useLazyGetMasterDataDistinctQuery } from '../../../redux/endpoints/masterData';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useNotificationContext } from '../../context/NotificationContext';
@@ -39,7 +39,7 @@ function InformationBasic(props: Props) {
     }[]
   >([
     {
-      id: undefined,
+      id: 0,
       fee: null,
       type: undefined,
     },
@@ -53,8 +53,8 @@ function InformationBasic(props: Props) {
   const month: string = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'month'], form);
   const day: string = Form.useWatch([`${type}`, 'inforBasic', 'birthDay', 'day'], form);
 
-  const firstName = Form.useWatch([`${type}`, 'inforBasic', 'nameKanji', 'firstName']);
-  const lastName = Form.useWatch([`${type}`, 'inforBasic', 'nameKanji', 'lastName']);
+  // const firstName = Form.useWatch([`${type}`, 'inforBasic', 'nameKanji', 'firstName']);
+  // const lastName = Form.useWatch([`${type}`, 'inforBasic', 'nameKanji', 'lastName']);
 
   const savingMonth = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'monthly']);
   const savingTotalAmount = Form.useWatch([`${type}`, 'inforBasic', 'saving', 'totalAmount']);
@@ -76,18 +76,18 @@ function InformationBasic(props: Props) {
       form.setFieldValue([`${type}`, 'inforBasic', 'age'], age);
     }
   }, [age]);
-  useEffect(() => {
-    form.setFieldsValue({
-      [`${type}`]: {
-        inforBasic: {
-          nameKatakana: {
-            firstName: toKatakana(firstName, { upcaseKatakana: true }),
-            lastName: toKatakana(lastName),
-          },
-        },
-      },
-    });
-  }, [firstName, lastName]);
+  // useEffect(() => {
+  //   form.setFieldsValue({
+  //     [`${type}`]: {
+  //       inforBasic: {
+  //         nameKatakana: {
+  //           firstName: toKatakana(firstName, { upcaseKatakana: true }),
+  //           lastName: toKatakana(lastName),
+  //         },
+  //       },
+  //     },
+  //   });
+  // }, [firstName, lastName]);
 
   useEffect(() => {
     if (dataAddress) {
@@ -134,8 +134,8 @@ function InformationBasic(props: Props) {
       numberLifeInsurance.map((e) => Number(e?.fee ?? 0)).reduce((prev, cur) => Number(prev) + Number(cur))
     );
 
-    form.setFieldValue('lifeInsurancePremium', sum);
-  }, [numberLifeInsurance]);
+    form.setFieldValue([`${type}`, 'lifeInsurance'], sum);
+  }, [numberLifeInsurance, type]);
   useEffect(() => {
     const InformationType = type === 'husband' ? 'HUSBAND' : type === 'wife' ? 'WIFE' : 'NONE';
     if (user?.userProfile) {
@@ -152,6 +152,10 @@ function InformationBasic(props: Props) {
       <Form.Item className="!hidden" name={[`${type}`, 'inforBasic', 'age']}>
         <BasicInput />
       </Form.Item>
+      <Form.Item className="!hidden" name={[`${type}`, 'lifeInsurance']}>
+        <BasicInput />
+      </Form.Item>
+
       {(type === 'husband' || type === 'wife') && (
         <div className="flex w-full h-full">
           {!disabledLabel && <div className="w-[176px] print:w-[70px]"></div>}
@@ -597,7 +601,7 @@ function InformationBasic(props: Props) {
                           if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject('半角数字、10文字以内');
+                          return Promise.reject('必須項目で入力してください');
                         },
                       },
                     ]}
@@ -721,7 +725,7 @@ function InformationBasic(props: Props) {
                     if (value?.length <= 0 || RegexKatakanaHalfWidth.test(value)) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('半角数字、10文字以内');
+                    return Promise.reject('必須項目で入力してください');
                   },
                 },
               ]}
@@ -746,7 +750,7 @@ function InformationBasic(props: Props) {
                     if (value?.length <= 0 || RegexKatakanaHalfWidth.test(value)) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('半角数字、10文字以内');
+                    return Promise.reject('必須項目で入力してください');
                   },
                 },
               ]}

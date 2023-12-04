@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useMemo } from 'react';
 import { useGetMasterDataDistinctQuery, useGetMasterDataQuery } from '../../../redux/endpoints/masterData';
 import { DefaultOptionType } from 'antd/es/select';
+import { Form, FormInstance } from 'antd';
 
 interface TypeHouseHoldsContext {
   relationshipInParantHome?: DefaultOptionType[] | undefined;
@@ -15,12 +16,13 @@ interface TypeHouseHoldsContext {
   breadth?: DefaultOptionType[] | undefined;
   borrowing?: DefaultOptionType[] | undefined;
   currentAddressPrefecture?: DefaultOptionType[] | undefined;
+  formContentHouseholds?: FormInstance;
 }
 const HouseHoldsContext = createContext<TypeHouseHoldsContext | undefined>(undefined);
 export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) => {
   const { data: masterData } = useGetMasterDataQuery();
   const { data: dataPrefecture } = useGetMasterDataDistinctQuery({ distinct: 'prefecture' });
-
+  const [formContentHouseholds] = Form.useForm();
   // dataPrefecture
   const currentAddressPrefecture = useMemo(() => {
     return dataPrefecture?.data.map((e) => ({
@@ -141,6 +143,7 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
       desiredFloorPlan,
       breadth,
       borrowing,
+      formContentHouseholds,
     }),
     [
       currentAddressPrefecture,

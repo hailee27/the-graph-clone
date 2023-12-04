@@ -55,7 +55,7 @@ function LifeDiagnosis() {
         immunityUpEnvironment: !user?.userProfile?.aboutLifeDiagnosis?.measureImmunityBoosting ? 'no' : 'yes',
       },
     }),
-    []
+    [user?.userProfile]
   );
 
   return (

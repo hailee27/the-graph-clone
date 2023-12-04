@@ -15,11 +15,13 @@ import Currency from '../common/Currency';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { formatInitalValue } from '../../utils/formatInitalValue';
+import { useHouseHoldsContext } from '../context/HouseHoldsContext';
 // import { useGetMeQuery } from '../../redux/endpoints/user';
 
 function ContentHouseholds() {
   const { slug } = useParams();
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
+  const { formContentHouseholds: form } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
   const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
   const { user } = useSelector((state: RootState) => state.auth);
@@ -29,8 +31,12 @@ function ContentHouseholds() {
     Form.useWatch(['husband', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
   const wifeMonthlytakehomePay = Form.useWatch(['wife', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
 
+  const peopleLifeInsurance = Form.useWatch(['people', 'lifeInsurance'], form);
+  const wifeLifeInsurance = Form.useWatch(['wife', 'lifeInsurance'], form);
+  const husbandLifeInsurance = Form.useWatch(['husband', 'lifeInsurance'], form);
+
   const monthlyWatch = Form.useWatch('monthly', form);
-  const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
+  // const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
   const electricBillWatch = Form.useWatch('electricBill', form);
   const taxWatch = Form.useWatch('tax', form);
 
@@ -40,6 +46,11 @@ function ContentHouseholds() {
     }
     return 'single';
   }, [slug]);
+  const lifeInsurancePremiumWatch = useMemo(() => {
+    const sum = peopleLifeInsurance || wifeLifeInsurance + husbandLifeInsurance;
+    form?.setFieldValue('lifeInsurancePremium', sum);
+    return sum;
+  }, [peopleLifeInsurance, wifeLifeInsurance, husbandLifeInsurance]);
 
   const totalmonths = useMemo(() => {
     return (
@@ -54,16 +65,16 @@ function ContentHouseholds() {
         Number(taxWatch ?? 0) +
         Number(monthlyWatch ?? 0) +
         Number(desiredRentWatch ?? 0) || 1;
-    return Math.floor((totalmonths / totals) * 100) || 0;
+    return Math.floor((totals / totalmonths) * 100) || 0;
   }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
 
   const total = useMemo(() => {
     return formatNumber(
-      Number(lifeInsurancePremiumWatch ?? 0) +
-        Number(electricBillWatch ?? 0) +
-        Number(taxWatch ?? 0) +
-        Number(monthlyWatch ?? 0) +
-        Number(desiredRentWatch ?? 0),
+      lifeInsurancePremiumWatch
+        ? Number(lifeInsurancePremiumWatch)
+        : 0 + Number(electricBillWatch ?? 0) + taxWatch
+        ? Number(taxWatch)
+        : 0 + Number(monthlyWatch ?? 0) + Number(desiredRentWatch ?? 0),
       true,
       1
     );
@@ -84,7 +95,7 @@ function ContentHouseholds() {
       };
     }
     return undefined;
-  }, [user?.userProfile?.basicInformation]);
+  }, [user?.userProfile]);
 
   return (
     <>
@@ -92,13 +103,22 @@ function ContentHouseholds() {
         form={form}
         initialValues={{
           ...initialValues,
-          tax: String(user?.userProfile?.tax),
+          tax: user?.userProfile?.tax ? String(user?.userProfile?.tax) : undefined,
           electricBill: String(user?.userProfile?.electricBill),
         }}
         name="formContentHouseholds"
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
         // validateTrigger={['onBlur']}
       >
+        <Form.Item className="!hidden" name={['people', 'inforBasic', 'lifeInsurance']}>
+          <BasicInput />
+        </Form.Item>
+        <Form.Item className="!hidden" name={['husband', 'inforBasic', 'lifeInsurance']}>
+          <BasicInput />
+        </Form.Item>
+        <Form.Item className="!hidden" name={['wife', 'inforBasic', 'lifeInsurance']}>
+          <BasicInput />
+        </Form.Item>
         <div className="rounded-r-[16px] rounded-bl-[16px] bg-[#ffffff]  w-full px-[48px] py-[56px] print:p-0 ">
           <FormInformationBasic typeContent={typeContent} />
 
@@ -201,7 +221,7 @@ function ContentHouseholds() {
             <div className="flex items-end justify-center space-x-[36px] ">
               <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
               <span className="text-[70px] font-bold leading-[32px]  ">
-                {isNaN(Number(total)) ? 0 : total}
+                {total}
                 <span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>
@@ -223,7 +243,7 @@ function ContentHouseholds() {
         </div>
       </Form>
       <div className="flex items-center justify-center mt-[80px] mb-[200px] print:hidden">
-        <BasicButton className="h-[77px] w-[400px]" onClick={() => form.submit()} type="secondary">
+        <BasicButton className="h-[77px] w-[400px]" onClick={() => form?.submit()} type="secondary">
           <div className="flex items-center justify-center space-x-[10px]">
             <span className="text-[18px] font-bold text-[#ffffff]">診断する</span>
             <svg fill="none" height="8" viewBox="0 0 6 8" width="6" xmlns="http://www.w3.org/2000/svg">
