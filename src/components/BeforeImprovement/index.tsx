@@ -1,13 +1,23 @@
-import React, { useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import TemplateCard from '../common/TemplateCard';
 import { dataBeforeImprovement } from './data';
 import ProblemsAndRisks from './ProblemsAndRisks';
 import { Form, Input } from 'antd';
+import { TypeDataSets } from '../Improved/type';
 
 function BeforeImprovement() {
   const [form] = Form.useForm();
+  const [dataSets, setDataSets] = useState<TypeDataSets[] | undefined>(undefined);
   useEffect(() => {
     const { riskValue, ...totalRisk } = form.getFieldsValue();
+    setDataSets(
+      Object.entries(totalRisk).map(([key, value]) => ({
+        // scaleTitles: key === 'householdBudget' ? '家計' : 'alo',
+        scaleValues: Object.values(value ?? {}).filter((e) => e === '1').length,
+        scaleTicksCount: Object.values(value ?? {}).map((e) => e).length,
+      }))
+    );
     form.setFieldValue(
       'riskValue',
       Object.values(totalRisk)
@@ -21,6 +31,13 @@ function BeforeImprovement() {
       form={form}
       onValuesChange={(_, values) => {
         const { riskValue, ...totalRisk } = values;
+        setDataSets(
+          Object.entries(totalRisk).map(([key, value]) => ({
+            // scaleTitles: key === 'householdBudget' ? '家計' : 'alo',
+            scaleValues: Object.values(value ?? {}).filter((e) => e === '1').length,
+            scaleTicksCount: Object.values(value ?? {}).map((e) => e).length,
+          }))
+        );
         form.setFieldValue(
           'riskValue',
           Object.values(totalRisk)
@@ -101,7 +118,7 @@ function BeforeImprovement() {
         </div>
       </div>
       <div className="mt-[24px]">
-        <ProblemsAndRisks />
+        <ProblemsAndRisks dataSets={dataSets} />
         <div className="pb-[200px] pt-[100px] flex items-center flex-col space-y-[48px]">
           <span className="tracking-[2.24px] text-[28px] font-bold">
             これが常識だと思われているので、全ての準備・対策に気付けない！

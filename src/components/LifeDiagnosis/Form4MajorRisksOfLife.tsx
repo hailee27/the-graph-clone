@@ -1,7 +1,5 @@
-/* eslint-disable max-lines */
-/* eslint-disable max-lines-per-function */
 import { Form } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
 import SelectButton from '../common/SelectButton';
 import { formatNumber } from '../../utils/formatNumber';
 
@@ -10,6 +8,16 @@ const ItemEmpty = ({ value }: { value?: string | number | undefined }) => {
 };
 
 function Form4MajorRisksOfLife() {
+  const options = useMemo(
+    () => [
+      { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
+      {
+        value: 'yes',
+        label: <span className="text-[22px] font-bold ">◯</span>,
+      },
+    ],
+    []
+  );
   return (
     <div className="text-primary-text">
       <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] print:text-[16px] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
@@ -27,33 +35,13 @@ function Form4MajorRisksOfLife() {
                 必要保障
               </span>
               <Form.Item className="w-[120px] !mb-0" name={['regardingMeasures', 'necessarySecurity']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">遺族の住居確保</span>
               <Form.Item className="w-[120px] !mb-0" name={['regardingMeasures', 'survivingFamily']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
           </div>
@@ -67,49 +55,19 @@ function Form4MajorRisksOfLife() {
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">老後貯蓄の有無</span>
               <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'retirementSaving']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">iDeCo等の運用資金</span>
               <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'operationalFunds']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">資産形成</span>
               <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'assetFormation']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
@@ -119,33 +77,13 @@ function Form4MajorRisksOfLife() {
                 建て直し費、光熱費、医療費）
               </span>
               <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'reducingExpensesInRetirement']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">老後の住居確保</span>
               <Form.Item className="w-[120px] !mb-0" name={['retirementMeasures', 'securingHousingForRetirement']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
           </div>
@@ -178,17 +116,7 @@ function Form4MajorRisksOfLife() {
             <div className="flex justify-between items-center">
               <span className="text-[14px] print:text-[10px] font-bold ">地震、火災、台風</span>
               <Form.Item className="w-[120px] !mb-0" name={['disasterCountermeasures', 'earthquakeFireTyphoon']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
@@ -197,17 +125,7 @@ function Form4MajorRisksOfLife() {
                 （電気、ガス、水道）
               </span>
               <Form.Item className="w-[120px] !mb-0" name={['disasterCountermeasures', 'securingaLifeline']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
@@ -220,17 +138,7 @@ function Form4MajorRisksOfLife() {
                 className="w-[120px] !mb-0"
                 name={['disasterCountermeasures', 'foodStockpilingAndDisasterPrevention']}
               >
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
@@ -241,17 +149,7 @@ function Form4MajorRisksOfLife() {
                 社会復帰までの生活費等）
               </span>
               <Form.Item className="w-[120px] !mb-0" name={['disasterCountermeasures', 'securingFunds']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
           </div>
@@ -266,17 +164,7 @@ function Form4MajorRisksOfLife() {
                 （健康維持のための食生活）
               </span>
               <Form.Item className="w-[120px] !mb-0" name={['healthMeasures', 'selfCateringEnvironment']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
             <div className="flex justify-between items-center">
@@ -288,17 +176,7 @@ function Form4MajorRisksOfLife() {
                 リフレッシュ、温浴）
               </span>
               <Form.Item className="w-[120px] !mb-0" name={['healthMeasures', 'immunityUpEnvironment']}>
-                <SelectButton
-                  className="text-[24px] !h-[66px]"
-                  options={[
-                    { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                    {
-                      value: 'yes',
-                      label: <span className="text-[24px] font-bold ">o</span>,
-                    },
-                  ]}
-                  type="primary"
-                />
+                <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
               </Form.Item>
             </div>
           </div>

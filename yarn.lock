@@ -708,6 +708,16 @@
   dependencies:
     undici-types "~5.26.4"
 
+"@types/p5@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@types/p5/-/p5-1.7.0.tgz#af56b6b930f31e73d6ec1cb9f4539481d3212b51"
+  integrity sha512-6AnjmW98/edgXB+pYDBx7t6QbCogIG6NUzey93JpGTZA4096C+KjSN8y0sj43QRd9XtblrAhoRXHj1pFZ2vsCg==
+
+"@types/p5@^1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@types/p5/-/p5-1.7.4.tgz#bcf20df35b2e897e9accb550b64b59c1c6887312"
+  integrity sha512-cMF3SvlBSzJV9m3enUYBx9UvJmQP9fxmPS17EDtYJVCQwwNMc/BRrDtHUHaxZH+BhuESNuUnfUKNVpJIjRT+Xw==
+
 "@types/prop-types@*":
   version "15.7.9"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.9.tgz#b6f785caa7ea1fe4414d9df42ee0ab67f23d8a6d"
@@ -1267,6 +1277,11 @@ chalk@^4.0.0:
   dependencies:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
+
+chart.js@^3.6.0:
+  version "3.9.1"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-3.9.1.tgz#3abf2c775169c4c71217a107163ac708515924b8"
+  integrity sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==
 
 "chokidar@>=3.0.0 <4.0.0", chokidar@^3.5.3:
   version "3.5.3"
@@ -2900,6 +2915,11 @@ open@^9.1.0:
     is-inside-container "^1.0.0"
     is-wsl "^2.2.0"
 
+opencollective-postinstall@2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/opencollective-postinstall/-/opencollective-postinstall-2.0.2.tgz#5657f1bede69b6e33a45939b061eb53d3c6c3a89"
+  integrity sha512-pVOEP16TrAO2/fjej1IdOyupJY8KDUM1CvsaScRbw6oddvpQoOfGk4ywha0HKKVAD6RkW4x6Q+tNBwhf3Bgpuw==
+
 optionator@^0.9.3:
   version "0.9.3"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.9.3.tgz#007397d44ed1872fdc6ed31360190f81814e2c64"
@@ -2925,6 +2945,16 @@ p-locate@^5.0.0:
   integrity sha512-LaNjtRWUBY++zB5nE/NwcaoMylSPk+S+ZHNB1TzdbMJMny6dynpAGt7X/tl/QYq3TIeE6nxHppbo2LGymrG5Pw==
   dependencies:
     p-limit "^3.0.2"
+
+p5@1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/p5/-/p5-1.7.0.tgz#c983f12c2ffc1125e17cb89e97103f7716cb9f05"
+  integrity sha512-qrbT/44Dwm63ZtOKX/mp61pw+5yj6ijYLOmRv7p6zcfjbo83Vb0gVFEvW0kTLFu7hceWCig0HONo9F1bSlqbsQ==
+
+p5@^1.9.0:
+  version "1.9.0"
+  resolved "https://registry.yarnpkg.com/p5/-/p5-1.9.0.tgz#04c406ae683449106d514108648035b21aa850fb"
+  integrity sha512-+5/hz0ZokCDf7BMMAeemE7FIo7gFZK7ImL62acHLXZwerGjqj+171bnaAWj4aCFCx6fwysAr2U7/AKuPyPhehA==
 
 parent-module@^1.0.0:
   version "1.0.1"
@@ -3438,6 +3468,11 @@ rc-virtual-list@^3.11.1, rc-virtual-list@^3.5.1, rc-virtual-list@^3.5.2:
     rc-resize-observer "^1.0.0"
     rc-util "^5.36.0"
 
+react-chartjs-2@^4.0.0:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/react-chartjs-2/-/react-chartjs-2-4.3.1.tgz#9941e7397fb963f28bb557addb401e9ff96c6681"
+  integrity sha512-5i3mjP6tU7QSn0jvb8I4hudTzHJqS8l00ORJnVwI2sYu0ihpj83Lv2YzfxunfxTZkscKvZu2F2w9LkwNBhj6xA==
+
 react-dom@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
@@ -3455,6 +3490,15 @@ react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-p5@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-p5/-/react-p5-1.4.1.tgz#29047ba7dd2a7aa9bcf22d552f78d1d663a59e41"
+  integrity sha512-njeL8zskkbo8gK3ql1u4/MgmecT/g7Z7LvypTn65DWUnuBvV/9S5AowcKkwQuLVo8/DDAE5vgGVFq1DOkoWiJA==
+  dependencies:
+    "@types/p5" "1.7.0"
+    opencollective-postinstall "2.0.2"
+    p5 "1.7.0"
 
 react-redux@^8.1.3:
   version "8.1.3"

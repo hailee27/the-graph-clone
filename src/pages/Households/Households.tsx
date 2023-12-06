@@ -124,7 +124,7 @@ function Households() {
               : null;
             basicInformation = [verifyBasicInformationValue({ data: none, informationType: 'NONE', id })];
           }
-          if (wife && husband) {
+          if (wife && husband && wife.lifeInsurance && husband.lifeInsurance) {
             const idWife = user?.userProfile
               ? user?.userProfile?.basicInformation?.find((e) => e.informationType === 'WIFE')?.id
               : null;
@@ -136,6 +136,7 @@ function Households() {
               verifyBasicInformationValue({ data: husband, informationType: 'HUSBAND', id: idHusband }),
             ];
           }
+
           if (name === 'formContentHouseholds') {
             // forms.formContentHouseholds.submit();
             forms.formFutureHome.setFieldValue(
@@ -250,8 +251,8 @@ function Households() {
                     slug: slug as string,
                   }).toString(),
                 });
-              });
-            // .finally(() => dispatch(updateUserProfile({ userProfile: profileParams })));
+              })
+              .finally(() => dispatch(updateUserProfile({ userProfile: profileParams })));
           }
           window.scrollTo({ top: 0, behavior: 'smooth' });
 

@@ -134,7 +134,7 @@ function InformationBasic(props: Props) {
       numberLifeInsurance.map((e) => Number(e?.fee ?? 0)).reduce((prev, cur) => Number(prev) + Number(cur))
     );
 
-    form.setFieldValue([`${type}`, 'lifeInsurance'], sum);
+    form.setFieldValue([`${type}`, 'lifeInsurance'], sum ?? null);
   }, [numberLifeInsurance, type]);
   useEffect(() => {
     const InformationType = type === 'husband' ? 'HUSBAND' : type === 'wife' ? 'WIFE' : 'NONE';
@@ -197,7 +197,7 @@ function InformationBasic(props: Props) {
             className="!mb-0 w-full"
             name={[`${type}`, 'inforBasic', 'nameKanji', 'firstName']}
             rules={[
-              { required: true, message: '' },
+              { required: true, message: '必須項目で入力してください' },
               { max: 10, message: '10文字以内' },
             ]}
           >
@@ -210,7 +210,7 @@ function InformationBasic(props: Props) {
             className="!mb-0 w-full"
             name={[`${type}`, 'inforBasic', 'nameKanji', 'lastName']}
             rules={[
-              { required: true, message: '' },
+              { required: true, message: '必須項目で入力してください' },
               { max: 10, message: '10文字以内' },
             ]}
           >
@@ -251,7 +251,7 @@ function InformationBasic(props: Props) {
 
                     return Promise.reject('カタカナのみ、10文字以内');
                   }
-                  return Promise.reject('');
+                  return Promise.reject('必須項目で入力してください');
                 },
               },
             ]}
@@ -273,7 +273,7 @@ function InformationBasic(props: Props) {
                     }
                     return Promise.reject('カタカナのみ、10文字以内');
                   }
-                  return Promise.reject('');
+                  return Promise.reject('必須項目で入力してください');
                 },
               },
             ]}
@@ -337,7 +337,7 @@ function InformationBasic(props: Props) {
             <Form.Item
               className="!mb-0"
               name={[`${type}`, 'inforBasic', 'birthDay', 'year']}
-              rules={[{ required: !ruleBirthday.year, message: '半角数字' }]}
+              rules={[{ required: !ruleBirthday.year, message: '必須項目で入力してください' }]}
             >
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[92px] print:!w-[70px] ' : ' !w-[120px]'} `}
@@ -356,7 +356,7 @@ function InformationBasic(props: Props) {
             <Form.Item
               className="!mb-0"
               name={[`${type}`, 'inforBasic', 'birthDay', 'month']}
-              rules={[{ required: !ruleBirthday.month, message: '半角数字' }]}
+              rules={[{ required: !ruleBirthday.month, message: '必須項目で入力してください' }]}
             >
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[57px] ' : ' !w-[120px]'} `}
@@ -375,7 +375,7 @@ function InformationBasic(props: Props) {
             <Form.Item
               className="!mb-0"
               name={[`${type}`, 'inforBasic', 'birthDay', 'day']}
-              rules={[{ required: !ruleBirthday.day, message: '半角数字' }]}
+              rules={[{ required: !ruleBirthday.day, message: '必須項目で入力してください' }]}
             >
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[80px]  print:!w-[57px] ' : ' !w-[120px]'} `}
@@ -421,7 +421,10 @@ function InformationBasic(props: Props) {
             flex space-x-[8px] items-center pt-[42px]`}
         >
           <div className="w-full">
-            <Form.Item name={[`${type}`, 'inforBasic', 'address', 'name']} rules={[{ required: true, message: '' }]}>
+            <Form.Item
+              name={[`${type}`, 'inforBasic', 'address', 'name']}
+              rules={[{ required: true, message: '必須項目で入力してください' }]}
+            >
               <Radio.Group>
                 <div className="flex space-x-[24px]">
                   <BasicRadio value="実家">
@@ -444,13 +447,13 @@ function InformationBasic(props: Props) {
                     className=" flex-1 !mb-0"
                     name={[`${type}`, 'inforBasic', 'address', 'code']}
                     rules={[
-                      { max: 7, message: '半角数字7桁,ハイフン（-）なし' },
+                      { max: 7, message: '半角数字7桁、ハイフン（-）なし' },
                       {
                         validator: (_, value) => {
                           if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject('半角数字7桁,ハイフン（-）なし');
+                          return Promise.reject('必須項目で入力してください');
                         },
                       },
                     ]}
@@ -481,7 +484,7 @@ function InformationBasic(props: Props) {
                 <Form.Item
                   className=" flex-1 !mb-0"
                   name={[`${type}`, 'inforBasic', 'address', 'prefectures']}
-                  rules={[{ required: true, message: '' }]}
+                  rules={[{ required: true, message: '必須項目で選択してください' }]}
                 >
                   <SelectButton
                     options={currentAddressPrefecture}
@@ -496,7 +499,7 @@ function InformationBasic(props: Props) {
                   className=" flex-1 !mb-0"
                   name={[`${type}`, 'inforBasic', 'address', 'municipalities']}
                   rules={[
-                    { required: true, message: '' },
+                    { required: true, message: '必須項目で選択してください' },
                     { max: 15, message: '15文字以内' },
                   ]}
                 >

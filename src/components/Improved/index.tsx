@@ -1,13 +1,23 @@
-import React, { useEffect } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React, { useEffect, useState } from 'react';
 import TemplateCard from '../common/TemplateCard';
 import { dataImprovement } from './data';
 import ProblemsAndRisks from './ProblemsAndRisks';
 import { Form, Input } from 'antd';
+import { TypeDataSets } from './type';
 
 function Improved() {
   const [form] = Form.useForm();
+  const [dataSets, setDataSets] = useState<TypeDataSets[] | undefined>(undefined);
   useEffect(() => {
     const { riskValue, ...totalRisk } = form.getFieldsValue();
+    setDataSets(
+      Object.entries(totalRisk).map(([key, value]) => ({
+        // scaleTitles: key === 'householdBudget' ? '家計' : 'alo',
+        scaleValues: Object.values(value ?? {}).filter((e) => e === '1').length,
+        scaleTicksCount: Object.values(value ?? {}).map((e) => e).length,
+      }))
+    );
     form.setFieldValue(
       'riskValue',
       Object.values(totalRisk)
@@ -15,11 +25,20 @@ function Improved() {
         ?.filter((c) => c === '1')?.length
     );
   }, [form]);
+
   return (
     <Form
       form={form}
       onValuesChange={(_, values) => {
         const { riskValue, ...totalRisk } = values;
+        setDataSets(
+          Object.entries(totalRisk).map(([key, value]) => ({
+            // scaleTitles: key === 'householdBudget' ? '家計' : 'alo',
+            scaleValues: Object.values(value ?? {}).filter((e) => e === '1').length,
+            scaleTicksCount: Object.values(value ?? {}).map((e) => e).length,
+          }))
+        );
+
         form.setFieldValue(
           'riskValue',
           Object.values(totalRisk)
@@ -107,7 +126,7 @@ function Improved() {
         </div>
       </div>
       <div className="mt-[24px]">
-        <ProblemsAndRisks />
+        <ProblemsAndRisks dataSets={dataSets} />
         <div className="pb-[200px] pt-[100px] flex items-center flex-col space-y-[48px]">
           <span className="tracking-[2.24px] text-[28px] font-bold">これがこれからの新常識！</span>
           <svg fill="none" height="49" viewBox="0 0 66 49" width="66" xmlns="http://www.w3.org/2000/svg">

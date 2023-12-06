@@ -210,7 +210,7 @@ function NewHouseInformation(props: Props) {
           <Form.Item
             className=" flex-1 !mb-0"
             name={[`${type}`, 'newHouseInfor', 'desiredRent', 'type']}
-            rules={[{ required: true, message: '' }]}
+            rules={[{ required: true, message: '必須項目で選択してください' }]}
           >
             <SelectButton options={desiredRent} placeholder="選択してください" type="primary" />
           </Form.Item>
