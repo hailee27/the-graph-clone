@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import InputRuler from '../common/InputRuler';
 import { Form } from 'antd';
+import RadarChart from '../RadarChart';
+import { TypeDataSets } from './type';
 
-function ProblemsAndRisks() {
+function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }) {
   const [total, setToal] = useState<number>(27);
   const form = Form.useFormInstance();
+  const { riskValue, ...totalRisk } = form.getFieldsValue();
   const value = Form.useWatch('riskValue', form);
   useEffect(() => {
-    const { riskValue, ...totalRisk } = form.getFieldsValue();
     const length = Object.values(totalRisk)?.flatMap((e) => Object.values(e as string))?.length;
     setToal(length);
   }, [form]);
+
   return (
     <div className="bg-[#ffffff] rounded-[16px] py-[106px] flex items-center justify-center flex-col ">
       <div className="text-[28px] font-bold">
@@ -22,70 +25,85 @@ function ProblemsAndRisks() {
       <span className="text-[18px] font-medium mt-[72px] pb-[24px] tracking-[1.44px]">
         マイホームを選んだ場合の改善効果を可視化
       </span>
-      <div className="flex w-[999px] h-[261px] rounded-[8px]">
-        <div className="bg-secondary w-[160px] rounded-[8px] flex flex-col items-center justify-center space-y-[8px]">
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              安心
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              安全
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              満足
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              幸福
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              希望
-            </span>
-          </button>
-        </div>
+      <div className="flex items-center">
+        <div className="flex w-[709px] h-[261px] rounded-[8px]">
+          <div className="bg-secondary w-[112px] rounded-[8px] flex flex-col items-center justify-center space-y-[8px]">
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                安心
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                安全
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                満足
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                幸福
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-secondary text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                希望
+              </span>
+            </button>
+          </div>
 
-        <div
-          className="flex-1 px-[56px] flex items-center flex-col justify-center space-y-[40px]"
-          style={{ background: 'linear-gradient(270deg, rgba(255, 235, 220, 0.00) 15.68%, #FFEBDC 87.43%)' }}
-        >
-          <span className="text-[24px] font-bold text-secondary">マイホームでは全てオールインワンで解消出来る！</span>
-          <div className="w-full">
-            <InputRuler reverse={true} type="secondary" value={value} />
+          <div
+            className="flex-1 px-[56px] flex items-center flex-col justify-center space-y-[40px]"
+            style={{ background: 'linear-gradient(270deg, rgba(255, 235, 220, 0.00) 15.68%, #FFEBDC 87.43%)' }}
+          >
+            <span className="text-[24px] font-bold text-secondary">マイホームでは全てオールインワンで解消出来る！</span>
+            <div className="w-full">
+              <InputRuler type="secondary" value={value} />
+            </div>
+          </div>
+          <div className="bg-tertiary w-[112px] rounded-[8px] flex flex-col items-center justify-center space-y-[8px]">
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                不安
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                危険
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                不満
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                不幸
+              </span>
+            </button>
+            <button className=" bg-[#ffffff] w-[64px] rounded-[4px] py-[4px] px-[10px]">
+              <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
+                絶望
+              </span>
+            </button>
           </div>
         </div>
-        <div className="bg-tertiary w-[160px] rounded-[8px] flex flex-col items-center justify-center space-y-[8px]">
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              不安
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              危険
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              不満
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              不幸
-            </span>
-          </button>
-          <button className=" bg-[#ffffff] w-[98px] rounded-[4px] py-[5.5px] px-[10px]">
-            <span className="text-tertiary text-opacity-80 text-[18px] font-bold max-h-[13px] leading-normal tracking-[1.44px]">
-              絶望
-            </span>
-          </button>
+        {/* radar chart */}
+        <div className="ml-[40px]">
+          <RadarChart
+            coverBg="rgba(255, 119, 21, 0.2)"
+            dataSets={{
+              scaleTicksCount: dataSets?.map((e) => e.scaleTicksCount) ?? [],
+              scaleValues: dataSets?.map((e) => e.scaleValues) ?? [],
+              scaleTitles: ['家計', '住環境', '万が一', '老後', '災害', '病気', 'その他'],
+            }}
+            image="images/like.svg"
+            mainColor="#FF7715"
+          />
         </div>
       </div>
       <div className="mt-[80px] font-bold ">

@@ -1,9 +1,18 @@
-/* eslint-disable max-lines-per-function */
 import { Form } from 'antd';
-import React from 'react';
+import React, { useMemo } from 'react';
 import SelectButton from '../common/SelectButton';
 
 function FormHouseHoldAndLivingEnvironmant() {
+  const options = useMemo(
+    () => [
+      { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
+      {
+        value: 'yes',
+        label: <span className="text-[22px] font-bold ">◯</span>,
+      },
+    ],
+    []
+  );
   return (
     <div className="text-primary-text">
       <div className="bg-primary px-[24px] py-[20px] text-[#ffffff] print:text-[16px] text-[20px] font-bold leading-5 rounded-[4px] mb-[54px]">
@@ -16,81 +25,31 @@ function FormHouseHoldAndLivingEnvironmant() {
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">現在の貯蓄状況</span>
             <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'savingStatus']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">無駄な固定費</span>
             <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'wastefulFixedCosts']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">家計削減環境「変動費」</span>
             <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'variableCosts']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">ローン、借金</span>
             <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'loanDebt']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">出産と育児の準備</span>
             <Form.Item className="w-[120px] !mb-0" name={['householdFinance', 'childbirthAndChildcare']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
         </div>
@@ -106,17 +65,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               <br /> プライバシー、ストレス）
             </span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'comfort']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
@@ -126,33 +75,13 @@ function FormHouseHoldAndLivingEnvironmant() {
               設備、掃除、時間）
             </span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'housework']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">広さ、収納量</span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'spaceStorageCapacity']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
@@ -162,17 +91,7 @@ function FormHouseHoldAndLivingEnvironmant() {
               （趣味、交友関係）
             </span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'fulfillmentofPrivateLife']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
@@ -182,33 +101,13 @@ function FormHouseHoldAndLivingEnvironmant() {
               休息環境
             </span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'healthConsiderations']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-[14px] print:text-[10px] font-bold ">出産と育児の準備</span>
             <Form.Item className="w-[120px] !mb-0" name={['livingEnvironment', 'childbirthAndChildcare']}>
-              <SelectButton
-                className="text-[24px] !h-[66px]"
-                options={[
-                  { value: 'no', label: <span className="text-[24px] font-bold leading-normal">×</span> },
-                  {
-                    value: 'yes',
-                    label: <span className="text-[24px] font-bold ">o</span>,
-                  },
-                ]}
-                type="primary"
-              />
+              <SelectButton className="text-[24px] !h-[66px]" options={options} type="primary" />
             </Form.Item>
           </div>
         </div>

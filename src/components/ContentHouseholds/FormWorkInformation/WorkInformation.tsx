@@ -219,7 +219,10 @@ function WorkInformation(props: Props) {
           <Form.Item
             className="!mb-0 !w-full"
             name={[`${type}`, 'workInfor', 'dutyStation']}
-            rules={[{ required: true, message: '10文字以内' }]}
+            rules={[
+              { required: true, message: '必須項目で選択してください' },
+              { max: 10, message: '10文字以内' },
+            ]}
           >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
@@ -251,10 +254,13 @@ function WorkInformation(props: Props) {
               // { max: 2, message: '半角数字、2文字以内' },
               {
                 validator: (_, value) => {
-                  if (value?.length <= 2 && RegexKatakanaHalfWidth.test(value)) {
-                    return Promise.resolve();
+                  if (value) {
+                    if (value?.length <= 2 && RegexKatakanaHalfWidth.test(value)) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject('半角数字、2文字以内');
                   }
-                  return Promise.reject('半角数字、2文字以内');
+                  return Promise.reject('必須項目で選択してください');
                 },
               },
             ]}

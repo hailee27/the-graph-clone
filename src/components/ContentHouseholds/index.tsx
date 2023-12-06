@@ -23,7 +23,7 @@ function ContentHouseholds() {
   // const [form] = Form.useForm();
   const { formContentHouseholds: form } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
-  const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
+  const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form) ?? 0;
   const { user } = useSelector((state: RootState) => state.auth);
   // const { data: user } = useGetMeQuery();
   const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
@@ -35,10 +35,10 @@ function ContentHouseholds() {
   const wifeLifeInsurance = Form.useWatch(['wife', 'lifeInsurance'], form);
   const husbandLifeInsurance = Form.useWatch(['husband', 'lifeInsurance'], form);
 
-  const monthlyWatch = Form.useWatch('monthly', form);
+  const monthlyWatch = Form.useWatch('monthly', form) ?? 0;
   // const lifeInsurancePremiumWatch = Form.useWatch('lifeInsurancePremium', form);
-  const electricBillWatch = Form.useWatch('electricBill', form);
-  const taxWatch = Form.useWatch('tax', form);
+  const electricBillWatch = Form.useWatch('electricBill', form) ?? '0';
+  const taxWatch = Form.useWatch('tax', form) ?? 0;
 
   const typeContent = useMemo<'single' | 'multiple' | string>(() => {
     if (slug) {
@@ -49,7 +49,7 @@ function ContentHouseholds() {
   const lifeInsurancePremiumWatch = useMemo(() => {
     const sum = peopleLifeInsurance || wifeLifeInsurance + husbandLifeInsurance;
     form?.setFieldValue('lifeInsurancePremium', sum);
-    return sum;
+    return isNaN(sum) ? 0 : sum;
   }, [peopleLifeInsurance, wifeLifeInsurance, husbandLifeInsurance]);
 
   const totalmonths = useMemo(() => {
@@ -70,11 +70,11 @@ function ContentHouseholds() {
 
   const total = useMemo(() => {
     return formatNumber(
-      lifeInsurancePremiumWatch
-        ? Number(lifeInsurancePremiumWatch)
-        : 0 + Number(electricBillWatch ?? 0) + taxWatch
-        ? Number(taxWatch)
-        : 0 + Number(monthlyWatch ?? 0) + Number(desiredRentWatch ?? 0),
+      Number(lifeInsurancePremiumWatch) +
+        Number(electricBillWatch) +
+        Number(taxWatch) +
+        Number(monthlyWatch) +
+        Number(desiredRentWatch),
       true,
       1
     );
@@ -104,7 +104,7 @@ function ContentHouseholds() {
         initialValues={{
           ...initialValues,
           tax: user?.userProfile?.tax ? String(user?.userProfile?.tax) : undefined,
-          electricBill: String(user?.userProfile?.electricBill),
+          electricBill: user?.userProfile?.electricBill ? String(user?.userProfile?.electricBill) : undefined,
         }}
         name="formContentHouseholds"
         scrollToFirstError={{ behavior: 'smooth', block: 'center', inline: 'center' }}
@@ -179,7 +179,7 @@ function ContentHouseholds() {
                           if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject('半角数字10文字以内');
+                          return Promise.reject('必須項目で選択してください');
                         },
                       },
                     ]}
@@ -204,7 +204,7 @@ function ContentHouseholds() {
                           if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject('半角数字10文字以内');
+                          return Promise.reject('必須項目で選択してください');
                         },
                       },
                     ]}
