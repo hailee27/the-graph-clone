@@ -69,15 +69,14 @@ function ContentHouseholds() {
   }, [lifeInsurancePremiumWatch, electricBillWatch, taxWatch, monthlyWatch, desiredRentWatch, totalmonths]);
 
   const total = useMemo(() => {
-    return formatNumber(
+    const sum =
       Number(lifeInsurancePremiumWatch) +
-        Number(electricBillWatch) +
-        Number(taxWatch) +
-        Number(monthlyWatch) +
-        Number(desiredRentWatch),
-      true,
-      1
-    );
+      Number(electricBillWatch) +
+      Number(taxWatch) +
+      Number(monthlyWatch) +
+      Number(desiredRentWatch);
+    form?.setFieldValue('fixCost', sum);
+    return formatNumber(sum, true, 1);
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
 
   const initialValues = useMemo(() => {
@@ -222,6 +221,9 @@ function ContentHouseholds() {
               <span className=" underline underline-offset-[14px] text-primary text-[24px] font-bold">合計</span>
               <span className="text-[70px] font-bold leading-[32px]  ">
                 {total}
+                <Form.Item className="!hidden" name="fixCost">
+                  <BasicInput />
+                </Form.Item>
                 <span className="text-[40px] ml-[8px]">円</span>
               </span>
             </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Tab from '../../components/common/Tab';
 import BeforeImprovement from '../../components/BeforeImprovement';
 
@@ -8,6 +8,12 @@ import Improved from '../../components/Improved';
 function Diagnosis() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const queryParam = useMemo(() => {
+    if (searchParams.get('query')) {
+      return JSON.parse(searchParams.get('query') ?? '');
+    }
+    return undefined;
+  }, [searchParams.get('query')]);
   return (
     <div className="w-full  mt-[40px]">
       <div className="flex justify-between mb-[64px]">
@@ -22,7 +28,7 @@ function Diagnosis() {
         </div>
         <button
           className="bg-[#ffffff] w-[240px] py-[24px] h-[58px] rounded-[70px] flex items-center justify-center space-x-3"
-          onClick={() => navigate(`/house-holds/${searchParams.get('slug')}`)}
+          onClick={() => navigate(`/house-holds/${queryParam.slug}`)}
         >
           <svg fill="none" height="8" viewBox="0 0 6 8" width="6" xmlns="http://www.w3.org/2000/svg">
             <path

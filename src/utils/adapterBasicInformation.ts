@@ -21,10 +21,12 @@ export const verifyBasicInformationValue = ({ data, informationType, id }: Props
     municipality: data?.address?.municipalities ?? '',
     buildingName: data?.address?.street ?? '',
     lifeInsurances:
-      Object.values(data?.lifeInsurance ?? {}).map((e) => ({
-        name: e.type ?? '',
-        monthlyPremium: Number(e.fee) ?? '',
-      })) ?? [],
+      Object.values(data?.lifeInsurance ?? {})
+        .filter((v) => v.fee !== null && v.type)
+        .map((e) => ({
+          name: e.type ?? '',
+          monthlyPremium: Number(e.fee) ?? '',
+        })) ?? [],
     householdAccountBook: data?.household ?? '',
     savingsMonthly: data?.saving?.monthly ?? '',
     totalAmountOfSavings: data?.saving?.totalAmount ?? '',

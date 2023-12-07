@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { createSearchParams, useNavigate } from 'react-router-dom';
+import { createSearchParams, useNavigate, useSearchParams } from 'react-router-dom';
 interface TypeTabItems {
   key: string;
   label: string;
@@ -17,8 +17,14 @@ function Tab({
 }) {
   const [selectTab, setSelectedTab] = useState<string | undefined>(defaultValue);
   const navigate = useNavigate();
-  // const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
+  const queryParam = useMemo(() => {
+    if (searchParams.get('query')) {
+      return JSON.parse(searchParams.get('query') ?? '');
+    }
+    return undefined;
+  }, [searchParams.get('query')]);
   useEffect(() => {
     setSelectedTab(defaultValue);
   }, [defaultValue]);
@@ -49,11 +55,19 @@ function Tab({
                 onClick={() => {
                   setSelectedTab(item?.key);
                   onChange?.(item?.key);
-                  navigate({
-                    search: createSearchParams({
-                      step: String(item?.key),
-                    }).toString(),
-                  });
+                  if (queryParam) {
+                    navigate({
+                      search: createSearchParams({
+                        query: JSON.stringify(queryParam),
+                      }).toString(),
+                    });
+                  } else {
+                    navigate({
+                      search: createSearchParams({
+                        step: String(item?.key),
+                      }).toString(),
+                    });
+                  }
                 }}
                 style={{
                   background:

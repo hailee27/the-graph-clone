@@ -101,12 +101,10 @@ function Households() {
         onFormFinish={(name, { values, forms }) => {
           let profileParams: PostUsersProfileParams;
           let basicInformation: TypeBasicInformation[] = [];
-
           const formContentHouseholds = forms.formContentHouseholds.getFieldsValue();
           const common: CommonType = formContentHouseholds.common;
           const formFutureHome: TypeFormFutureHome = forms.formFutureHome.getFieldsValue();
           const formLifeDiagnosis: TypeFormLifeDiagnosis = forms.formLifeDiagnosis.getFieldsValue();
-
           const none: TypeContentHouseHold = formContentHouseholds.people
             ? Object.assign.apply(Object, Object.values(formContentHouseholds?.people) as any)
             : null;
@@ -139,6 +137,7 @@ function Households() {
 
           if (name === 'formContentHouseholds') {
             // forms.formContentHouseholds.submit();
+
             forms.formFutureHome.setFieldValue(
               'age',
               values?.husband?.inforBasic?.age || values?.people?.inforBasic?.age
@@ -248,11 +247,15 @@ function Households() {
                 navigate({
                   pathname: '/diagnosis',
                   search: createSearchParams({
-                    slug: slug as string,
+                    query: JSON.stringify({
+                      slug: slug as string,
+                      fixCost: formContentHouseholds.fixCost,
+                      budget: common.newHouseInfor.budget.type,
+                    }),
                   }).toString(),
                 });
-              })
-              .finally(() => dispatch(updateUserProfile({ userProfile: profileParams })));
+              });
+            // .finally(() => dispatch(updateUserProfile({ userProfile: profileParams })));
           }
           window.scrollTo({ top: 0, behavior: 'smooth' });
 

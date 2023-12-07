@@ -9,6 +9,7 @@ import { TypeDataSets } from '../Improved/type';
 function BeforeImprovement() {
   const [form] = Form.useForm();
   const [dataSets, setDataSets] = useState<TypeDataSets[] | undefined>(undefined);
+
   useEffect(() => {
     const { riskValue, ...totalRisk } = form.getFieldsValue();
     setDataSets(

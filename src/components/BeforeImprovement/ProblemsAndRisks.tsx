@@ -1,18 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import InputRuler from '../common/InputRuler';
 
 import { Form } from 'antd';
 import { TypeDataSets } from '../Improved/type';
 import RadarChart from '../RadarChart';
+import { useSearchParams } from 'react-router-dom';
+import { formatNumber } from '../../utils/formatNumber';
 function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }) {
   const [total, setToal] = useState<number>(27);
   const form = Form.useFormInstance();
   const value = Form.useWatch('riskValue', form);
+  const [searchParams] = useSearchParams();
   useEffect(() => {
     const { riskValue, ...totalRisk } = form.getFieldsValue();
     const length = Object.values(totalRisk)?.flatMap((e) => Object.values(e as string))?.length;
     setToal(length);
   }, [form]);
+  const queryParam = useMemo(() => {
+    return JSON.parse(searchParams.get('query') ?? '');
+  }, [searchParams.get('query')]);
 
   return (
     <div className="bg-[#ffffff] rounded-[16px] py-[106px] flex items-center justify-center flex-col ">
@@ -105,9 +111,9 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
       </div>
       <div className="mt-[80px] font-bold ">
         <span className="tracking-[1.44px] text-[18px] ">上記に対し、初期費用</span>
-        <span className="tracking-[3.52px] text-[44px]">00</span>
+        <span className="tracking-[3.52px] text-[44px]">{Number(queryParam?.budget ?? 0) / 10000}</span>
         <span className="tracking-[2.24px] text-[28px] ">万円と、毎月の固定費</span>
-        <span className="tracking-[3.52px] text-[44px]">000,000</span>
+        <span className="tracking-[3.52px] text-[44px]">{formatNumber(Number(queryParam?.fixCost), true, 1)}</span>
         <span className="tracking-[2.56px] text-[32px]">円払う予定</span>
       </div>
     </div>

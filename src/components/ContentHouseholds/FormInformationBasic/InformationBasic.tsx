@@ -44,8 +44,10 @@ function InformationBasic(props: Props) {
       type: undefined,
     },
   ]);
+
   const { user } = useSelector((state: RootState) => state.auth);
   // const { data: user } = useGetMeQuery();
+
   const [trigger, { data: dataAddress, isLoading, isSuccess }] = useLazyGetMasterDataDistinctQuery();
   const { currentAddressPrefecture } = useHouseHoldsContext();
   const { openNotification } = useNotificationContext();
@@ -592,7 +594,7 @@ function InformationBasic(props: Props) {
                     className="!mb-0 flex-1"
                     initialValue={String(item.fee)}
                     name={
-                      item.type === '6'
+                      item.type === '無し'
                         ? undefined
                         : [`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${item.id}`, 'fee']
                     }
@@ -611,7 +613,7 @@ function InformationBasic(props: Props) {
                   >
                     <BasicInput
                       className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-                      disabled={item.type === '6'}
+                      disabled={item.type === '無し' || !item.type}
                       onChange={(e) => {
                         numberLifeInsurance[index].fee = Number(e.target.value);
                         setNumberLifeInsurance((prev) => {
@@ -651,15 +653,16 @@ function InformationBasic(props: Props) {
                   className="h-[58px] mt-[14px] flex-1"
                   onClick={() => {
                     const lastIndex = numberLifeInsurance[numberLifeInsurance.length - 1];
-                    setNumberLifeInsurance((prev) => prev.filter((e) => e !== lastIndex));
+                    setNumberLifeInsurance((prev) => prev.filter((e) => e.id !== lastIndex.id));
                     form.setFieldValue(
                       [`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${lastIndex.id}`, 'type'],
-                      null
+                      ''
                     );
                     form.setFieldValue(
                       [`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${lastIndex.id}`, 'fee'],
                       null
                     );
+                    // form.resetFields([`${type}`, 'inforBasic', 'lifeInsurance', `lifeInsurance${lastIndex.id}`]);
                   }}
                   type="default"
                 >
