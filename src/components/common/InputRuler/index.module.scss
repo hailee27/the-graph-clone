@@ -10,15 +10,15 @@
     .ant-slider-dot {
       background-color: var(--primary-text);
       border: none !important;
-      width: 2px;
-      height: 16px;
-      inset-block-start: -7px;
+      width: 1px;
+      height: 12px;
+      inset-block-start: -4.5px;
       border-radius: 0px;
     }
 
     .ant-slider-dot:nth-child(10n) {
-      height: 24px;
-      inset-block-start: -11px;
+      height: 19px;
+      inset-block-start: -8.5px;
     }
     .ant-slider-handle {
       width: 12px;
@@ -59,15 +59,15 @@
     .ant-slider-dot {
       background-color: var(--primary-text);
       border: none !important;
-      width: 2px;
-      height: 16px;
-      inset-block-start: -7px;
+      width: 1px;
+      height: 12px;
+      inset-block-start: -4.5px;
       border-radius: 0px;
     }
 
     .ant-slider-dot:nth-child(10n) {
-      height: 24px;
-      inset-block-start: -11px;
+      height: 19px;
+      inset-block-start: -8.5px;
     }
     .ant-slider-handle {
       width: 12px;
