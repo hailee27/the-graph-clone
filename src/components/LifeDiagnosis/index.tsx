@@ -47,7 +47,7 @@ function LifeDiagnosis() {
         foodStockpilingAndDisasterPrevention: !user?.userProfile?.aboutLifeDiagnosis?.countermeasureStorageSpace
           ? 'no'
           : 'yes',
-        disasterCountermeasures: !user?.userProfile?.aboutLifeDiagnosis?.countermeasureSecuringFundS ? 'no' : 'yes',
+        securingFunds: !user?.userProfile?.aboutLifeDiagnosis?.countermeasureSecuringFundS ? 'no' : 'yes',
       },
 
       healthMeasures: {
