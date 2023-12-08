@@ -11,6 +11,7 @@ export const verifyBasicInformationValue = ({ data, informationType, id }: Props
     id,
     firstName: data?.nameKanji?.firstName ?? '',
     lastName: data?.nameKanji?.lastName ?? '',
+    email: data?.email,
     firstNameKana: data?.nameKatakana?.firstName ?? '',
     lastNameKana: data?.nameKatakana?.lastName ?? '',
     birthday: `${data?.birthDay?.year}-${data?.birthDay?.month}-${data?.birthDay?.day}` ?? '',

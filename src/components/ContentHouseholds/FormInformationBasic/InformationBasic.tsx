@@ -182,7 +182,9 @@ function InformationBasic(props: Props) {
       {/* NAME Kanji*/}
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold">お名前</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold after:content-['*'] after:text-[red]">
+            お名前
+          </div>
         )}
         <div
           className={`
@@ -199,7 +201,7 @@ function InformationBasic(props: Props) {
             className="!mb-0 w-full"
             name={[`${type}`, 'inforBasic', 'nameKanji', 'firstName']}
             rules={[
-              { required: true, message: '必須項目で入力してください' },
+              { required: true, message: '必須で入力してください' },
               { max: 10, message: '10文字以内' },
             ]}
           >
@@ -212,7 +214,7 @@ function InformationBasic(props: Props) {
             className="!mb-0 w-full"
             name={[`${type}`, 'inforBasic', 'nameKanji', 'lastName']}
             rules={[
-              { required: true, message: '必須項目で入力してください' },
+              { required: true, message: '必須で入力してください' },
               { max: 10, message: '10文字以内' },
             ]}
           >
@@ -227,7 +229,7 @@ function InformationBasic(props: Props) {
       {/* NAME Katakana */}
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px]">
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px] after:content-['*'] after:text-[red]">
             お名前（フリガナ）
           </div>
         )}
@@ -253,7 +255,7 @@ function InformationBasic(props: Props) {
 
                     return Promise.reject('カタカナのみ、10文字以内');
                   }
-                  return Promise.reject('必須項目で入力してください');
+                  return Promise.reject('必須で入力してください');
                 },
               },
             ]}
@@ -275,7 +277,7 @@ function InformationBasic(props: Props) {
                     }
                     return Promise.reject('カタカナのみ、10文字以内');
                   }
-                  return Promise.reject('必須項目で入力してください');
+                  return Promise.reject('必須で入力してください');
                 },
               },
             ]}
@@ -286,6 +288,38 @@ function InformationBasic(props: Props) {
             />
           </Form.Item>
           <span className="text-[14px] print:text-[10px] font-bold">様</span>
+        </div>
+      </div>
+      <div className="flex w-full h-full  items-center">
+        {!disabledLabel && (
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px] after:content-['*'] after:text-[red]">
+            メールアドレス
+          </div>
+        )}
+        <div
+          className={`
+            ${
+              type === 'husband' || type === 'wife'
+                ? 'w-[528px] print:w-[350px] print:px-[24px] px-[48px] '
+                : 'w-full pl-[48px]'
+            } 
+            ${type === 'husband' && 'bg-primary-light '} 
+            ${type === 'wife' && 'bg-secondary-thin '}         
+            flex  items-center  pt-[48px]`}
+        >
+          <Form.Item
+            className="!mb-0 !w-full"
+            name={[`${type}`, 'inforBasic', 'email']}
+            rules={[
+              { required: true, message: '必須で入力してください' },
+              // { max: 10, message: '10文字以内' },
+            ]}
+          >
+            <BasicInput
+              className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
+              placeholder="メールアドレス"
+            />
+          </Form.Item>
         </div>
       </div>
       {/* Gender */}
@@ -322,7 +356,9 @@ function InformationBasic(props: Props) {
       {/* BIRTH DATE */}
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px]">生年月日</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px] after:content-['*'] after:text-[red]">
+            生年月日
+          </div>
         )}
         <div
           className={` 
@@ -339,7 +375,7 @@ function InformationBasic(props: Props) {
             <Form.Item
               className="!mb-0"
               name={[`${type}`, 'inforBasic', 'birthDay', 'year']}
-              rules={[{ required: !ruleBirthday.year, message: '必須項目で入力してください' }]}
+              rules={[{ required: !ruleBirthday.year, message: '必須で入力してください' }]}
             >
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[92px] print:!w-[70px] ' : ' !w-[120px]'} `}
@@ -358,7 +394,7 @@ function InformationBasic(props: Props) {
             <Form.Item
               className="!mb-0"
               name={[`${type}`, 'inforBasic', 'birthDay', 'month']}
-              rules={[{ required: !ruleBirthday.month, message: '必須項目で入力してください' }]}
+              rules={[{ required: !ruleBirthday.month, message: '必須で入力してください' }]}
             >
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[80px] print:!w-[57px] ' : ' !w-[120px]'} `}
@@ -377,7 +413,7 @@ function InformationBasic(props: Props) {
             <Form.Item
               className="!mb-0"
               name={[`${type}`, 'inforBasic', 'birthDay', 'day']}
-              rules={[{ required: !ruleBirthday.day, message: '必須項目で入力してください' }]}
+              rules={[{ required: !ruleBirthday.day, message: '必須で入力してください' }]}
             >
               <DatePicker
                 className={`${type === 'husband' || type === 'wife' ? '!w-[80px]  print:!w-[57px] ' : ' !w-[120px]'} `}
@@ -409,7 +445,9 @@ function InformationBasic(props: Props) {
       {/* ADDRESS */}
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px]">現在の住所</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px] after:content-['*'] after:text-[red]">
+            現在の住所
+          </div>
         )}
         <div
           className={`
@@ -425,7 +463,7 @@ function InformationBasic(props: Props) {
           <div className="w-full">
             <Form.Item
               name={[`${type}`, 'inforBasic', 'address', 'name']}
-              rules={[{ required: true, message: '必須項目で入力してください' }]}
+              rules={[{ required: true, message: '必須で入力してください' }]}
             >
               <Radio.Group>
                 <div className="flex space-x-[24px]">
@@ -443,7 +481,7 @@ function InformationBasic(props: Props) {
             </Form.Item>
             <div className="w-full flex flex-col space-y-[8px]">
               <div className="flex items-center  space-x-[32px] ">
-                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">郵便番号</span>
+                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full ">郵便番号</span>
                 <div className="flex items-center space-x-[16px]">
                   <Form.Item
                     className=" flex-1 !mb-0"
@@ -455,7 +493,7 @@ function InformationBasic(props: Props) {
                           if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject('必須項目で入力してください');
+                          return Promise.reject('必須で入力してください');
                         },
                       },
                     ]}
@@ -486,7 +524,7 @@ function InformationBasic(props: Props) {
                 <Form.Item
                   className=" flex-1 !mb-0"
                   name={[`${type}`, 'inforBasic', 'address', 'prefectures']}
-                  rules={[{ required: true, message: '必須項目で選択してください' }]}
+                  rules={[{ required: true, message: '必須で入力してください' }]}
                 >
                   <SelectButton
                     options={currentAddressPrefecture}
@@ -501,7 +539,7 @@ function InformationBasic(props: Props) {
                   className=" flex-1 !mb-0"
                   name={[`${type}`, 'inforBasic', 'address', 'municipalities']}
                   rules={[
-                    { required: true, message: '必須項目で選択してください' },
+                    { required: true, message: '必須で入力してください' },
                     { max: 15, message: '15文字以内' },
                   ]}
                 >
@@ -606,7 +644,7 @@ function InformationBasic(props: Props) {
                           if (RegexKatakanaHalfWidth.test(value)) {
                             return Promise.resolve();
                           }
-                          return Promise.reject('必須項目で入力してください');
+                          return Promise.reject('必須で入力してください');
                         },
                       },
                     ]}
@@ -706,7 +744,9 @@ function InformationBasic(props: Props) {
       {/* Saving */}
       <div className="flex w-full h-full  items-start ">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[19px] ">貯金</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold pt-[19px] after:content-['*'] after:text-[red] ">
+            貯金
+          </div>
         )}
         <div
           className={`
@@ -731,7 +771,7 @@ function InformationBasic(props: Props) {
                     if (value?.length <= 0 || RegexKatakanaHalfWidth.test(value)) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('必須項目で入力してください');
+                    return Promise.reject('必須で入力してください');
                   },
                 },
               ]}
@@ -756,7 +796,7 @@ function InformationBasic(props: Props) {
                     if (value?.length <= 0 || RegexKatakanaHalfWidth.test(value)) {
                       return Promise.resolve();
                     }
-                    return Promise.reject('必須項目で入力してください');
+                    return Promise.reject('必須で入力してください');
                   },
                 },
               ]}

@@ -201,7 +201,11 @@ function NewHouseInformation(props: Props) {
 
       {/* Desired rent */}
       <div className="flex w-full h-full  items-start">
-        {<div className="w-[176px] text-[14px] font-bold pt-[18px]">ご希望の家賃</div>}
+        {
+          <div className="w-[176px] text-[14px] font-bold pt-[18px] after:content-['*'] after:text-[red]">
+            ご希望の家賃
+          </div>
+        }
         <div
           className={`w-full  ${type === 'husband' && 'bg-primary-light '} ${
             type === 'wife' && 'bg-secondary-thin '
@@ -210,7 +214,7 @@ function NewHouseInformation(props: Props) {
           <Form.Item
             className=" flex-1 !mb-0"
             name={[`${type}`, 'newHouseInfor', 'desiredRent', 'type']}
-            rules={[{ required: true, message: '必須項目で選択してください' }]}
+            rules={[{ required: true, message: '必須で入力してください' }]}
           >
             <SelectButton options={desiredRent} placeholder="選択してください" type="primary" />
           </Form.Item>
