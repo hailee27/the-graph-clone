@@ -128,7 +128,9 @@ function WorkInformation(props: Props) {
       {/* Salary */}
       <div className="flex w-full h-full  items-start">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[68px]">給与</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[68px] after:content-['*'] after:text-[red]">
+            給与
+          </div>
         )}
         <div
           className={`
@@ -184,7 +186,7 @@ function WorkInformation(props: Props) {
                       if (RegexKatakanaHalfWidth.test(value)) {
                         return Promise.resolve();
                       }
-                      return Promise.reject('必須項目で入力してください');
+                      return Promise.reject('必須で入力してください');
                     },
                   },
                 ]}
@@ -203,7 +205,9 @@ function WorkInformation(props: Props) {
       {/* duty station */}
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px]">勤務地</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px] after:content-['*'] after:text-[red]">
+            勤務地
+          </div>
         )}
         <div
           className={`
@@ -220,7 +224,7 @@ function WorkInformation(props: Props) {
             className="!mb-0 !w-full"
             name={[`${type}`, 'workInfor', 'dutyStation']}
             rules={[
-              { required: true, message: '必須項目で選択してください' },
+              { required: true, message: '必須で入力してください' },
               { max: 10, message: '10文字以内' },
             ]}
           >
@@ -234,7 +238,9 @@ function WorkInformation(props: Props) {
       {/* Length of service */}
       <div className="flex w-full h-full  items-center">
         {!disabledLabel && (
-          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px]">勤続年数</div>
+          <div className="w-[176px] print:w-[70px] text-[14px] print:text-[10px] font-bold  pt-[48px] after:content-['*'] after:text-[red]">
+            勤続年数
+          </div>
         )}
         <div
           className={`
@@ -260,7 +266,7 @@ function WorkInformation(props: Props) {
                     }
                     return Promise.reject('半角数字、2文字以内');
                   }
-                  return Promise.reject('必須項目で選択してください');
+                  return Promise.reject('必須で入力してください');
                 },
               },
             ]}

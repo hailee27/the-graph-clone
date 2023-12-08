@@ -183,7 +183,7 @@ export type TypeBasicInformation = {
   id?: number | null | undefined;
 
   informationType?: 'NONE' | 'WIFE' | 'HUSBAND';
-
+  email?: string;
   firstName: string;
 
   lastName: string;

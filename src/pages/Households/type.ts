@@ -4,6 +4,7 @@ export interface TypeContentHouseHold {
     firstName?: string;
     lastName?: string;
   };
+  email?: string;
   nameKatakana?: {
     firstName?: string;
     lastName?: string;

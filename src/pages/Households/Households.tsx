@@ -74,7 +74,7 @@ function Households() {
     }
     if (isSuccess) {
       openNotification.success({
-        message: '診断の送るに成功',
+        message: 'メール送信完了',
         icon: (
           <svg
             aria-hidden="true"
