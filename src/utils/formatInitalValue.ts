@@ -62,7 +62,7 @@ export const formatInitalValue = (
         desireToChangeJobs: data.desireJob,
         commutingTime: {
           type: data.commutingMethod,
-          time: String(data.commutingMethodNumber),
+          time: data.commutingMethodNumber ? String(data.commutingMethodNumber) : null,
         },
         workMemo: data.workMemo,
       } as TypeContentHouseHold,
@@ -77,7 +77,7 @@ export const formatInitalValue = (
     common: {
       newHouseInfor: {
         budget: {
-          type: dataCommon?.budgetAmount,
+          type: dataCommon?.budgetAmount === 'undefined' ? null : dataCommon?.budgetAmount,
           breakdown: dataCommon?.breakdown,
           householdAppliancesCost: dataCommon?.householdApplianceCost,
           initialCostMovingFee: dataCommon?.initialCost,
@@ -91,7 +91,7 @@ export const formatInitalValue = (
         },
         desiredFloorPlan: {
           floorPlan: dataCommon?.desiredFloorPlan,
-          breadth: dataCommon?.breadth,
+          breadth: dataCommon?.breadth === 'undefined' ? null : dataCommon?.breadth,
         },
         desiredAreaConditions: dataCommon?.desiredArea,
         memo: dataCommon?.newHouseMemo,

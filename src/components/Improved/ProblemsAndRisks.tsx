@@ -1,5 +1,6 @@
+/* eslint-disable max-lines */
 /* eslint-disable max-lines-per-function */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import InputRuler from '../common/InputRuler';
 import { Form } from 'antd';
 import RadarChart from '../RadarChart';
@@ -8,17 +9,32 @@ import CardFix from '../ContentHouseholds/CardFix';
 import { formatNumber } from '../../utils/formatNumber';
 import BasicInput from '../common/BasicInput';
 import Currency from '../common/Currency';
+import { useSearchParams } from 'react-router-dom';
 
 function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }) {
   const [total, setToal] = useState<number>(27);
+  const [salesAmount, setSalesAmount] = useState<number | string>(-8000);
   const form = Form.useFormInstance();
   const { riskValue, ...totalRisk } = form.getFieldsValue();
   const value = Form.useWatch('riskValue', form);
+  const [formCost] = Form.useForm();
+  const [searchParams] = useSearchParams();
+  const queryParam = useMemo(() => {
+    if (searchParams.get('query')) {
+      return JSON.parse(searchParams.get('query') ?? '');
+    }
+    return undefined;
+  }, [searchParams.get('query')]);
+
   useEffect(() => {
     const length = Object.values(totalRisk)?.flatMap((e) => Object.values(e as string))?.length;
     setToal(length);
   }, [form]);
-  const [formCost] = Form.useForm();
+
+  const lifeInsurance = useMemo<{ name: string; monthlyPremium: number }[]>(() => {
+    return queryParam.lifeInsurances.flatMap((e: { name: string; monthlyPremium: number }) => e);
+  }, [queryParam]);
+  const monthlyRepaymentAmount = Form.useWatch('monthlyRepaymentAmount', formCost);
 
   return (
     <div className="bg-[#ffffff] rounded-[16px] py-[106px] flex items-center justify-center flex-col ">
@@ -121,8 +137,9 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
           <span className="font-bold text-[20px]">■マイホームにかかる費用</span>
           <Form
             form={formCost}
+            // initialValues={}
             onValuesChange={(_, values) => {
-              const P = Number(values.propertyPrice);
+              const P = Number(values.propertyPrice * 10000);
               const r = Number(Number(Number(values.interestRate) / (100 * 12)).toFixed(10));
               const n = Number(values.repaymentPeriod) * 12;
               const pmt = Math.floor(P * ((r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1)));
@@ -142,7 +159,6 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
                 title="物件価格"
                 type={1}
               />
-
               <CardFix
                 content={
                   <div className="!px-[24px] flex items-center space-x-[8px]">
@@ -155,7 +171,6 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
                 title="返済期間"
                 type={1}
               />
-
               <CardFix
                 content={
                   <div className="!px-[24px] flex items-center space-x-[8px]">
@@ -168,7 +183,6 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
                 title="金利"
                 type={1}
               />
-
               <CardFix
                 content={
                   <Form.Item name="monthlyRepaymentAmount" noStyle>
@@ -184,12 +198,77 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
         <div className="mt-[32px]">
           <span className="font-bold text-[20px]">■生命保険</span>
           <div className="flex space-x-[8px] mt-[24px]">
-            <CardFix content={<span className="font-bold text-[40px]">{formatNumber(0)}</span>} title="死亡" type={1} />
-            <CardFix content={<span className="font-bold text-[40px]">{formatNumber(0)}</span>} title="医療" type={1} />
-            <CardFix content={<span className="font-bold text-[40px]">{formatNumber(0)}</span>} title="がん" type={1} />
-            <CardFix content={<span className="font-bold text-[40px]">{formatNumber(0)}</span>} title="養老" type={1} />
             <CardFix
-              content={<span className="font-bold text-[40px]">{formatNumber(0)}</span>}
+              content={
+                <span className="font-bold text-[40px]">
+                  {formatNumber(
+                    lifeInsurance
+                      .filter((e) => e.name === '死亡')
+                      .map((e) => e.monthlyPremium)
+                      .reduce((prev, cur) => prev + cur, 0)
+                  ) ?? 0}
+                </span>
+              }
+              title="死亡"
+              type={1}
+            />
+            <CardFix
+              content={
+                <span className="font-bold text-[40px]">
+                  {' '}
+                  {formatNumber(
+                    lifeInsurance
+                      .filter((e) => e.name === '医療')
+                      .map((e) => e.monthlyPremium)
+                      .reduce((prev, cur) => prev + cur, 0)
+                  ) ?? 0}
+                </span>
+              }
+              title="医療"
+              type={1}
+            />
+            <CardFix
+              content={
+                <span className="font-bold text-[40px]">
+                  {' '}
+                  {formatNumber(
+                    lifeInsurance
+                      .filter((e) => e.name === 'がん')
+                      .map((e) => e.monthlyPremium)
+                      .reduce((prev, cur) => prev + cur, 0)
+                  ) ?? 0}
+                </span>
+              }
+              title="がん"
+              type={1}
+            />
+            <CardFix
+              content={
+                <span className="font-bold text-[40px]">
+                  {' '}
+                  {formatNumber(
+                    lifeInsurance
+                      .filter((e) => e.name === '養老')
+                      .map((e) => e.monthlyPremium)
+                      .reduce((prev, cur) => prev + cur, 0)
+                  ) ?? 0}
+                </span>
+              }
+              title="養老"
+              type={1}
+            />
+            <CardFix
+              content={
+                <span className="font-bold text-[40px]">
+                  {' '}
+                  {formatNumber(
+                    lifeInsurance
+                      .filter((e) => e.name === 'その他')
+                      .map((e) => e.monthlyPremium)
+                      .reduce((prev, cur) => prev + cur, 0)
+                  ) ?? 0}
+                </span>
+              }
               title="その他"
               type={1}
             />
@@ -198,29 +277,36 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
         <div className="flex items-center justify-center text-[20px] mt-[48px] space-x-[40px] text-secondary ">
           <span className="text-[20px] font-bold underline underline-offset-[14px]">毎月の返済額</span>
 
-          <span className="text-primary-text text-[56px]">{formatNumber(0)}</span>
+          <span className="text-primary-text text-[56px]">{formatNumber(monthlyRepaymentAmount ?? 0)}</span>
 
           <span className="text-[20px] font-bold underline underline-offset-[14px]">売電金額</span>
           <div className=" w-[154px] flex items-center space-x-[8px]">
-            <BasicInput className="bg-secondary-thin text-[14px] font-bold" value="-8000" />
+            <BasicInput
+              className="bg-secondary-thin text-[14px] font-bold"
+              defaultValue={5}
+              onChange={(e) => setSalesAmount(e.target.value)}
+              type="number"
+              value={salesAmount}
+            />
             <span>円</span>
           </div>
           <span className="text-[20px] font-bold underline underline-offset-[14px]">生命保険</span>
 
-          <span className="text-[56px] text-primary-text">{formatNumber(0)}</span>
+          <span className="text-[56px] text-primary-text">
+            {formatNumber(lifeInsurance.map((e) => e.monthlyPremium).reduce((prev, cur) => prev + cur, 0)) ?? 0}
+          </span>
         </div>
         <div className="flex items-center justify-center bg-secondary-thin py-[33px] space-x-[32px] mt-[80px]">
           <span className="text-[28px]">毎月の固定費は</span>
           <div className="h-[40px]">
-            <span className="text-[64px] leading-[40px]">00,000</span>
+            <span className="text-[64px] leading-[40px]">
+              {Number(lifeInsurance.map((e) => e.monthlyPremium).reduce((prev, cur) => prev + cur, 0)) +
+                Number(monthlyRepaymentAmount || 0) -
+                Number(salesAmount)}
+            </span>
             <span className="text-[40px]">円!</span>
           </div>
         </div>
-        {/* <span className="tracking-[1.44px] text-[18px] ">上記に対し、初期費用</span>
-        <span className="tracking-[3.52px] text-[44px]">00</span>
-        <span className="tracking-[2.24px] text-[28px] ">万円と、毎月の固定費</span>
-        <span className="tracking-[3.52px] text-[44px]">000,000</span>
-        <span className="tracking-[2.56px] text-[32px]">円払う予定</span> */}
       </div>
     </div>
   );
