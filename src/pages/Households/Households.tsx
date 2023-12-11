@@ -251,6 +251,7 @@ function Households() {
                       slug: slug as string,
                       fixCost: formContentHouseholds.fixCost,
                       budget: common.newHouseInfor.budget.type,
+                      lifeInsurances: basicInformation.map((e) => e.lifeInsurances),
                     }),
                   }).toString(),
                 });

@@ -311,13 +311,14 @@ function InformationBasic(props: Props) {
             className="!mb-0 !w-full"
             name={[`${type}`, 'inforBasic', 'email']}
             rules={[
-              { required: true, message: '必須で入力してください' },
+              { required: true, message: '必須で入力してください', type: 'email' },
               // { max: 10, message: '10文字以内' },
             ]}
           >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
               placeholder="メールアドレス"
+              type="email"
             />
           </Form.Item>
         </div>
