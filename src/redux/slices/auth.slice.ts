@@ -14,7 +14,7 @@ const authSlice = createSlice({
     updateRefreshToken: (state, action: PayloadAction<string | undefined | null>) => {
       state.refreshToken = action.payload;
     },
-    updateUserProfile: (state, action: PayloadAction<TypeUser>) => {
+    updateUserProfile: (state, action: PayloadAction<TypeUser | null>) => {
       state.user = action.payload;
     },
   },

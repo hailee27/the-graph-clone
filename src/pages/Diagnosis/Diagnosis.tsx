@@ -14,13 +14,18 @@ function Diagnosis() {
     }
     return undefined;
   }, [searchParams.get('query')]);
+
   return (
     <div className="w-full  mt-[40px]">
       <div className="flex justify-between mb-[64px]">
         <div className="flex flex-col justify-between space-y-[40px]">
           <div className="w-[182px] border-b-2 text-primary-text flex justify-between pb-[6px]">
-            <span className="font-bold text-[20px]">山田</span>
-            <span className="font-bold text-[20px]">様</span>
+            <span className="font-bold text-[20px]">
+              {queryParam?.name?.firstNameKana + queryParam?.name?.lastNameKana}
+            </span>
+            <span className="font-bold text-[20px]">
+              {queryParam?.gender === 'MALE' || queryParam.gander === 'NONE' ? '様' : '夫人'}
+            </span>
           </div>
           <span className="font-medium text-[18px] leading-snug">
             賃貸の家計、住環境がもたらす問題・リスクとは？問題・リスクの数値化をしましょう！

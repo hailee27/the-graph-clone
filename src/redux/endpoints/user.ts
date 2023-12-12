@@ -45,7 +45,7 @@ export type GetGetMeResponse = TypeUser;
 export type PostLoginResponse = {
   accessToken?: string | undefined | null;
   refreshToken?: string | undefined | null;
-  user?: TypeUser;
+  user?: TypeUser | null;
   email?: string | undefined | null;
   verifyToken?: string | undefined | null;
 };

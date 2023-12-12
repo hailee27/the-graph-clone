@@ -240,7 +240,7 @@ function Households() {
               electricBill: formContentHouseholds.electricBill,
             };
 
-            dispatch(updateUserProfile({ userProfile: profileParams }));
+            dispatch(updateUserProfile({ ...user, userProfile: profileParams }));
             trigger(profileParams)
               .unwrap()
               .then(() => {
@@ -252,6 +252,15 @@ function Households() {
                       fixCost: formContentHouseholds.fixCost,
                       budget: common.newHouseInfor.budget.type,
                       lifeInsurances: basicInformation.map((e) => e.lifeInsurances),
+                      name: {
+                        firstNameKana: basicInformation.find(
+                          (e) => e.informationType === 'NONE' || e.informationType === 'HUSBAND'
+                        )?.firstName,
+                        lastNameKana: basicInformation.find(
+                          (e) => e.informationType === 'NONE' || e.informationType === 'HUSBAND'
+                        )?.lastName,
+                      },
+                      gender: profileParams.gender,
                     }),
                   }).toString(),
                 });

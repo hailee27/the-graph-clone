@@ -20,6 +20,7 @@ export const formatInitalValue = (
           lastName: data.lastNameKana,
         },
         gender,
+        email: data.email,
         birthDay: {
           day: Number(moment(data.birthday).format('DD')),
           month: Number(moment(data.birthday).format('MM')),
