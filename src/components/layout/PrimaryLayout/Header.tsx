@@ -9,16 +9,23 @@ import BasicButton from '../../common/BasicButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import { updateUserProfile } from '../../../redux/slices/auth.slice';
+import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 // import { usePostLogoutMutation } from '../../../redux/endpoints/user';
 
 function Header() {
   const navigate = useNavigate();
   const { user, refreshToken } = useSelector((state: RootState) => state.auth);
   const { openNotification } = useNotificationContext();
+  const { formContentHouseholds } = useHouseHoldsContext();
   const [trigger] = usePostLogoutMutation();
   const location = useLocation();
-
   const dispatch = useDispatch();
+  // console.log(user);
+  // useEffect(() => {
+  //   if (!user?.userProfile) {
+  //     navigate({ pathname: '/' });
+  //   }
+  // }, [user]);
 
   return (
     <div className="pt-[40px]  ">
@@ -26,8 +33,9 @@ function Header() {
         {location.pathname.split('/')[1] === 'house-holds' && (
           <BasicButton
             onClick={() => {
-              dispatch(updateUserProfile({}));
-              navigate(0);
+              formContentHouseholds?.resetFields();
+              dispatch(updateUserProfile({ ...user, userProfile: null }));
+              navigate({ pathname: '/' });
             }}
           >
             新規作成
@@ -82,6 +90,9 @@ function Header() {
                     </svg>
                   ),
                 });
+              })
+              .finally(() => {
+                navigate(0);
               })
               .catch(() => {
                 persistor.purge();

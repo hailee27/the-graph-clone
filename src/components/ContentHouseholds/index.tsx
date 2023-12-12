@@ -1,5 +1,5 @@
 /* eslint-disable max-lines-per-function */
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import FormInformationBasic from './FormInformationBasic';
 import BasicButton from '../common/BasicButton';
 import FormWorkInformation from './FormWorkInformation';
@@ -48,7 +48,7 @@ function ContentHouseholds() {
   }, [slug]);
   const lifeInsurancePremiumWatch = useMemo(() => {
     const sum = peopleLifeInsurance || wifeLifeInsurance + husbandLifeInsurance;
-    form?.setFieldValue('lifeInsurancePremium', sum);
+    // form?.setFieldValue('lifeInsurancePremium', sum);
     return isNaN(sum) ? 0 : sum;
   }, [peopleLifeInsurance, wifeLifeInsurance, husbandLifeInsurance]);
 
@@ -75,9 +75,13 @@ function ContentHouseholds() {
       Number(taxWatch) +
       Number(monthlyWatch) +
       Number(desiredRentWatch);
-    form?.setFieldValue('fixCost', sum);
+    // form?.setFieldValue('fixCost', sum);
     return formatNumber(sum, true, 1);
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
+  useEffect(() => {
+    form?.setFieldValue('lifeInsurancePremium', lifeInsurancePremiumWatch);
+    form?.setFieldValue('fixCost', total);
+  }, [lifeInsurancePremiumWatch, total]);
 
   const initialValues = useMemo(() => {
     const none = user?.userProfile?.basicInformation.find((e) => e.informationType === 'NONE') ?? null;
@@ -94,6 +98,11 @@ function ContentHouseholds() {
       };
     }
     return undefined;
+  }, [user?.userProfile]);
+  useEffect(() => {
+    if (!user?.userProfile) {
+      form?.resetFields();
+    }
   }, [user?.userProfile]);
 
   return (

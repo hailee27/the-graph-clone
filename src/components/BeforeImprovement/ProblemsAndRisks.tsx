@@ -113,7 +113,9 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
         <span className="tracking-[1.44px] text-[18px] ">上記に対し、初期費用</span>
         <span className="tracking-[3.52px] text-[44px]">{Number(queryParam?.budget ?? 0) / 10000}</span>
         <span className="tracking-[2.24px] text-[28px] ">万円と、毎月の固定費</span>
-        <span className="tracking-[3.52px] text-[44px]">{formatNumber(Number(queryParam?.fixCost), true, 1)}</span>
+        <span className="tracking-[3.52px] text-[44px]">
+          {formatNumber(Number(queryParam?.fixCost?.replaceAll(',', '')), true, 1)}
+        </span>
         <span className="tracking-[2.56px] text-[32px]">円払う予定</span>
       </div>
     </div>
