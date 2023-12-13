@@ -174,8 +174,10 @@ function WorkInformation(props: Props) {
             <span className="text-[14px] print:text-[10px] font-bold">万円</span>
           </div>
           <div className="flex w-full items-center space-x-[8px]">
-            <div className="flex items-center justify-center space-x-[32px] flex-1 w-full">
-              <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">月手取り</span>
+            <div className="flex items-center justify-center space-x-[30px] flex-1 w-full">
+              <span className="text-[14px] print:text-[10px] font-bold min-w-[60px]  after:content-['*'] after:text-[red]">
+                月手取り
+              </span>
               <Form.Item
                 className=" flex-1 !mb-0"
                 name={[`${type}`, 'workInfor', 'salary', 'monthlytakehomePay']}
