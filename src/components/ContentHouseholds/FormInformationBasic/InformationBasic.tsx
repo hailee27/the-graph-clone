@@ -482,7 +482,9 @@ function InformationBasic(props: Props) {
             </Form.Item>
             <div className="w-full flex flex-col space-y-[8px]">
               <div className="flex items-center  space-x-[32px] ">
-                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full ">郵便番号</span>
+                <span className="text-[14px] print:text-[10px] font-bold min-w-[65px]  after:content-['*'] after:text-[red]">
+                  郵便番号
+                </span>
                 <div className="flex items-center space-x-[16px]">
                   <Form.Item
                     className=" flex-1 !mb-0"
@@ -521,7 +523,9 @@ function InformationBasic(props: Props) {
                 </div>
               </div>
               <div className="flex items-center justify-center space-x-[32px] ">
-                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">都道府県</span>
+                <span className="text-[14px] print:text-[10px] font-bold  min-w-[60px] after:content-['*'] after:text-[red]">
+                  都道府県
+                </span>
                 <Form.Item
                   className=" flex-1 !mb-0"
                   name={[`${type}`, 'inforBasic', 'address', 'prefectures']}
@@ -535,7 +539,9 @@ function InformationBasic(props: Props) {
                 </Form.Item>
               </div>
               <div className="flex items-center justify-center space-x-[32px] ">
-                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">市区町村</span>
+                <span className="text-[14px] print:text-[10px] font-bold min-w-[60px] after:content-['*'] after:text-[red]">
+                  市区町村
+                </span>
                 <Form.Item
                   className=" flex-1 !mb-0"
                   name={[`${type}`, 'inforBasic', 'address', 'municipalities']}
@@ -551,7 +557,7 @@ function InformationBasic(props: Props) {
                 </Form.Item>
               </div>
               <div className="flex items-center justify-center space-x-[32px] ">
-                <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full">
+                <span className="text-[14px] print:text-[10px] font-bold min-w-[63px] ">
                   番地・ <br /> ビル名
                 </span>
                 <Form.Item
@@ -625,7 +631,7 @@ function InformationBasic(props: Props) {
                   </Radio.Group>
                 </Form.Item>
                 <div className="flex items-center flex-1 w-full  mt-[20px]">
-                  <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">
+                  <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px] after:content-['*'] after:text-[red]">
                     月額
                     <br /> 保険料
                   </span>
@@ -761,7 +767,9 @@ function InformationBasic(props: Props) {
             flex flex-col space-y-[8px]   pb-[48px] items-center`}
         >
           <div className="flex items-center flex-1 w-full">
-            <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">毎月</span>
+            <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px] after:content-['*'] after:text-[red]">
+              毎月
+            </span>
             <Form.Item
               className="!mb-0 flex-1"
               name={[`${type}`, 'inforBasic', 'saving', 'monthly']}
@@ -786,7 +794,9 @@ function InformationBasic(props: Props) {
             <span className="text-[14px] print:text-[10px] font-bold ml-[8px] ">円</span>
           </div>
           <div className="flex items-center flex-1 w-full">
-            <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px]">総額</span>
+            <span className="text-[14px] print:text-[10px] font-bold max-w-[60px] w-full mr-[32px] after:content-['*'] after:text-[red]">
+              総額
+            </span>
             <Form.Item
               className="!mb-0 flex-1"
               name={[`${type}`, 'inforBasic', 'saving', 'totalAmount']}

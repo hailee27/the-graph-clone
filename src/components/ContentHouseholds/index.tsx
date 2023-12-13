@@ -145,7 +145,7 @@ function ContentHouseholds() {
         </div>
         <div className="mt-[24px] bg-[#ffffff] min-h-[585px] rounded-[16px] flex items-center justify-center flex-col print:hidden">
           <h2 className="font-bold text-[40px] text-primary pb-[64px]">新生活で毎月支払う固定費</h2>
-          <div className="flex justify-between space-x-[8px]">
+          <div className="flex justify-between space-x-[8px] [&_.ant-form-item-explain-error]:!text-[11px]">
             <CardFix
               content={
                 <>
@@ -197,11 +197,11 @@ function ContentHouseholds() {
                   <span className="text-[14px] font-bold">円</span>
                 </div>
               }
-              title="税金  "
+              title={<span className="after:content-['*'] after:text-[red]">税金</span>}
             />
             <CardFix
               content={
-                <div className="px-[34px] flex space-x-[8px] items-center">
+                <div className="px-[34px] flex space-x-[8px] items-center ">
                   <Form.Item
                     className="!mb-0"
                     name="electricBill"
@@ -222,7 +222,7 @@ function ContentHouseholds() {
                   <span className="text-[14px] font-bold">円</span>
                 </div>
               }
-              title="電気代"
+              title={<span className="after:content-['*'] after:text-[red]">電気代</span>}
             />
           </div>
           <div className="flex space-x-[40px] max-h-[51px] mt-[40px] print:hidden">
