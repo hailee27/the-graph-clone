@@ -280,7 +280,7 @@ function Households() {
             items={[
               {
                 key: '1',
-                label: slug === 'multiple' ? 'ライフメイクカルテ（一般世帯）' : 'ライフメイクカルテ（複数世帯）',
+                label: slug !== 'multiple' ? 'ライフメイクカルテ（一般世帯）' : 'ライフメイクカルテ（複数世帯）',
                 children: (
                   <Suspense
                     fallback={
