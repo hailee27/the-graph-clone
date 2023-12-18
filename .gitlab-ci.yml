@@ -1,5 +1,5 @@
 stages:
-  - build
+  - build_stg
 
 include:
   - template: Auto-DevOps.gitlab-ci.yml
@@ -7,13 +7,13 @@ include:
 variables:
   CI_DEPENDENCY_PROXY_SERVER: ''
 
-.build_develop:
+build:
   image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v1.49.0'
 .auto-deploy:
   image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v2.64.0'
 
 .build_staging:
-  stage: build
+  stage: build_stg
   image: node:19-alpine3.16
   cache:
     key: $CI_COMMIT_REF_SLUG
@@ -53,11 +53,3 @@ build_staging:
       - staging
   environment:
     name: staging
-
-build_develop:
-  extends: .build_develop
-  only:
-    refs:
-      - develop
-  environment:
-    name: develop
