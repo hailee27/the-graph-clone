@@ -1,19 +1,19 @@
 stages:
-  - build_stg
+  - build
 
-include:
-  - template: Auto-DevOps.gitlab-ci.yml
+# include:
+#   - template: Auto-DevOps.gitlab-ci.yml
 
-variables:
-  CI_DEPENDENCY_PROXY_SERVER: ''
+# variables:
+#   CI_DEPENDENCY_PROXY_SERVER: ''
 
-build:
-  image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v1.49.0'
-.auto-deploy:
-  image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v2.64.0'
+# build:
+#   image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v1.49.0'
+# .auto-deploy:
+#   image: 'registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v2.64.0'
 
 .build_staging:
-  stage: build_stg
+  stage: build
   image: node:19-alpine3.16
   cache:
     key: $CI_COMMIT_REF_SLUG
