@@ -22,7 +22,7 @@ function Improved() {
       'riskValue',
       Object.values(totalRisk)
         ?.flatMap((t) => Object.values(t as string))
-        ?.filter((c) => c === '1')?.length
+        ?.filter((c) => c === '2')?.length
     );
   }, [form]);
 
@@ -43,7 +43,7 @@ function Improved() {
           'riskValue',
           Object.values(totalRisk)
             ?.flatMap((t) => Object.values(t as string))
-            ?.filter((c) => c === '1')?.length
+            ?.filter((c) => c === '2')?.length
         );
       }}
     >
@@ -135,12 +135,7 @@ function Improved() {
               fill="#888888"
             />
           </svg>
-          <p className="tracking-[3.04px] text-[38px]  font-bold text-center leading-[62px] text-secondary">
-            {/* eslint-disable-next-line no-irregular-whitespace */}
-            「最新の住宅ローン」で「最新のマイホーム」を購入すれば 
-            <br />
-            「オールインワン」で解消出来ます！
-          </p>
+
           <span className="tracking-[2.24px] font-bold text-[28px]">その根拠をお伝えします！</span>
         </div>
       </div>

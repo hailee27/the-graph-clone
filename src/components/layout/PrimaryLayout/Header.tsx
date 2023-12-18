@@ -10,7 +10,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { updateUserProfile } from '../../../redux/slices/auth.slice';
 import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
-// import { usePostLogoutMutation } from '../../../redux/endpoints/user';
 
 function Header() {
   const navigate = useNavigate();
@@ -20,12 +19,6 @@ function Header() {
   const [trigger] = usePostLogoutMutation();
   const location = useLocation();
   const dispatch = useDispatch();
-  // console.log(user);
-  // useEffect(() => {
-  //   if (!user?.userProfile) {
-  //     navigate({ pathname: '/' });
-  //   }
-  // }, [user]);
 
   return (
     <div className="pt-[40px]  ">
@@ -60,7 +53,7 @@ function Header() {
           </svg>
         </div>
         <div className="text-primary-text h-[28px] flex flex-col items-start justify-center">
-          <span className="text-[13px] leading-[20px] font-medium">{user?.name}</span>
+          <span className="text-[13px] leading-[20px] font-medium">{user?.prefersEmail?.email}</span>
           <span className="text-[11px] leading-[17.6px]">{user?.id}</span>
         </div>
         <div

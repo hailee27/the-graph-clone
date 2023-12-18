@@ -15,7 +15,6 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
   const [total, setToal] = useState<number>(27);
   const [salesAmount, setSalesAmount] = useState<number | string>(-8000);
   const form = Form.useFormInstance();
-  const { riskValue, ...totalRisk } = form.getFieldsValue();
   const value = Form.useWatch('riskValue', form);
   const [formCost] = Form.useForm();
   const [searchParams] = useSearchParams();
@@ -27,6 +26,7 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
   }, [searchParams.get('query')]);
 
   useEffect(() => {
+    const { riskValue, ...totalRisk } = form.getFieldsValue();
     const length = Object.values(totalRisk)?.flatMap((e) => Object.values(e as string))?.length;
     setToal(length);
   }, [form]);
@@ -42,7 +42,7 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
         <span className="tracking-[2.24px]">人生100年にとっての問題・リスクを</span>
         <span className="text-[32px] tracking-[2.56px]">合計</span>
         <span className="text-[44px] tracking-[3.52px]">{value}</span>
-        <span className="tracking-[2.24px]">/{total} 抱えている！</span>
+        <span className="tracking-[2.24px]">/{total} 解消できる！</span>
       </div>
       <span className="text-[18px] font-medium mt-[72px] pb-[24px] tracking-[1.44px]">
         マイホームを選んだ場合の改善効果を可視化
@@ -189,7 +189,7 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
                     <Currency />
                   </Form.Item>
                 }
-                title="毎月の返済額"
+                title="住宅ローン"
                 type={1}
               />
             </div>
@@ -285,7 +285,7 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
               className="bg-secondary-thin text-[14px] font-bold"
               defaultValue={5}
               onChange={(e) => setSalesAmount(e.target.value)}
-              type="number"
+              // type="number"
               value={salesAmount}
             />
             <span>円</span>
@@ -300,9 +300,18 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
           <span className="text-[28px]">毎月の固定費は</span>
           <div className="h-[40px]">
             <span className="text-[64px] leading-[40px]">
-              {Number(lifeInsurance.map((e) => e.monthlyPremium).reduce((prev, cur) => prev + cur, 0)) +
-                Number(monthlyRepaymentAmount || 0) -
-                Number(salesAmount)}
+              {formatNumber(
+                Number(lifeInsurance.map((e) => e.monthlyPremium).reduce((prev, cur) => prev + cur, 0)) +
+                  Number(monthlyRepaymentAmount || 0) -
+                  Number(
+                    salesAmount === '-'
+                      ? 0
+                      : String(salesAmount).includes('-')
+                      ? String(salesAmount).replaceAll('-', '')
+                      : salesAmount
+                  ),
+                true
+              )}
             </span>
             <span className="text-[40px]">円!</span>
           </div>

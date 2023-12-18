@@ -249,7 +249,7 @@ function FamilyInformation(props: Props) {
                   <span className="text-[14px] print:text-[10px] font-bold ">弟</span>
                 </BasicRadio>
                 <BasicRadio value="4">
-                  <span className="text-[14px] print:text-[10px] font-bold ">弟</span>
+                  <span className="text-[14px] print:text-[10px] font-bold ">姉</span>
                 </BasicRadio>
                 <BasicRadio value="5">
                   <span className="text-[14px] print:text-[10px] font-bold ">妹</span>

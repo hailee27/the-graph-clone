@@ -220,7 +220,7 @@ function InformationBasic(props: Props) {
           >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-              placeholder="太郎"
+              placeholder={type === 'wife' ? '花子' : '太郎'}
             />
           </Form.Item>
           <span className="text-[14px] print:text-[10px] font-bold">様</span>
@@ -284,7 +284,8 @@ function InformationBasic(props: Props) {
           >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-              placeholder="タロウ"
+              placeholder={type === 'wife' ? 'タロウ' : 'ハナコ'}
+              // placeholder="タロウ"
             />
           </Form.Item>
           <span className="text-[14px] print:text-[10px] font-bold">様</span>
@@ -608,7 +609,7 @@ function InformationBasic(props: Props) {
                       });
                     }}
                   >
-                    <div className="flex justify-between">
+                    <div className="flex justify-between ">
                       <BasicRadio value="死亡">
                         <span className="text-[14px] print:text-[10px] font-bold ">死亡</span>
                       </BasicRadio>
@@ -624,6 +625,12 @@ function InformationBasic(props: Props) {
                       <BasicRadio value="その他">
                         <span className="text-[14px] print:text-[10px] font-bold ">その他</span>
                       </BasicRadio>
+                      {/* <BasicRadio value="年金">
+                        <span className="text-[14px] print:text-[10px] font-bold ">年金</span>
+                      </BasicRadio>
+                      <BasicRadio value="介護">
+                        <span className="text-[14px] print:text-[10px] font-bold ">介護</span>
+                      </BasicRadio> */}
                       <BasicRadio value="無し">
                         <span className="text-[14px] print:text-[10px] font-bold ">無し</span>
                       </BasicRadio>

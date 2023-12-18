@@ -23,9 +23,7 @@ function Diagnosis() {
             <span className="font-bold text-[20px]">
               {queryParam?.name?.firstNameKana + queryParam?.name?.lastNameKana}
             </span>
-            <span className="font-bold text-[20px]">
-              {queryParam?.gender === 'MALE' || queryParam.gander === 'NONE' ? '様' : '夫人'}
-            </span>
+            <span className="font-bold text-[20px]">様</span>
           </div>
           <span className="font-medium text-[18px] leading-snug">
             賃貸の家計、住環境がもたらす問題・リスクとは？問題・リスクの数値化をしましょう！

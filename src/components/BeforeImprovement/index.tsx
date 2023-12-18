@@ -15,7 +15,7 @@ function BeforeImprovement() {
     setDataSets(
       Object.entries(totalRisk).map(([key, value]) => ({
         // scaleTitles: key === 'householdBudget' ? '家計' : 'alo',
-        scaleValues: Object.values(value ?? {}).filter((e) => e === '1').length,
+        scaleValues: Object.values(value ?? {}).filter((e) => e === '2').length,
         scaleTicksCount: Object.values(value ?? {}).map((e) => e).length,
       }))
     );
@@ -35,7 +35,7 @@ function BeforeImprovement() {
         setDataSets(
           Object.entries(totalRisk).map(([key, value]) => ({
             // scaleTitles: key === 'householdBudget' ? '家計' : 'alo',
-            scaleValues: Object.values(value ?? {}).filter((e) => e === '1').length,
+            scaleValues: Object.values(value ?? {}).filter((e) => e === '2').length,
             scaleTicksCount: Object.values(value ?? {}).map((e) => e).length,
           }))
         );
@@ -134,7 +134,7 @@ function BeforeImprovement() {
             「最新の住宅ローン」で「最新のマイホーム」を購入すれば <br />
             「オールインワン」で解消出来ます！
           </p>
-          <span className="tracking-[2.24px] font-bold text-[28px]">その根拠をお伝えします！</span>
+          <span className="tracking-[2.24px] font-bold text-[28px]">改善後を見てみましょう！</span>
         </div>
       </div>
     </Form>
