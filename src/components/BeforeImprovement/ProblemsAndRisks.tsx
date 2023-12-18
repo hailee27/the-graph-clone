@@ -65,7 +65,7 @@ function ProblemsAndRisks({ dataSets }: { dataSets: TypeDataSets[] | undefined }
             className="flex-1 px-[56px] flex items-center flex-col justify-center space-y-[40px]"
             style={{ background: 'linear-gradient(270deg, #DFEEDF 15.68%, rgba(223, 238, 223, 0.00) 87.43%)' }}
           >
-            <span className="text-[24px] font-bold text-primary">賃貸では解消出来ず大きくなっていく</span>
+            <span className="text-[20px] font-bold text-primary">賃貸では解消出来ず大きくなっていく</span>
             <div className="w-full">
               <InputRuler value={value} />
             </div>

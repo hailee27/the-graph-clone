@@ -53,7 +53,8 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
     const data = masterData?.find((e) => e.key === '43_budget_amount_for_new_house')?.selections;
     return data?.map((e) => ({
       label: e.name,
-      value: e.nameEn?.replace('～', '').replaceAll(',', ''),
+      value: e.nameEn,
+      // value: e.nameEn?.replace('～', '').replaceAll(',', ''),
     })) as DefaultOptionType[];
   }, [masterData]);
 
@@ -89,7 +90,8 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
     const data = masterData?.find((e) => e.key === '48_desired_rent')?.selections;
     return data?.map((e) => ({
       label: e.name,
-      value: Number(e.nameEn?.replace(',', '').replace('～', '')),
+      value: e.nameEn,
+      // value: Number(e.nameEn?.replace(',', '').replace('～', '')),
     })) as DefaultOptionType[];
   }, [masterData]);
 
@@ -125,7 +127,8 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
     const data = masterData?.find((e) => e.key === '56_borrowing')?.selections;
     return data?.map((e) => ({
       label: e.name,
-      value: e?.nameEn?.replace(',', ''),
+      value: e.nameEn,
+      // value: e?.nameEn?.replace(',', ''),
     })) as DefaultOptionType[];
   }, [masterData]);
 

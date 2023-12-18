@@ -6,8 +6,8 @@ import BasicButton from '../../common/BasicButton';
 import BasicInput from '../../common/BasicInput';
 import BasicRadio from '../../common/BasicRadio';
 import BasicTextArea from '../../common/BasicTextArea';
-import SelectButton from '../../common/SelectButton';
-import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
+// import SelectButton from '../../common/SelectButton';
+// import { useHouseHoldsContext } from '../../context/HouseHoldsContext';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 // import { useGetMeQuery } from '../../../redux/endpoints/user';
@@ -18,7 +18,7 @@ interface Props {
 
 function InformationOnExistingBorrowing(props: Props) {
   const { type } = props;
-  const { borrowing } = useHouseHoldsContext();
+  // const { borrowing } = useHouseHoldsContext();
   const form = Form.useFormInstance();
   const { user } = useSelector((state: RootState) => state.auth);
   // const { data: user } = useGetMeQuery();
@@ -95,7 +95,8 @@ function InformationOnExistingBorrowing(props: Props) {
                     initialValue={item.kinds}
                     name={[`${type}`, 'scholarships', 'borrowing', `borrowing${item.id}`, 'kinds']}
                   >
-                    <SelectButton options={borrowing} placeholder="選択してください" type="primary" />
+                    <BasicInput className="bg-primary-light" placeholder="選択してください" type="number" />
+                    {/* <SelectButton options={borrowing} placeholder="選択してください" type="primary" /> */}
                   </Form.Item>
                 </div>
                 <div className="flex items-center w-full ">
@@ -200,7 +201,7 @@ function InformationOnExistingBorrowing(props: Props) {
                   >
                     <BasicInput className="bg-primary-light" placeholder="ここに記入してください" />
                   </Form.Item>
-                  <span className="text-[14px] font-bold pl-[8px]">種類</span>
+                  {/* <span className="text-[14px] font-bold pl-[8px]">種類</span> */}
                 </div>
                 <div className="flex items-center w-full ">
                   <span className="text-[14px] font-bold max-w-[60px] w-full mr-[32px]">残年数</span>

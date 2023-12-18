@@ -63,6 +63,18 @@ export type TypeUser = {
   deletedAt?: string | undefined | null;
   lastActive?: string;
   isVerifiedAt?: string;
+  prefersEmail?: {
+    createdAt: string;
+    email: string;
+    emailSafe: string;
+    id: number;
+    isVerified: true;
+    updatedAt: string;
+    userId: number;
+    emailVerifiedAt: string | null;
+    deletedAt: string | null;
+    deletedFlg: boolean;
+  };
   prefersEmailId?: number;
   userProfile?: PostUsersProfileParams | null;
 };

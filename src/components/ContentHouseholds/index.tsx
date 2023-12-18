@@ -23,7 +23,10 @@ function ContentHouseholds() {
   // const [form] = Form.useForm();
   const { formContentHouseholds: form } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
-  const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form) ?? 0;
+  const desiredRentWatch =
+    Number(
+      Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form)?.replace('～', '')?.replaceAll(',', '')
+    ) ?? 0;
   const { user } = useSelector((state: RootState) => state.auth);
   // const { data: user } = useGetMeQuery();
   const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
@@ -71,13 +74,14 @@ function ContentHouseholds() {
   const total = useMemo(() => {
     const sum =
       Number(lifeInsurancePremiumWatch) +
-      Number(electricBillWatch) +
-      Number(taxWatch) +
-      Number(monthlyWatch) +
-      Number(desiredRentWatch);
+        Number(electricBillWatch) +
+        Number(taxWatch) +
+        Number(monthlyWatch) +
+        Number(desiredRentWatch) || 0;
     // form?.setFieldValue('fixCost', sum);
     return formatNumber(sum, true, 1);
   }, [desiredRentWatch, monthlyWatch, taxWatch, electricBillWatch, lifeInsurancePremiumWatch]);
+
   useEffect(() => {
     form?.setFieldValue('lifeInsurancePremium', lifeInsurancePremiumWatch);
     form?.setFieldValue('fixCost', total);
@@ -160,11 +164,7 @@ function ContentHouseholds() {
                   <Currency />
                 </Form.Item>
               }
-              title={
-                <span className="text-[#ffffff]">
-                  生命保険料 <span className="text-[16px]">（定期）</span>
-                </span>
-              }
+              title={<span className="text-[#ffffff]">生命保険料</span>}
             />
             <CardFix
               content={
