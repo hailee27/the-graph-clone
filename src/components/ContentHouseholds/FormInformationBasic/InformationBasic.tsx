@@ -284,7 +284,7 @@ function InformationBasic(props: Props) {
           >
             <BasicInput
               className={type === 'husband' || type === 'wife' ? '' : 'bg-primary-light'}
-              placeholder={type === 'wife' ? 'タロウ' : 'ハナコ'}
+              placeholder={type !== 'wife' ? 'タロウ' : 'ハナコ'}
               // placeholder="タロウ"
             />
           </Form.Item>

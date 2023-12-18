@@ -23,10 +23,8 @@ function ContentHouseholds() {
   // const [form] = Form.useForm();
   const { formContentHouseholds: form } = useHouseHoldsContext();
   const RegexKatakanaHalfWidth = /^[ｧ-ﾝﾞﾟ]|[0-9]+$/;
-  const desiredRentWatch =
-    Number(
-      Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form)?.replace('～', '')?.replaceAll(',', '')
-    ) ?? 0;
+  const desiredRentWatch = Form.useWatch(['common', 'newHouseInfor', 'desiredRent', 'type'], form);
+
   const { user } = useSelector((state: RootState) => state.auth);
   // const { data: user } = useGetMeQuery();
   const peopleMonthlytakehomePay = Form.useWatch(['people', 'workInfor', 'salary', 'monthlytakehomePay'], form) * 10000;
