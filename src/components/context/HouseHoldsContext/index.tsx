@@ -90,8 +90,10 @@ export const HouseHoldsProvider = ({ children }: { children: React.ReactNode }) 
     const data = masterData?.find((e) => e.key === '48_desired_rent')?.selections;
     return data?.map((e) => ({
       label: e.name,
-      value: e.nameEn,
-      // value: Number(e.nameEn?.replace(',', '').replace('～', '')),
+      value: e.nameEn?.includes('～')
+        ? Number(e.nameEn?.replaceAll(',', '').replace('～', '')) + 1
+        : Number(e.nameEn?.replaceAll(',', '').replace('～', '')),
+      // value: Number(e.nameEn?.replaceAll(',', '').replace('～', '')),
     })) as DefaultOptionType[];
   }, [masterData]);
 
