@@ -43,13 +43,13 @@ function FormFutureHome() {
         <Form.Item className="!m-0" name="liveInRetirement">
           <Radio.Group className="!w-full ">
             <div className="flex space-x-[24px]">
-              <BasicRadio value="single">
+              <BasicRadio value="実家">
                 <span className="text-[14px] font-bold ">実家</span>
               </BasicRadio>
-              <BasicRadio value="multiple">
+              <BasicRadio value="賃貸">
                 <span className="text-[14pxs] font-bold ">賃貸</span>
               </BasicRadio>
-              <BasicRadio value="multiple1">
+              <BasicRadio value="マイホーム購入">
                 <span className="text-[14pxs] font-bold ">マイホーム購入</span>
               </BasicRadio>
             </div>
@@ -111,10 +111,10 @@ function FormFutureHome() {
             <Form.Item className="!m-0" name={['ownHome', 'have']}>
               <Radio.Group className="!w-full ">
                 <div className="flex space-x-[24px]">
-                  <BasicRadio value="yes">
+                  <BasicRadio value="有">
                     <span className="text-[14px] font-bold ">有</span>
                   </BasicRadio>
-                  <BasicRadio value="no">
+                  <BasicRadio value="無">
                     <span className="text-[14pxs] font-bold ">無</span>
                   </BasicRadio>
                 </div>
