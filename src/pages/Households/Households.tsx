@@ -250,7 +250,7 @@ function Households() {
                     query: JSON.stringify({
                       slug: slug as string,
                       fixCost: formContentHouseholds.fixCost,
-                      budget: common.newHouseInfor.budget.type.replaceAll(',', ''),
+                      budget: common.newHouseInfor.budget.type?.replaceAll(',', ''),
                       lifeInsurances: basicInformation.map((e) => e.lifeInsurances),
                       name: {
                         firstNameKana: basicInformation.find(
