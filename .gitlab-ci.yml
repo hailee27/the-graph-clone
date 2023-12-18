@@ -45,7 +45,7 @@ stages:
     - sshpass -p $SSH_PASSWORD rsync -a -e "ssh -p $SSH_PORT" .env $SSH_USER@$SSH_SERVER_IP:$REMOTE_PROJECT_DIR/.env
 
 
-    - ssh -T $SSH_USER@$SSH_SERVER_IP "pwd; source ~/.nvm/nvm.sh; pm2 restart jinsei-frontend;"
+    - sshpass -p $SSH_PASSWORD ssh -T $SSH_USER@$SSH_SERVER_IP "pwd; source ~/.nvm/nvm.sh; pm2 restart jinsei-frontend;"
   tags:
     - local_sv
 
