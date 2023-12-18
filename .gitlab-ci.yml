@@ -45,6 +45,8 @@ stages:
     - sshpass -p $SSH_PASSWORD rsync -a -e 'ssh -p $SSH_PORT' build/ $SSH_USER@$SSH_SERVER_IP:$REMOTE_PROJECT_DIR/build
 
     - ssh -T $SSH_USER@$SSH_SERVER_IP "pwd; source ~/.nvm/nvm.sh; pm2 restart jinsei-frontend;"
+  tags:
+    - local_sv
 
 build_staging:
   extends: .build_staging
