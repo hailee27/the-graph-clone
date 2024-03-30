@@ -19,6 +19,10 @@ export const routeConfig: TypeRouteConFig = {
   ],
   public: [
     {
+      path: '/',
+      element: <HomePage />,
+    },
+    {
       path: '*',
       element: <HomePage />,
     },

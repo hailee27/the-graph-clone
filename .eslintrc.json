@@ -84,6 +84,10 @@
     "no-unused-expressions": "off",
     "no-prototype-builtins": "off",
     // REACT
+    "react/jsx-filename-extension": ["off"],
+    "react/prefer-stateless-function": ["off"],
+    "arrow-body-style": ["error", "always"],
+    "react/self-closing-comp": "error",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/href-no-hash": [0],

@@ -1,14 +1,14 @@
 import React from 'react';
 import Header from './Header';
+import Footer from './Footer';
 
 function PrimaryLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="bg-tertiary-thin min-h-screen flex flex-col text-primary-text  items-center ">
-      <div className="w-full">
-        <Header />
-        <div className="min-h-[calc(100vh_-_68px)] flex justify-center  w-full">{children}</div>
-      </div>
-    </main>
+    <div className="max-w-screen w-full bg-[#0f0f25] relative">
+      <Header />
+      <main className="w-full bg-[#0f0f25] ">{children}</main>
+      <Footer />
+    </div>
   );
 }
 
